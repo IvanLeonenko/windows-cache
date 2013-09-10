@@ -141,7 +141,7 @@ app.get('/:img.jpg', function(req, res) {
 
     var shasum = crypto.createHash('sha1');
     shasum.update(req.params.img);
-    var etag = shasum.digest('hex');
+    var etag = '"' + shasum.digest('hex') + '"';
 
     try {
         var img = fs.readFileSync('./images/' + req.params.img + '.jpg');

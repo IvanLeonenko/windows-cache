@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="testapp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:testapp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="Gray">
+        <Button Content="Test Cache request" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.862,-0.5" Width="241" Click="Button_Click"/>
+        <Button Content="Test Cache-control 5min" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.862,-0.5" Width="241" Click="Button_Click_2"/>
+        <Button Content="Exit" HorizontalAlignment="Left" Margin="50,196,0,0" VerticalAlignment="Top" Width="241" Click="Button_Click_1"/>
+        <Button Content="Test Expires 5min" HorizontalAlignment="Left" Margin="50,148,0,0" VerticalAlignment="Top" Width="241" Click="Button_Click_3"/>
+        <Button Content="Flush Cache" HorizontalAlignment="Left" Margin="301,50,0,0" VerticalAlignment="Top" Width="241" Click="Button_Click_4"/>
+        <Button Content="Cache Cleanup" HorizontalAlignment="Left" Margin="301,100,0,0" VerticalAlignment="Top" Width="241" Click="Button_Click_5"/>
+
+    </Grid>
+</Page>
