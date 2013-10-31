@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>Rakuten.Framework.Cache.Windows8.x64</id>
+        <version>1.0.0</version>
+        <title>Rakuten Cache SDK Module Platform dependant part - x64</title>
+        <authors>SDTD</authors>
+        <projectUrl>https://rakuten.atlassian.net/wiki/display/SDK/Components+Overview</projectUrl>
+        <iconUrl>http://global.rakuten.com/favicon.ico</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Rakuten Cache SDK Module Platform dependant part.</description>
+        <summary>Rakuten Cache SDK module Platform dependant part.</summary>
+        <releaseNotes>1.0.0:
+* New Platform dependant part
+* New namespace Rauten.Framework.Cache.Windows8</releaseNotes>
+        <copyright>Rakuten Inc. 2013</copyright>
+        <dependencies>
+            <group targetFramework="Windows0.0">
+                <dependency id="Rakuten.Framework.Cache" version="1.0.0" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="cache_database\bin\x64\Release\Rakuten.Framework.Cache.Windows8.dll" target="lib\netcore\Rakuten.Framework.Cache.Windows8.dll" />
+        <file src="cache_database\bin\x64\Release\Rakuten.Framework.Cache.Windows8.pri" target="lib\netcore\Rakuten.Framework.Cache.Windows8.pri" />
+    </files>
+</package>
