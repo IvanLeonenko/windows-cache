@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Framework.Cache.Desktop", "Rakuten.Framework.Cache.Desktop\Rakuten.Framework.Cache.Desktop.csproj", "{7D24DBEC-95A0-46E0-8A53-2B0C118F0134}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Framework.Cache.Desktop.Test", "Rakuten.Framework.Cache.Desktop.Test\Rakuten.Framework.Cache.Desktop.Test.csproj", "{7D24DBEC-95A0-46E0-8A53-2B0C118F0134}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Framework.Cache", "Rakuten.Framework.Cache\Rakuten.Framework.Cache.csproj", "{D6957EEF-5ECC-4A32-8CE6-0C2609AA359D}"
 EndProject
@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B5DB89
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Framework.Cache.Desktop", "Rakuten.Framework.Cache.Desktop\Rakuten.Framework.Cache.Desktop.csproj", "{C65A0334-9F1E-419C-9486-40102C2CBC29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +30,10 @@ Global
 		{D6957EEF-5ECC-4A32-8CE6-0C2609AA359D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6957EEF-5ECC-4A32-8CE6-0C2609AA359D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6957EEF-5ECC-4A32-8CE6-0C2609AA359D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C65A0334-9F1E-419C-9486-40102C2CBC29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C65A0334-9F1E-419C-9486-40102C2CBC29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C65A0334-9F1E-419C-9486-40102C2CBC29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C65A0334-9F1E-419C-9486-40102C2CBC29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

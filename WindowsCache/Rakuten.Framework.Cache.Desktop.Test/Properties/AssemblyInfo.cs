@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Rakuten.Framework.Cache.Desktop")]
+[assembly: AssemblyTitle("CacheTest")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Rakuten.Framework.Cache.Desktop")]
+[assembly: AssemblyProduct("CacheTest")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0a212afc-6530-4040-a898-3b53b9bfbdd7")]
+[assembly: Guid("3e70a501-ef27-4207-a17c-ee0f8d5dbbc7")]
 
 // Version information for an assembly consists of the following four values:
 //

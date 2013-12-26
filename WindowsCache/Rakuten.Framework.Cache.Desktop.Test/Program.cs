@@ -11,7 +11,7 @@ using Rakuten.Framework.Cache.Storage;
 using ProtoBuf;
 using ProtoBuf.Meta;
 
-namespace Rakuten.Framework.Cache.Desktop
+namespace Rakuten.Framework.Cache.Desktop.Test
 {
     [ProtoContract]
     public class SomeData
