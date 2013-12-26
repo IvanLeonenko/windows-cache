@@ -1,4 +1,5 @@
 ﻿using System;
+using Rakuten.Framework.Cache.ProtoBuf;
 using Rakuten.Framework.Cache.Storage;
 
 namespace Rakuten.Framework.Cache
@@ -14,14 +15,14 @@ namespace Rakuten.Framework.Cache
             _storage = container.Resolve<IStorage>();
 
             var stream = _storage.ReadStream(CacheName);
-            _cacheData = stream == null ? new CacheData() : ProtobufHelper.Deserialize<CacheData>(stream);
+            _cacheData = stream == null ? new CacheData() : ProtoBufSerializer.Deserialize<CacheData>(stream);
         }
 
         public void Set<T>(string key, T value)
         {
             CheckType(typeof(T));
             _cacheData.Entries.Add(key, new CacheEntry<T> { Value = value });
-            var stream = ProtobufHelper.Serialize(_cacheData);
+            var stream = ProtoBufSerializer.Serialize(_cacheData);
             _storage.WriteStream(CacheName, stream);
         }
 
@@ -33,7 +34,7 @@ namespace Rakuten.Framework.Cache
 
         private static void CheckType(Type type)
         {
-            if (!ProtobufHelper.CanSerialize(type))
+            if (!ProtoBufSerializer.CanSerialize(type))
                 throw new Exception("Cannot process provided Type. Please register it or provide proto attributes.");
         }
     }

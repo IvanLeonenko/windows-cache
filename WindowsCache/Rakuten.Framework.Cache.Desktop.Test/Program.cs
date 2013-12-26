@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using Rakuten.Framework.Cache;
+using Rakuten.Framework.Cache.ProtoBuf;
 using Rakuten.Framework.Cache.Storage;
 using ProtoBuf;
 using ProtoBuf.Meta;
@@ -55,7 +55,7 @@ namespace Rakuten.Framework.Cache.Desktop.Test
     {
         static void Main(string[] args)
         {
-            ProtobufHelper.RegisterType(typeof(CacheEntry2<string>));
+            ProtoBufSerializer.RegisterType(typeof(CacheEntry2<string>));
             
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<IStorage, DesktopStorage>().WithValue("cacheName", "def1");

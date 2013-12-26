@@ -1,20 +1,23 @@
-﻿using System;
+﻿using ProtoBuf;
+using ProtoBuf.Meta;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using ProtoBuf;
-using ProtoBuf.Meta;
 
-namespace Rakuten.Framework.Cache
+namespace Rakuten.Framework.Cache.ProtoBuf
 {
-    public class ProtobufHelper
+    public class ProtoBufSerializer
     {
         private static readonly Type CacheEntryTemplate = typeof(CacheEntry<>);
         private static readonly Dictionary<Type, int> TypeToPropertyIndex = new Dictionary<Type, int>();
-        private static readonly Dictionary<Type, int> TypeToSubtypeIndex = new Dictionary<Type, int>(); 
+        private static readonly Dictionary<Type, int> TypeToSubtypeIndex = new Dictionary<Type, int>();
+
+        static ProtoBufSerializer()
+        {
+            RuntimeTypeModel.Default.Add(typeof(DateTimeOffset), false).SetSurrogate(typeof(DateTimeOffsetSurrogate));
+        }
+        
         public static void RegisterType(Type type)
         {
             var metaType = RuntimeTypeModel.Default.Add(type, true);
@@ -51,6 +54,8 @@ namespace Rakuten.Framework.Cache
 
         public static T Deserialize<T>(Stream stream)
         {
+            stream.Position = 0;
+
             using (stream)
             {
                 return Serializer.Deserialize<T>(stream);
