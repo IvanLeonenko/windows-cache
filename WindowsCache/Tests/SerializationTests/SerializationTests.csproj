@@ -61,6 +61,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="When_nullable_value_types_serialized.cs" />
     <Compile Include="When_primitive_types_serialized.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
