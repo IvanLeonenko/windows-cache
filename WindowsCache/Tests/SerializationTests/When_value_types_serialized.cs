@@ -8,6 +8,8 @@ namespace SerializationTests
     [TestClass]
     public class When_value_types_serialized
     {
+        static readonly ProtoBufSerializer ProtoBufSerializer = new ProtoBufSerializer(new DummyStorage());
+        
         [TestMethod]
         public void Int16_should_be_serializable_deserialiazble()
         {

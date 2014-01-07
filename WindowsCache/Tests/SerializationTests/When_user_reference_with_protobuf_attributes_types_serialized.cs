@@ -9,6 +9,8 @@ namespace SerializationTests
     [TestClass]
     public class When_user_reference_with_protobuf_attributes_types_serialized
     {
+        static readonly ProtoBufSerializer ProtoBufSerializer = new ProtoBufSerializer(new DummyStorage());
+        
         [ProtoContract]
         public class SomeData
         {

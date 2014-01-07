@@ -13,6 +13,8 @@ namespace SerializationTests
     [TestClass]
     public class When_basic_reference_types_serialized
     {
+        static readonly ProtoBufSerializer ProtoBufSerializer = new ProtoBufSerializer(new DummyStorage());
+        
         [TestMethod]
         public void String_should_be_serializable_deserialiazble()
         {

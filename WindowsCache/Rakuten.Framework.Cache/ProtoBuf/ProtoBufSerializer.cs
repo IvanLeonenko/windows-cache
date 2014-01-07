@@ -4,37 +4,72 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Rakuten.Framework.Cache.Storage;
 
 namespace Rakuten.Framework.Cache.ProtoBuf
 {
-    public class ProtoBufSerializer
+    public class ProtoBufSerializer : ISerializer
     {
         private static readonly Type CacheEntryTemplate = typeof(CacheEntry<>);
         private static readonly Dictionary<Type, int> TypeToPropertyIndex = new Dictionary<Type, int>();
         private static readonly Dictionary<Type, int> TypeToSubtypeIndex = new Dictionary<Type, int>();
+        private readonly IStorage _storage;
 
-        static ProtoBufSerializer()
+        public ProtoBufSerializer(IStorage storage)
+        {
+            _storage = storage;
+        }
+
+        static ProtoBufSerializer() 
         {
             RuntimeTypeModel.Default.Add(typeof(DateTimeOffset), false).SetSurrogate(typeof(DateTimeOffsetSurrogate));
-        }
-        
-        public static void RegisterType(Type type)
-        {
-            var metaType = RuntimeTypeModel.Default.Add(type, true);
-            
-            AddProperties(type, metaType);
-            
-            RuntimeTypeModel.Default[typeof(ICacheEntry)].AddSubType(NextSubtypeIndex(type), CacheEntryTemplate.MakeGenericType(type));
+            RegisterGenericCacheEntry(typeof(DateTimeOffset));
+            RegisterGenericCacheEntry(typeof(String));
+            RegisterGenericCacheEntry(typeof(Double));
+            RegisterGenericCacheEntry(typeof(float));
+            RegisterGenericCacheEntry(typeof(Int16));
+            RegisterGenericCacheEntry(typeof(Int32));
+            RegisterGenericCacheEntry(typeof(Int64));
+            RegisterGenericCacheEntry(typeof(UInt16));
+            RegisterGenericCacheEntry(typeof(UInt32));
+            RegisterGenericCacheEntry(typeof(UInt64));
+            RegisterGenericCacheEntry(typeof(Decimal));
+            RegisterGenericCacheEntry(typeof(DateTime));
+            RegisterGenericCacheEntry(typeof(Byte));
+            RegisterGenericCacheEntry(typeof(SByte));
+            RegisterGenericCacheEntry(typeof(Boolean));
+            RegisterGenericCacheEntry(typeof(Char));
         }
 
-        public static void RegisterSubType(Type type, Type subType)
+        private static void RegisterGenericCacheEntry(Type type)
+        {
+            RuntimeTypeModel.Default[typeof(ICacheEntry)].AddSubType(NextSubtypeIndex(typeof(ICacheEntry)), CacheEntryTemplate.MakeGenericType(type));
+        }
+
+        public void RegisterType(Type type)
+        {
+            if (!RuntimeTypeModel.Default.CanSerializeBasicType(type))
+            {
+                var metaType = RuntimeTypeModel.Default.Add(type, true);
+                AddProperties(type, metaType);
+            }
+
+            RegisterGenericCacheEntry(type);
+
+            if (!RuntimeTypeModel.Default.CanSerializeBasicType(type))
+            {
+                //save to 
+            }
+        }
+
+        public void RegisterSubType(Type type, Type subType)
         {
             RuntimeTypeModel.Default[type].AddSubType(NextSubtypeIndex(subType), subType);
-
+            
             var subTypeMetaType = RuntimeTypeModel.Default[subType];
             AddProperties(subType, subTypeMetaType);
 
-            RuntimeTypeModel.Default[typeof(ICacheEntry)].AddSubType(NextSubtypeIndex(type), CacheEntryTemplate.MakeGenericType(type));
+            RegisterGenericCacheEntry(type);
         }
 
 
@@ -48,12 +83,12 @@ namespace Rakuten.Framework.Cache.ProtoBuf
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public static bool CanSerialize(Type type)
+        public bool CanSerialize(Type type)
         {
             return RuntimeTypeModel.Default.CanSerialize(type) && RuntimeTypeModel.Default.CanSerialize(CacheEntryTemplate.MakeGenericType(type));
         }
 
-        public static T Deserialize<T>(Stream stream)
+        public T Deserialize<T>(Stream stream)
         {
             stream.Position = 0;
 
@@ -63,7 +98,7 @@ namespace Rakuten.Framework.Cache.ProtoBuf
             }
         }
 
-        public static Stream Serialize<T>(T value)
+        public Stream Serialize<T>(T value)
         {
             var stream = new MemoryStream();
             Serializer.Serialize(stream, value);

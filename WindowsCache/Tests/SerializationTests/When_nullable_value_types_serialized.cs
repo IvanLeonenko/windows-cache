@@ -12,6 +12,8 @@ namespace SerializationTests
     [TestClass]
     public class When_nullable_value_types_serialized
     {
+        static readonly ProtoBufSerializer ProtoBufSerializer = new ProtoBufSerializer(new DummyStorage());
+        
         [TestMethod]
         public void Nullable_Int16_should_be_serializable_deserialiazble()
         {

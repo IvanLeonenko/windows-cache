@@ -42,6 +42,7 @@
     <Compile Include="CacheContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProtoBuf\DateTimeOffestSurrogate.cs" />
+    <Compile Include="ProtoBuf\ISerializer.cs" />
     <Compile Include="ProtoBuf\ProtoBufSerializer.cs" />
     <Compile Include="Storage\IStorage.cs" />
   </ItemGroup>

@@ -23,7 +23,7 @@ namespace Rakuten.Framework.Cache
 
         public DependencyManager Register<S, C>() where C : S
         {
-            return Register<S, C>(Guid.NewGuid().ToString());//todo: guid or type?
+            return Register<S, C>(typeof(S).FullName);
         }
 
         public DependencyManager Register<S, C>(string name) where C : S
