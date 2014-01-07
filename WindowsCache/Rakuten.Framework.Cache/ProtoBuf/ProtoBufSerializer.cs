@@ -14,10 +14,18 @@ namespace Rakuten.Framework.Cache.ProtoBuf
         private static readonly Dictionary<Type, int> TypeToPropertyIndex = new Dictionary<Type, int>();
         private static readonly Dictionary<Type, int> TypeToSubtypeIndex = new Dictionary<Type, int>();
         private readonly IStorage _storage;
+        private List<Type> _userTypes { get; set; }
 
-        public ProtoBufSerializer(IStorage storage)
+        public ProtoBufSerializer(IStorage storage, List<Type> userTypes = null)
         {
             _storage = storage;
+            _userTypes = userTypes;
+            if (_userTypes == null) 
+                return;
+            foreach (var userType in _userTypes)
+            {
+                RegisterType(userType);
+            }
         }
 
         static ProtoBufSerializer() 
@@ -45,7 +53,7 @@ namespace Rakuten.Framework.Cache.ProtoBuf
         {
             RuntimeTypeModel.Default[typeof(ICacheEntry)].AddSubType(NextSubtypeIndex(typeof(ICacheEntry)), CacheEntryTemplate.MakeGenericType(type));
         }
-
+        
         public void RegisterType(Type type)
         {
             if (!RuntimeTypeModel.Default.CanSerializeBasicType(type))
@@ -113,7 +121,7 @@ namespace Rakuten.Framework.Cache.ProtoBuf
             }
         }
 
-        private static int NextSubtypeIndex(Type type)
+        public static int NextSubtypeIndex(Type type)
         {
             if (!TypeToSubtypeIndex.ContainsKey(type))
                 TypeToSubtypeIndex[type] = 100;

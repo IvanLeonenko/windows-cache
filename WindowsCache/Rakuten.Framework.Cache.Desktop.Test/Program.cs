@@ -30,7 +30,7 @@ namespace Rakuten.Framework.Cache.Desktop.Test
         
     }
     //[ProtoContract]
-    public class SomeData2 :IData
+    public class SomeData2 //:IData
     {
         public Dictionary<string, int> Entries { get; set; }
 
@@ -55,29 +55,38 @@ namespace Rakuten.Framework.Cache.Desktop.Test
     {
         static void Main(string[] args)
         {
-            ProtoBufSerializer.RegisterType(typeof(CacheEntry2<string>));
+            
+            //ProtoBufSerializer.RegisterType(typeof(CacheEntry2<string>));
             
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<IStorage, DesktopStorage>().WithValue("cacheName", "def1");
+            var types = new List<Type>() {typeof (SomeData2)};
+            cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", types);
             var cache = new Cache(cacheContainer);
 
-            var sdf = cache.Get<CacheEntry2<string>>("SomeProto");
-            Console.WriteLine(sdf.Val);
-            Console.ReadKey();
-            return;
+            //cache.RegisterType(typeof(SomeData2));
+            
+            //var sdf = cache.Get<CacheEntry2<string>>("SomeProto");
+            //Console.WriteLine(sdf.Val);
+            //Console.ReadKey();
+            //return;
 
             //cache.Set("SomeInt", 55);
             //cache.Set("SomeString", "_string_");
             //cache.Set("SomeDateTime", DateTime.Now);
             //cache.Set("SomeDouble", 234.345D);
             //var someData = new SomeData {Entries = new Dictionary<string, int>{{"q",45}, {"w",34}}, StringProperty = "Some strin of proto"};
+
+            //cache.RegisterType(typeof(CacheEntry<SomeData2>));
+
+            //RuntimeTypeModel.Default[typeof(ICacheEntry)].AddSubType(ProtoBufSerializer.NextSubtypeIndex(typeof(ICacheEntry)), typeof(CacheEntry<>).MakeGenericType(typeof(SomeData2)));
+           //cache.RegisterSubType(typeof(ICacheEntry), typeof(CacheEntry<>).MakeGenericType(typeof(SomeData2)));
+
+            var someData = new SomeData2 { Entries = new Dictionary<string, int> { { "q", 45 }, { "w", 34 } }, StringProperty = "Some string of proto" };
+            cache.Set("SomeProto", someData);
+
+            var sd2 = cache.Get<SomeData2>("SomeProto");
             
-            //var someData = new SomeData2 { Entries = new Dictionary<string, int> { { "q", 45 }, { "w", 34 } }, StringProperty = "Some strin of proto" };
-            //cache.Set("SomeProto", someData);
-
-            var ce = new CacheEntry2<string> {Val = "qwerty"};
-            cache.Set("SomeProto", ce);
-
             Console.WriteLine("Done. Press any key");
             Console.ReadKey();
             return;

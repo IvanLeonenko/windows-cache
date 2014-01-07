@@ -1,14 +1,13 @@
 ﻿using System;
 using System.IO;
-using Rakuten.Framework.Cache.Storage;
 
 namespace Rakuten.Framework.Cache.ProtoBuf
 {
     public interface ISerializer
     {
-        //void RegisterType(Type type);
+        void RegisterType(Type type);
 
-        //void RegisterSubType(Type type, Type subType);
+        void RegisterSubType(Type type, Type subType);
 
         bool CanSerialize(Type type);
 
