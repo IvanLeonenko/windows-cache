@@ -29,9 +29,10 @@ namespace Rakuten.Framework.Cache.ProtoBuf
 
         public static void RegisterSubType(Type type, Type subType)
         {
-            var metaType = RuntimeTypeModel.Default[type].AddSubType(NextSubtypeIndex(subType), subType);
+            RuntimeTypeModel.Default[type].AddSubType(NextSubtypeIndex(subType), subType);
 
-            AddProperties(subType, metaType);
+            var subTypeMetaType = RuntimeTypeModel.Default[subType];
+            AddProperties(subType, subTypeMetaType);
 
             RuntimeTypeModel.Default[typeof(ICacheEntry)].AddSubType(NextSubtypeIndex(type), CacheEntryTemplate.MakeGenericType(type));
         }
