@@ -61,9 +61,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="When_user_reference_with_protobuf_attributes_types_serialized.cs" />
     <Compile Include="When_basic_reference_types_serialized.cs" />
     <Compile Include="When_nullable_value_types_serialized.cs" />
-    <Compile Include="When_user_reference_types_serialized.cs" />
+    <Compile Include="When_user_reference_without_protobuf_attributes_types_serialized.cs" />
     <Compile Include="When_value_types_serialized.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
