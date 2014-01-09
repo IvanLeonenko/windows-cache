@@ -57,6 +57,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CacheContainerTests\Cache_container_should.cs" />
+    <Compile Include="CacheContainerTests\TestSerializer.cs" />
+    <Compile Include="CacheContainerTests\TestStorageWithParameter.cs" />
     <Compile Include="VersionTests\TestStorage.cs" />
     <Compile Include="VersionTests\TestVersionProvider.cs" />
     <Compile Include="VersionTests\When_no_version_is_stored_after_cache_create.cs" />
