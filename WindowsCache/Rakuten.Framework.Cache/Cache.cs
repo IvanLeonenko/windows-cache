@@ -21,7 +21,8 @@ namespace Rakuten.Framework.Cache
             var stream = _storage.ReadStream(CacheName);
             _cacheData = stream == null ? new CacheData() : _serializer.Deserialize<CacheData>(stream);
 
-            CheckVersion();
+            if (DifferentVersion())
+                Clear();
         }
         public void Set<T>(string key, T value)
         {
@@ -43,17 +44,15 @@ namespace Rakuten.Framework.Cache
             _storage.Remove(CacheName);
         }
 
-        private void CheckVersion()
+        internal bool DifferentVersion()
         {
             var version = _versionProvider.GetVersion();
             var versionFileName = string.Format("{0}.version", CacheName);
             Version cacheVersion;
             if (!Version.TryParse(_storage.Read(versionFileName), out cacheVersion))
                 cacheVersion = new Version(0, 0);
-            if (version == cacheVersion)
-                return;
-            Clear();
             _storage.Write(versionFileName, version.ToString());
+            return version != cacheVersion;
         }
 
         private void CheckType(Type type)
