@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{040E5F13
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializationTests", "Tests\SerializationTests\SerializationTests.csproj", "{A5091A69-2C60-4E10-8B72-EB178A80F320}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheTests", "CacheTests\CacheTests.csproj", "{98604471-69FE-4C2C-873F-51D1DDB44725}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheTests", "Tests\CacheTests\CacheTests.csproj", "{98604471-69FE-4C2C-873F-51D1DDB44725}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

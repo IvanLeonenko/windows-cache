@@ -67,7 +67,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rakuten.Framework.Cache\Rakuten.Framework.Cache.csproj">
+    <ProjectReference Include="..\..\Rakuten.Framework.Cache\Rakuten.Framework.Cache.csproj">
       <Project>{d6957eef-5ecc-4a32-8ce6-0c2609aa359d}</Project>
       <Name>Rakuten.Framework.Cache</Name>
     </ProjectReference>
