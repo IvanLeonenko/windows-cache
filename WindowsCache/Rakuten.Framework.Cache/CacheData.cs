@@ -8,7 +8,7 @@ using ProtoBuf;
 namespace Rakuten.Framework.Cache
 {
     [ProtoContract]
-    public class CacheData
+    class CacheData
     {
         [ProtoMember(1)]
         public Dictionary<string, ICacheEntry> Entries { get; set; }

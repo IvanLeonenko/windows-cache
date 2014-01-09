@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Rakuten.Framework.Cache;
 using Rakuten.Framework.Cache.ProtoBuf;
 using System.Collections.Generic;
 
@@ -58,6 +59,39 @@ namespace SerializationTests
             var stream = ProtoBufSerializer.Serialize(newData);
             stream.Should().NotBeNull();
             ProtoBufSerializer.Deserialize<NewData>(stream).ShouldBeEquivalentTo(newData);
+        }
+
+        [TestMethod]
+        public void cache_entry_should_support_this_type()
+        {
+            var someData = new SomeData
+            {
+                stringValue = "qwerty",
+                intValue = 12345,
+                boolValue = false,
+                stringArray = new[] { "q", "w", "e" }
+            };
+            var cacheEntry = new CacheEntry<SomeData> {Value = someData};
+            var stream = ProtoBufSerializer.Serialize(cacheEntry);
+            stream.Should().NotBeNull();
+            ProtoBufSerializer.Deserialize<CacheEntry<SomeData>>(stream).ShouldBeEquivalentTo(cacheEntry);
+        }
+
+        [TestMethod]
+        public void cache_entry_should_support_this_type_subtype()
+        {
+            var newData = new NewData
+            {
+                stringValue = "qwerty",
+                intValue = 12345,
+                boolValue = true,
+                stringArray = new[] { "q", "w", "e" },
+                Dictionary = new Dictionary<string, int> { { "kq", 1 }, { "k2", 2 } }
+            };
+            var cacheEntry = new CacheEntry<SomeData> { Value = newData };
+            var stream = ProtoBufSerializer.Serialize(cacheEntry);
+            stream.Should().NotBeNull();
+            ProtoBufSerializer.Deserialize<CacheEntry<SomeData>>(stream).ShouldBeEquivalentTo(cacheEntry);
         }
     }
 }

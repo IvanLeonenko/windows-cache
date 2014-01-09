@@ -16,18 +16,16 @@ namespace Rakuten.Framework.Cache.ProtoBuf
         private static readonly Dictionary<Type, int> TypeToSubtypeIndex = new Dictionary<Type, int>();
         private readonly IStorage _storage;
         private ProtoBufMappings _protoBufMappings = new ProtoBufMappings();
-        private List<Type> _userTypes;
 
-        public ProtoBufSerializer(IStorage storage, List<Type> userTypes = null)
+        public ProtoBufSerializer(IStorage storage, IEnumerable<Type> userTypes = null)
         {
             _storage = storage;
-            _userTypes = userTypes;
 
             RestoreMappings();
-            
-            if (_userTypes == null) 
+
+            if (userTypes == null) 
                 return;
-            foreach (var userType in _userTypes)
+            foreach (var userType in userTypes)
             {
                 RegisterType(userType);
             }
