@@ -12,5 +12,7 @@ namespace Rakuten.Framework.Cache.Storage
         String Read(string key);
 
         void Write(string key, string value);
+
+        void Remove(string key);
     }
 }

@@ -91,6 +91,16 @@ namespace Rakuten.Framework.Cache.Desktop
             }
         }
 
+        public void Remove(string key)
+        {
+            var filePath = GetFilePath(key);
+            lock (GetLocker(filePath))
+            {
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
+            }
+        }
+
         private static string GetFilePath(string key)
         {
             return Path.Combine(_storageLocation, key);

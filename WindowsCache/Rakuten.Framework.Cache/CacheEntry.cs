@@ -17,20 +17,23 @@ namespace Rakuten.Framework.Cache
         [ProtoMember(1)]
         public T Value { get; set; }
 
-        public byte[] SerializedValue;
 
-        public void Set(string key, T value)
-        {
-            Value = value;
-        }
+        public string link { get; set; }
 
-        public static byte[] ReadFully(Stream input)
-        {
-            using (var ms = new MemoryStream())
-            {
-                input.CopyTo(ms);
-                return ms.ToArray();
-            }
-        }
+        //public byte[] SerializedValue;
+
+        //public void Set(string key, T value)
+        //{
+        //    Value = value;
+        //}
+
+        //public static byte[] ReadFully(Stream input)
+        //{
+        //    using (var ms = new MemoryStream())
+        //    {
+        //        input.CopyTo(ms);
+        //        return ms.ToArray();
+        //    }
+        //}
     }
 }

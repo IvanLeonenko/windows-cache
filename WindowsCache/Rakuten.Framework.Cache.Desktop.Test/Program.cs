@@ -33,9 +33,24 @@ namespace Rakuten.Framework.Cache.Desktop.Test
     public class SomeData2 //:IData
     {
         public Dictionary<string, int> Entries { get; set; }
-
+        public string o { get; set; }
+       // public Int32 f { get; set; }
         public String StringProperty { get; set; }
+    }
 
+    public class SomeData3 //:IData
+    {
+        public Dictionary<string, int> Entries { get; set; }
+        public string o { get; set; }
+        // public Int32 f { get; set; }
+        public String StringProperty { get; set; }
+    }
+    public class SomeData4 //:IData
+    {
+        public Dictionary<string, int> Entries { get; set; }
+        public string o { get; set; }
+        // public Int32 f { get; set; }
+        public String StringProperty { get; set; }
     }
 
     //[ProtoContract]
@@ -59,8 +74,9 @@ namespace Rakuten.Framework.Cache.Desktop.Test
             //ProtoBufSerializer.RegisterType(typeof(CacheEntry2<string>));
             
             var cacheContainer = new CacheContainer();
-            cacheContainer.Register<IStorage, DesktopStorage>().WithValue("cacheName", "def1");
-            var types = new List<Type>() {typeof (SomeData2)};
+            cacheContainer.Register<IVersionProvider, EntryAssemblyVersionProvider>();
+            cacheContainer.Register<IStorage, DesktopStorage>().WithValue("cacheName", "def1");//typeof(SomeData4),
+            var types = new List<Type>() {  typeof(SomeData2), typeof(SomeData3) };
             cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", types);
             var cache = new Cache(cacheContainer);
 
@@ -82,8 +98,16 @@ namespace Rakuten.Framework.Cache.Desktop.Test
             //RuntimeTypeModel.Default[typeof(ICacheEntry)].AddSubType(ProtoBufSerializer.NextSubtypeIndex(typeof(ICacheEntry)), typeof(CacheEntry<>).MakeGenericType(typeof(SomeData2)));
            //cache.RegisterSubType(typeof(ICacheEntry), typeof(CacheEntry<>).MakeGenericType(typeof(SomeData2)));
 
-            var someData = new SomeData2 { Entries = new Dictionary<string, int> { { "q", 45 }, { "w", 34 } }, StringProperty = "Some string of proto" };
+            //var sd2 = cache.Get<SomeData2>("SomeProto");
+            //sd2 = cache.Get<SomeData2>("SomeProto3");
+
+            var someData = new SomeData2 { Entries = new Dictionary<string, int> { { "q", 45 }, { "w", 34 } }, StringProperty = "Some string of proto"};
             cache.Set("SomeProto", someData);
+
+            var someData3 = new SomeData3 { Entries = new Dictionary<string, int> { { "q", 33 }, { "w", 33 } }, StringProperty = "Some string of proto3" };
+            cache.Set("SomeProto3", someData3);
+            var someData4 = new SomeData4 { Entries = new Dictionary<string, int> { { "q", 44 }, { "w", 44 } }, StringProperty = "Some string of proto4" };
+            cache.Set("SomeProto4", someData4);
 
             var sd2 = cache.Get<SomeData2>("SomeProto");
             

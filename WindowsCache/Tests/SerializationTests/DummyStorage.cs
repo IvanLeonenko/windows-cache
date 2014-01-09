@@ -1,5 +1,4 @@
 ﻿using Rakuten.Framework.Cache.Storage;
-using System;
 using System.IO;
 
 namespace SerializationTests
@@ -8,12 +7,12 @@ namespace SerializationTests
     {
         public Stream ReadStream(string key)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public void WriteStream(string key, Stream value)
         {
-            throw new NotImplementedException();
+            
         }
 
         public string Read(string key)
@@ -22,6 +21,11 @@ namespace SerializationTests
         }
 
         public void Write(string key, string value)
+        {
+            
+        }
+
+        public void Remove(string key)
         {
             
         }
