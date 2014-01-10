@@ -16,7 +16,7 @@ namespace Rakuten.Framework.Cache
         {
             _serializer = serializer;
             _storage = storage;
-            var stream = _storage.ReadStream(CacheName);
+            var stream = _storage.GetStream(CacheName);
             Entries = (stream == null) ? new Dictionary<string, ICacheEntry>() : serializer.Deserialize<Dictionary<string, ICacheEntry>>(stream);
         }
 
@@ -63,7 +63,7 @@ namespace Rakuten.Framework.Cache
 
 
             var entriesStream = _serializer.Serialize(Entries);
-            _storage.WriteStream(CacheName, entriesStream);
+            _storage.Write(CacheName, entriesStream);
         }
 
         public CacheEntry<T> Get<T>(string key)

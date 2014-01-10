@@ -35,7 +35,7 @@ namespace Rakuten.Framework.Cache.Desktop
             }
         }
 
-        public Stream ReadStream(string key)
+        public Stream GetStream(string key)
         {
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))
@@ -53,7 +53,26 @@ namespace Rakuten.Framework.Cache.Desktop
             }
         }
 
-        public void WriteStream(string key, Stream value)
+        public byte[] GetBytes(string key)
+        {
+            var filePath = GetFilePath(key);
+            lock (GetLocker(filePath))
+            {
+                if (!File.Exists(filePath))
+                    return null;
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    using (var fileStream = File.OpenRead(filePath))
+                    {
+                        fileStream.CopyTo(memoryStream);
+                        return memoryStream.ToArray();
+                    }
+                }
+            }
+        }
+
+        public void Write(string key, Stream value)
         {
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))
@@ -71,7 +90,7 @@ namespace Rakuten.Framework.Cache.Desktop
             }
         }
 
-        public string ReadString(string key)
+        public string GetString(string key)
         {
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))
@@ -80,7 +99,7 @@ namespace Rakuten.Framework.Cache.Desktop
             }
         }
 
-        public void WriteString(string key, string value)
+        public void Write(string key, string value)
         {
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))
@@ -88,6 +107,21 @@ namespace Rakuten.Framework.Cache.Desktop
                 if (File.Exists(filePath))
                     File.Delete(filePath);
                 File.WriteAllText(filePath, value);
+            }
+        }
+
+        public void Write(string key, byte[] value)
+        {
+            var filePath = GetFilePath(key);
+            lock (GetLocker(filePath))
+            {
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
+
+                using (var file = File.Create(filePath))
+                {
+                    file.Write(value, 0, value.Length);
+                }
             }
         }
 

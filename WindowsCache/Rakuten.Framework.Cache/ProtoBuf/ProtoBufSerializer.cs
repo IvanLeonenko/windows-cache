@@ -139,7 +139,7 @@ namespace Rakuten.Framework.Cache.ProtoBuf
 
         private void RestoreMappings()
         {
-            using (var stream = _storage.ReadStream("type.mappings.protobuf"))
+            using (var stream = _storage.GetStream("type.mappings.protobuf"))
             {
                 if (stream != null && stream.Length > 0)
                     _protoBufMappings = Deserialize<ProtoBufMappings>(stream);
@@ -152,7 +152,7 @@ namespace Rakuten.Framework.Cache.ProtoBuf
                 return;
             using (var stream = Serialize(_protoBufMappings))
             {
-                _storage.WriteStream("type.mappings.protobuf", stream);
+                _storage.Write("type.mappings.protobuf", stream);
             }
         }
 

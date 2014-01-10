@@ -39,9 +39,9 @@ namespace Rakuten.Framework.Cache
             var version = _versionProvider.GetVersion();
             const string versionFileName = "cache.version";
             Version cacheVersion;
-            if (!Version.TryParse(_storage.ReadString(versionFileName), out cacheVersion))
+            if (!Version.TryParse(_storage.GetString(versionFileName), out cacheVersion))
                 cacheVersion = new Version(0, 0);
-            _storage.WriteString(versionFileName, version.ToString());
+            _storage.Write(versionFileName, version.ToString());
             return version != cacheVersion;
         }
     }

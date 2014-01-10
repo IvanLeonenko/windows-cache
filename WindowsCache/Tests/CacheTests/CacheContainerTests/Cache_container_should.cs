@@ -20,8 +20,8 @@ namespace CacheTests.CacheContainerTests
             
             m.Should().NotBeNull();
 
-            m.WriteString("key1", "value1");
-            m.ReadString("key1").Should().Be("value1");
+            m.Write("key1", "value1");
+            m.GetString("key1").Should().Be("value1");
         }
 
         [TestMethod]
@@ -33,8 +33,8 @@ namespace CacheTests.CacheContainerTests
 
             m.Should().NotBeNull();
 
-            m.WriteString("key1", "value1");
-            m.ReadString("key1").Should().Be("value1");
+            m.Write("key1", "value1");
+            m.GetString("key1").Should().Be("value1");
         }
 
         [TestMethod]
@@ -55,7 +55,7 @@ namespace CacheTests.CacheContainerTests
         {
             var c = new CacheContainer();
             c.Register<IStorage, TestStorageWithParameter>("testStorage").WithValue("value", "defaultCacheValue");
-            var value = c.Resolve<IStorage>("testStorage").ReadString("default");
+            var value = c.Resolve<IStorage>("testStorage").GetString("default");
             value.Should().Be("defaultCacheValue");
         }
 
