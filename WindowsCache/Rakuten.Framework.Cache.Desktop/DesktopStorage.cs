@@ -71,7 +71,7 @@ namespace Rakuten.Framework.Cache.Desktop
             }
         }
 
-        public string Read(string key)
+        public string ReadString(string key)
         {
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))
@@ -80,7 +80,7 @@ namespace Rakuten.Framework.Cache.Desktop
             }
         }
 
-        public void Write(string key, string value)
+        public void WriteString(string key, string value)
         {
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))

@@ -20,12 +20,12 @@ namespace CacheTests.VersionTests
             KeyToStreams[key] = value;
         }
 
-        public string Read(string key)
+        public string ReadString(string key)
         {
             return KeyToStrings.ContainsKey(key) ? KeyToStrings[key] : null;
         }
 
-        public void Write(string key, string value)
+        public void WriteString(string key, string value)
         {
             KeyToStrings[key] = value;
         }

@@ -6,12 +6,12 @@ namespace Rakuten.Framework.Cache.Storage
     public interface IStorage
     {
         Stream ReadStream(string key);
-
+        String ReadString(string key);
+        //byte[] GetBytes(string key);
+        
         void WriteStream(string key, Stream value);
-
-        String Read(string key);
-
-        void Write(string key, string value);
+        void WriteString(string key, string value);
+        //void Write(string key, byte[] value);
 
         void Remove(string key);
     }

@@ -20,8 +20,8 @@ namespace CacheTests.CacheContainerTests
             
             m.Should().NotBeNull();
 
-            m.Write("key1", "value1");
-            m.Read("key1").Should().Be("value1");
+            m.WriteString("key1", "value1");
+            m.ReadString("key1").Should().Be("value1");
         }
 
         [TestMethod]
@@ -33,8 +33,8 @@ namespace CacheTests.CacheContainerTests
 
             m.Should().NotBeNull();
 
-            m.Write("key1", "value1");
-            m.Read("key1").Should().Be("value1");
+            m.WriteString("key1", "value1");
+            m.ReadString("key1").Should().Be("value1");
         }
 
         [TestMethod]
@@ -55,7 +55,7 @@ namespace CacheTests.CacheContainerTests
         {
             var c = new CacheContainer();
             c.Register<IStorage, TestStorageWithParameter>("testStorage").WithValue("value", "defaultCacheValue");
-            var value = c.Resolve<IStorage>("testStorage").Read("default");
+            var value = c.Resolve<IStorage>("testStorage").ReadString("default");
             value.Should().Be("defaultCacheValue");
         }
 
@@ -70,7 +70,7 @@ namespace CacheTests.CacheContainerTests
         }
 
         [TestMethod]
-        public void NamedSubDependencyOutOfOrder()
+        public void support_named_sub_dependency_out_of_order()
         {
             var c = new CacheContainer();
             c.Register<IMathNode, Add>("add").WithDependency("m1", "five").WithDependency("m2", "six");
@@ -80,7 +80,7 @@ namespace CacheTests.CacheContainerTests
         }
 
         [TestMethod]
-        public void Singleton()
+        public void support_singleton_initialization()
         {
             var c = new CacheContainer();
             c.Register<IMathNode, Zero>().AsSingleton();
@@ -88,7 +88,7 @@ namespace CacheTests.CacheContainerTests
         }
 
         [TestMethod]
-        public void NonSingleton()
+        public void support_multi_instance_initialization()
         {
             var c = new CacheContainer();
             c.Register<IMathNode, Zero>();

@@ -75,8 +75,8 @@ namespace Rakuten.Framework.Cache.Desktop.Test
             
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<IVersionProvider, EntryAssemblyVersionProvider>();
-            cacheContainer.Register<IStorage, DesktopStorage>().WithValue("cacheName", "def1");//typeof(SomeData4),
-            var types = new List<Type>() {  typeof(SomeData2), typeof(SomeData3) };
+            cacheContainer.Register<IStorage, DesktopStorage>().WithValue("cacheName", "def1");
+            var types = new List<Type>() { typeof(SomeData4), typeof(SomeData2), typeof(SomeData3) };
             cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", types);
             var cache = new Cache(cacheContainer);
 
@@ -100,7 +100,7 @@ namespace Rakuten.Framework.Cache.Desktop.Test
 
             //var sd2 = cache.Get<SomeData2>("SomeProto");
             //sd2 = cache.Get<SomeData2>("SomeProto3");
-
+            //cache.Set("SomeString", "STRING");
             var someData = new SomeData2 { Entries = new Dictionary<string, int> { { "q", 45 }, { "w", 34 } }, StringProperty = "Some string of proto"};
             cache.Set("SomeProto", someData);
 

@@ -15,12 +15,12 @@ namespace SerializationTests
             
         }
 
-        public string Read(string key)
+        public string ReadString(string key)
         {
             return null;
         }
 
-        public void Write(string key, string value)
+        public void WriteString(string key, string value)
         {
             
         }

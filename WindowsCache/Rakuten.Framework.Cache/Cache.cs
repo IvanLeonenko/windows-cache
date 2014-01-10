@@ -6,59 +6,43 @@ namespace Rakuten.Framework.Cache
 {
     public class Cache
     {
-        private const string CacheName = "cache.protobuf";
-        private readonly IStorage _storage;
-        private readonly ISerializer _serializer;
-        private readonly CacheData _cacheData;
         private readonly IVersionProvider _versionProvider;
+        private readonly IStorage _storage;
+        private readonly CacheData _cacheData;
 
         public Cache(CacheContainer container)
         {
             _versionProvider = container.Resolve<IVersionProvider>();
             _storage = container.Resolve<IStorage>();
-            _serializer = container.Resolve<ISerializer>();
-
-            var stream = _storage.ReadStream(CacheName);
-            _cacheData = stream == null ? new CacheData() : _serializer.Deserialize<CacheData>(stream);
+            _cacheData = new CacheData(_storage, container.Resolve<ISerializer>());
 
             if (DifferentVersion())
                 Clear();
         }
-        public void Set<T>(string key, T value)
+        public void Set<T>(string key, T value, TimeSpan? timeToLive = null)
         {
-            CheckType(typeof(T));
-            var cacheEntry = new CacheEntry<T> {Value = value};
-            _cacheData.Entries[key] = cacheEntry;
-            var stream = _serializer.Serialize(_cacheData);
-            _storage.WriteStream(CacheName, stream);
+            _cacheData.Set(key, value, timeToLive);
         }
 
-        public T Get<T>(string key)
+        public CacheEntry<T> Get<T>(string key)
         {
-            CheckType(typeof(T));
-            return ((CacheEntry<T>)_cacheData.Entries[key]).Value;
+            return _cacheData.Get<T>(key);
         }
 
         public void Clear()
         {
-            _storage.Remove(CacheName);
+            _cacheData.Clean();
         }
 
-        internal bool DifferentVersion()
+        private bool DifferentVersion()
         {
             var version = _versionProvider.GetVersion();
-            var versionFileName = string.Format("{0}.version", CacheName);
+            const string versionFileName = "cache.version";
             Version cacheVersion;
-            if (!Version.TryParse(_storage.Read(versionFileName), out cacheVersion))
+            if (!Version.TryParse(_storage.ReadString(versionFileName), out cacheVersion))
                 cacheVersion = new Version(0, 0);
-            _storage.Write(versionFileName, version.ToString());
+            _storage.WriteString(versionFileName, version.ToString());
             return version != cacheVersion;
-        }
-
-        private void CheckType(Type type)
-        {
-            if (!_serializer.CanSerialize(type))
-                throw new Exception("Cannot process provided Type. Please register it or provide proto attributes.");
         }
     }
 }
