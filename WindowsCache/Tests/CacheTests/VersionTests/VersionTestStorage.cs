@@ -5,7 +5,7 @@ using Rakuten.Framework.Cache.Storage;
 
 namespace CacheTests.VersionTests
 {
-    class TestStorage : IStorage
+    class VersionTestStorage : IStorage
     {
         public static Dictionary<string, Stream> KeyToStreams = new Dictionary<string, Stream>();
         public static Dictionary<string, String> KeyToStrings = new Dictionary<string, string>();

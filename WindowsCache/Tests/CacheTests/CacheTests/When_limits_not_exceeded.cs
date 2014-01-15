@@ -9,7 +9,7 @@ using Rakuten.Framework.Cache.Storage;
 namespace CacheTests.CacheTests
 {
     [TestClass]
-    public class When_limits_are_not_exceeded
+    public class When_limits_not_exceeded
     {
         private Cache _cache;
         readonly DateTime _dateTime = DateTime.Now;
@@ -17,10 +17,6 @@ namespace CacheTests.CacheTests
         [TestInitialize]
         public void Initialize()
         {
-            //TestStorage.KeyToBytes.Clear();
-            //TestStorage.KeyToStreams.Clear();
-            //TestStorage.KeyToStrings.Clear();
-
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version("1.0"));
             cacheContainer.Register<IStorage, TestStorage>();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using CacheTests.VersionTests;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,10 +18,6 @@ namespace CacheTests.CacheTests
         [TestInitialize]
         public void Initialize()
         {
-            //TestStorage.KeyToBytes.Clear();
-            //TestStorage.KeyToStreams.Clear();
-            //TestStorage.KeyToStrings.Clear();
-
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version("1.0"));
             cacheContainer.Register<IStorage, TestStorage>();
@@ -31,9 +28,13 @@ namespace CacheTests.CacheTests
             _cache = new Cache(cacheContainer, cacheConfiguration);
 
             _cache.Set("stringKey1", "stringValue1");
+            Thread.Sleep(10);
             _cache.Set("stringKey2", "stringValue2");
+            Thread.Sleep(10);
             _cache.Set("someBytes", new byte[] { 12, 32, 43 });
+            Thread.Sleep(10);
             _cache.Set("Int32Key1", 1);
+            Thread.Sleep(10);
             _cache.Set("dateTimeKey1", _dateTime);
 
         }

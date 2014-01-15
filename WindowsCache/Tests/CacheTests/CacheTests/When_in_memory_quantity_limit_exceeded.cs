@@ -17,10 +17,6 @@ namespace CacheTests.CacheTests
         [TestInitialize]
         public void Initialize()
         {
-            //TestStorage.KeyToBytes.Clear();
-            //TestStorage.KeyToStreams.Clear();
-            //TestStorage.KeyToStrings.Clear();
-
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version("1.0"));
             cacheContainer.Register<IStorage, TestStorage>();

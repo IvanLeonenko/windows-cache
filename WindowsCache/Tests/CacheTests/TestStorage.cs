@@ -23,7 +23,10 @@ namespace CacheTests
 
         public void Write(string key, Stream value)
         {
-            KeyToStreams[key] = value;
+            value.Position = 0;
+            var newStream = new MemoryStream();
+            value.CopyTo(newStream);
+            KeyToStreams[key] = newStream;
         }
 
         public string GetString(string key)

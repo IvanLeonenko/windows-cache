@@ -16,11 +16,11 @@ namespace CacheTests.VersionTests
             var version = new Version(5, 32);
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", version);
-            cacheContainer.Register<IStorage, TestStorage>();
+            cacheContainer.Register<IStorage, VersionTestStorage>();
             cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", null);
             var cacheConfiguration = new CacheConfiguration(1024, 5, 1024, 5, 1024);
             var cache = new Cache(cacheContainer, cacheConfiguration);
-            TestStorage.KeyToStrings["cache.version"].Should().BeEquivalentTo(version.ToString());
+            VersionTestStorage.KeyToStrings["cache.version"].Should().BeEquivalentTo(version.ToString());
         }
     }
 }

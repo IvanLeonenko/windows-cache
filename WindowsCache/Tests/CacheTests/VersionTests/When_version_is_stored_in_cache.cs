@@ -13,7 +13,7 @@ namespace CacheTests.VersionTests
         [TestMethod]
         public void should_erase_cache_on_if_versions_differ()
         {
-            TestStorage.KeyToStreams.Clear();
+            VersionTestStorage.KeyToStreams.Clear();
             var cacheConfiguration = new CacheConfiguration(1024, 5, 1024, 5, 1024);
 
             var cache = new Cache(GetCacheContainerWithSpecificVersion(new Version(1, 1)), cacheConfiguration);
@@ -24,7 +24,7 @@ namespace CacheTests.VersionTests
             //cache will be cleanued up if versions in storage and executing assembly differ
             new Cache(GetCacheContainerWithSpecificVersion(new Version(6, 1)), cacheConfiguration);
 
-            TestStorage.KeyToStreams.Should().BeEmpty();
+            VersionTestStorage.KeyToStreams.Should().BeEmpty();
         }
 
         [TestMethod]
@@ -40,14 +40,14 @@ namespace CacheTests.VersionTests
             //cache should not be cleanued up if versions in storage and executing assembly differ
             new Cache(GetCacheContainerWithSpecificVersion(new Version(1, 1)), cacheConfiguration);
 
-            TestStorage.KeyToStreams.Should().NotBeEmpty();
+            VersionTestStorage.KeyToStreams.Should().NotBeEmpty();
         }
         
         private CacheContainer GetCacheContainerWithSpecificVersion(Version version)
         {
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", version);
-            cacheContainer.Register<IStorage, TestStorage>().AsSingleton();
+            cacheContainer.Register<IStorage, VersionTestStorage>().AsSingleton();
             cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", null);
             return cacheContainer;
         }

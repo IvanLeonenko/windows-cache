@@ -75,8 +75,9 @@ namespace Rakuten.Framework.Cache
                 {
                     if (resultEntry.EntryType == EntryType.TemplateType)
                     {
-                        using (var stream = _storage.GetStream(resultEntry.FileName))
-                            resultEntry.Value = _serializer.Deserialize<T>(stream);
+                        //using (var stream = _storage.GetStream(resultEntry.FileName))
+                        var stream = _storage.GetStream(resultEntry.FileName);
+                        resultEntry.Value = _serializer.Deserialize<T>(stream);
                     }
                     else if (resultEntry.EntryType == EntryType.Binary)
                     {
@@ -88,6 +89,10 @@ namespace Rakuten.Framework.Cache
                         object obj = _storage.GetString(resultEntry.FileName);
                         resultEntry.Value = (T)obj;
                     }
+
+                    RemoveOnReachingSizeLimit(resultEntry.Size, _cacheConfiguration.MaxInMemoryCacheDataSize, true);
+                    RemoveEntryOnMaxCapacityReached(_cacheConfiguration.MaxInMemoryCacheDataEntries, true);
+
                     resultEntry.IsInMemory = true;
                 }
 

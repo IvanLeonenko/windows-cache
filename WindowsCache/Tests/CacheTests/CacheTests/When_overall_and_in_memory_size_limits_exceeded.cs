@@ -11,7 +11,7 @@ using Rakuten.Framework.Cache.Storage;
 namespace CacheTests.CacheTests
 {
     [TestClass]
-    public class When_overall_size_limit_exceeded
+    public class When_overall_and_in_memory_size_limits_exceeded
     {
         Cache _cache;
 
@@ -23,7 +23,7 @@ namespace CacheTests.CacheTests
             cacheContainer.Register<IStorage, TestStorage>();
             cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", null);
 
-            var cacheConfiguration = new CacheConfiguration(500, 10, 2048, 5, 2048);
+            var cacheConfiguration = new CacheConfiguration(500, 10, 500, 5, 2048);
 
             _cache = new Cache(cacheContainer, cacheConfiguration);
             _cache.Set("stringKey1", "stringValue1");
@@ -36,7 +36,7 @@ namespace CacheTests.CacheTests
             Thread.Sleep(30);
             _cache.Set("Int32Key", 42);
         }
-        
+
         [TestMethod]
         public void cache_should_return_only_most_recent_values_above_the_limit()
         {
