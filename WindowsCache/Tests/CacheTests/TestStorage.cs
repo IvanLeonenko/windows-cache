@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using Rakuten.Framework.Cache.Storage;
 
-namespace CacheTests.VersionTests
+namespace CacheTests
 {
     class TestStorage : IStorage
     {
-        public static Dictionary<string, Stream> KeyToStreams = new Dictionary<string, Stream>();
-        public static Dictionary<string, String> KeyToStrings = new Dictionary<string, string>();
-        public static Dictionary<string, byte[]> KeyToBytes = new Dictionary<string, byte[]>();
+        public Dictionary<string, Stream> KeyToStreams = new Dictionary<string, Stream>();
+        public Dictionary<string, String> KeyToStrings = new Dictionary<string, string>();
+        public Dictionary<string, byte[]> KeyToBytes = new Dictionary<string, byte[]>();
 
         public Stream GetStream(string key)
         {

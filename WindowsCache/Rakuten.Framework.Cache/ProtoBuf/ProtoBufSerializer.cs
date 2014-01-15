@@ -50,6 +50,7 @@ namespace Rakuten.Framework.Cache.ProtoBuf
             RegisterGenericCacheEntry(typeof(SByte));
             RegisterGenericCacheEntry(typeof(Boolean));
             RegisterGenericCacheEntry(typeof(Char));
+            RegisterGenericCacheEntry(typeof(byte[]));
         }
 
         private static void RegisterGenericCacheEntry(Type type)
@@ -118,7 +119,7 @@ namespace Rakuten.Framework.Cache.ProtoBuf
 
             
             //todo: TypeSubTypesIndices should be cleaned up on initialization (e g cctor)
-            maxInd = 0;
+            maxInd = 5;
             var cacheEntryTypeName = typeof (ICacheEntry).FullName;
             if (_protoBufMappings.TypeSubTypesIndices.ContainsKey(cacheEntryTypeName))
             {

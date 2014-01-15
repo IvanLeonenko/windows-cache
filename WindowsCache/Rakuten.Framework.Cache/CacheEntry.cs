@@ -1,16 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ProtoBuf;
+using System;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProtoBuf;
 
 namespace Rakuten.Framework.Cache
 {
     [ProtoContract]
-    public interface ICacheEntry{}
+    public interface ICacheEntry
+    {
+
+        [ProtoMember(1)]
+        Int32 Size { get; set; }
+        
+        [ProtoMember(2)]
+        DateTime LastAccessTime { get; set; }
+
+        [ProtoMember(3)]
+        bool IsInMemory { get; set; }
+
+        [ProtoMember(4)]
+        string FileName { get; set; }
+
+        void RemoveValue();
+    }
 
     [ProtoContract]
     public enum EntryType
@@ -27,61 +38,80 @@ namespace Rakuten.Framework.Cache
     public class CacheEntry<T> : ICacheEntry
     {
         #region Data section
-        [ProtoMember(1), DefaultValue(EntryType.TemplateType)]
+        [ProtoMember(5), DefaultValue(EntryType.TemplateType)]
         public EntryType EntryType { get; set; }
 
-        [ProtoMember(2)]
-        public T Value { get; set; }
+        /*
+         Get accessot to be used only by serializer, to access Value please use GetValue method
+         */
+        private T _value;
+        [ProtoMember(6)]
+        public T Value
+        {
+            get
+            {
+                /*
+                 * this is to omit two serializations
+                 */
+                //return EntryType == EntryType.TemplateType ? default(T) : _value;
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
 
-        [ProtoMember(3)]
+        public T GetValue()
+        {
+           return _value;
+        }
+
+        [ProtoMember(7)]
         public byte[] SerializedValue { get; set; }
 
-        [ProtoMember(4)]
-        public UInt32 Size { get; set; }
+        [ProtoMember(8)]
+        public Int32 Size { get; set; }
 
         #endregion
 
         #region Timestamps section
-        [ProtoMember(5)]
+        [ProtoMember(9)]
         public DateTime CreatedTime { get; set; }
 
-        [ProtoMember(6)]
+        [ProtoMember(10)]
         public DateTime ModifiedTime { get; set; }
 
-        [ProtoMember(7)]
+        [ProtoMember(11)]
         public DateTime LastAccessTime { get; set; }
 
-        [ProtoMember(8)]
+        [ProtoMember(12)]
         public DateTime ExpirationTime { get; set; }
 
         public bool IsExpired { get { return DateTime.UtcNow >= ExpirationTime; } }
 
         #endregion
 
+        private string _fileName;
+        [ProtoMember(13)]
+        public string FileName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_fileName))
+                    _fileName = Guid.NewGuid().ToString();
+                return _fileName;
+            }
+            set { _fileName = value; }
+        }
 
-        // type enum binary, string, type   ?
-        // affects how value saved
-        // as binary, big string (> 1024 bytes) or serialized by protobuf and saved
-        //
-        //in case of binary or big string or big serialized object (> 1024 bytes) 
-        // serialized in separate files
-        //
-        //
-
-        //public byte[] SerializedValue;
-
-        //public void Set(string key, T value)
-        //{
-        //    Value = value;
-        //}
-
-        //public static byte[] ReadFully(Stream input)
-        //{
-        //    using (var ms = new MemoryStream())
-        //    {
-        //        input.CopyTo(ms);
-        //        return ms.ToArray();
-        //    }
-        //}
+        [ProtoMember(14)]
+        public bool IsInMemory { get; set; }
+        
+        public void RemoveValue()
+        {
+            Value = default(T);
+            IsInMemory = false;
+        }
     }
 }

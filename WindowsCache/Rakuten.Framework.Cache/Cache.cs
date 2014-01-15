@@ -10,12 +10,11 @@ namespace Rakuten.Framework.Cache
         private readonly IStorage _storage;
         private readonly CacheData _cacheData;
 
-        public Cache(CacheContainer container)
+        public Cache(CacheContainer container, CacheConfiguration cacheConfiguration)
         {
             _versionProvider = container.Resolve<IVersionProvider>();
             _storage = container.Resolve<IStorage>();
-            _cacheData = new CacheData(_storage, container.Resolve<ISerializer>());
-
+            _cacheData = new CacheData(_storage, container.Resolve<ISerializer>(), cacheConfiguration);
             if (DifferentVersion())
                 Clear();
         }
@@ -32,6 +31,15 @@ namespace Rakuten.Framework.Cache
         public void Clear()
         {
             _cacheData.Clean();
+        }
+
+        public Int32 GetSize(bool inMemory = false)
+        {
+            return _cacheData.GetSize(inMemory);
+        }
+        public Int32 Count(bool inMemory = false)
+        {
+            return _cacheData.Count(inMemory);
         }
 
         private bool DifferentVersion()
