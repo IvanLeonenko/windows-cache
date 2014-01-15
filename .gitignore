@@ -109,7 +109,7 @@ AppPackages/
 
 # Others
 sql/
-*.Cache
+StyleCop.Cache
 ClientBin/
 [Ss]tyle[Cc]op.*
 ~$*
@@ -169,3 +169,4 @@ node_modules
 # General
 .DS_Store
 thumbs.db
+WindowsCache/Tests/Tests/
