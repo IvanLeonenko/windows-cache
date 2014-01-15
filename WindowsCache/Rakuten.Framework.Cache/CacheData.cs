@@ -65,9 +65,10 @@ namespace Rakuten.Framework.Cache
             }
             else if (resultEntry.IsExpired)
             {
-                if (!resultEntry.IsInMemory)
-                    _storage.Remove(resultEntry.FileName);
+                //if (!resultEntry.IsInMemory)
+                _storage.Remove(resultEntry.FileName);
                 Entries.Remove(key);
+                resultEntry = null;
             }
             else
             {
@@ -75,9 +76,7 @@ namespace Rakuten.Framework.Cache
                 {
                     if (resultEntry.EntryType == EntryType.TemplateType)
                     {
-                        //using (var stream = _storage.GetStream(resultEntry.FileName))
-                        var stream = _storage.GetStream(resultEntry.FileName);
-                        resultEntry.Value = _serializer.Deserialize<T>(stream);
+                        resultEntry.Value = _serializer.Deserialize<T>(_storage.GetStream(resultEntry.FileName));
                     }
                     else if (resultEntry.EntryType == EntryType.Binary)
                     {

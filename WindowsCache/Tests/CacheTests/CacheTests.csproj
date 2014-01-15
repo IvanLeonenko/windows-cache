@@ -60,6 +60,7 @@
     <Compile Include="CacheContainerTests\Cache_container_should.cs" />
     <Compile Include="CacheContainerTests\TestSerializer.cs" />
     <Compile Include="CacheContainerTests\TestStorageWithParameter.cs" />
+    <Compile Include="CacheTests\When_cache_entry_expired.cs" />
     <Compile Include="CacheTests\When_overall_and_in_memory_size_and_quantity_limits_exceeded.cs" />
     <Compile Include="CacheTests\When_overall_and_in_memory_size_limits_exceeded.cs" />
     <Compile Include="CacheTests\When_overall_size_limit_exceeded.cs" />
