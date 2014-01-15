@@ -32,7 +32,7 @@ namespace CacheTests.CacheTests
         [TestMethod]
         public void cache_should_return_set_entries()
         {
-            Thread.Sleep(300);
+            Thread.Sleep(400);
             _cache.Get<string>("key1").Value.Should().Be("string1");
             _cache.Get<Int32>("key2").Value.Should().Be(42);
             _cache.Get<byte[]>("key3").Value.Should().BeEquivalentTo(new byte[] { 12, 32, 54 });

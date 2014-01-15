@@ -10,6 +10,7 @@ namespace Rakuten.Framework.Cache
         private readonly IVersionProvider _versionProvider;
         private readonly IStorage _storage;
         private readonly CacheData _cacheData;
+        public static string VersionEntryName = "cache.version";
 
         public Cache(CacheContainer container, CacheConfiguration cacheConfiguration)
         {
@@ -41,12 +42,12 @@ namespace Rakuten.Framework.Cache
 
         public void Clear()
         {
-            _cacheData.Clean();
+            _cacheData.Clear();
         }
 
-        public Int32 GetSize(bool inMemory = false)
+        public Int32 Size(bool inMemory = false)
         {
-            return _cacheData.GetSize(inMemory);
+            return _cacheData.Size(inMemory);
         }
         public Int32 Count(bool inMemory = false)
         {
@@ -56,11 +57,10 @@ namespace Rakuten.Framework.Cache
         private bool DifferentVersion()
         {
             var version = _versionProvider.GetVersion();
-            const string versionFileName = "cache.version";
             Version cacheVersion;
-            if (!Version.TryParse(_storage.GetString(versionFileName), out cacheVersion))
+            if (!Version.TryParse(_storage.GetString(VersionEntryName), out cacheVersion))
                 cacheVersion = new Version(0, 0);
-            _storage.Write(versionFileName, version.ToString());
+            _storage.Write(VersionEntryName, version.ToString());
             return version != cacheVersion;
         }
     }

@@ -55,13 +55,13 @@ namespace CacheTests.CacheTests
         [TestMethod]
         public void cache_should_have_in_memory_size_684_bytes()
         {
-            _cache.GetSize(true).Should().Be(684);
+            _cache.Size(true).Should().Be(684);
         }
 
         [TestMethod]
         public void cache_should_have_size_836_bytes()
         {
-            _cache.GetSize().Should().Be(836);
+            _cache.Size().Should().Be(836);
         }
 
         [TestMethod]

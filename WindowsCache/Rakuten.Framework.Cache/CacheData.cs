@@ -27,8 +27,6 @@ namespace Rakuten.Framework.Cache
 
         public void Set<T>(string key, T value, TimeSpan? timeToLive = null)
         {
-            CheckType(typeof(T));
-            
             var currentTime = DateTime.UtcNow;
 
             var createdTime = currentTime;
@@ -55,8 +53,6 @@ namespace Rakuten.Framework.Cache
         
         public CacheEntry<T> Get<T>(string key)
         {
-            CheckType(typeof(T));
-
             var resultEntry = Entries.ContainsKey(key) ? Entries[key] as CacheEntry<T> : null;
 
             if (resultEntry == null)
@@ -113,16 +109,13 @@ namespace Rakuten.Framework.Cache
             return resultEntry;
         }
 
-        public void Clean()
+        public void Clear()
         {
-            _storage.Remove(CacheName);
-        }
+            foreach (var cacheEntry in Entries)
+                _storage.Remove(cacheEntry.Value.FileName);
 
-        private void CheckType(Type type)
-        {
-            //todo: do not throw, write to log, return null
-            if (!_serializer.CanSerialize(type))
-                throw new Exception("Cannot process provided Type. Please register it or provide proto attributes.");
+            Entries.Clear();
+            _storage.Remove(CacheName);
         }
 
         private void SetSizeAndType<T>(CacheEntry<T> cacheEntry, T value)
@@ -169,7 +162,7 @@ namespace Rakuten.Framework.Cache
 
         private void RemoveOnReachingSizeLimit(int cacheEntrySize, int maxCacheSize, bool inMemory = false)
         {
-            var neededCapacity = GetSize(inMemory) + cacheEntrySize;
+            var neededCapacity = Size(inMemory) + cacheEntrySize;
 
             if (neededCapacity > maxCacheSize)
             {
@@ -221,7 +214,7 @@ namespace Rakuten.Framework.Cache
             }
         }
 
-        public Int32 GetSize(bool inMemory)
+        public Int32 Size(bool inMemory)
         {
             return inMemory ? Entries.Where(x => x.Value.IsInMemory).Sum(x => x.Value.Size) : Entries.Sum(x => x.Value.Size);
         }

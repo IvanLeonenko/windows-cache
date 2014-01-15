@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 namespace Rakuten.Framework.Cache
 {
@@ -8,5 +7,7 @@ namespace Rakuten.Framework.Cache
         CacheEntry<T> Get<T>(string key);
 
         void Set<T>(string key, T value, TimeSpan? timeToLive = null);
+
+        void Clear();
     }
 }
