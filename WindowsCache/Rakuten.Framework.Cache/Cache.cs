@@ -5,7 +5,7 @@ using Rakuten.Framework.Cache.Storage;
 
 namespace Rakuten.Framework.Cache
 {
-    public class Cache
+    public class Cache : ICache
     {
         private readonly IVersionProvider _versionProvider;
         private readonly IStorage _storage;
@@ -34,7 +34,7 @@ namespace Rakuten.Framework.Cache
             return await Task.Run(() => Get<T>(key));
         }
 
-        public async void SetAsync<T>(string key, T value)
+        public async Task SetAsync<T>(string key, T value)
         {
             await Task.Run(() => Set(key, value));
         }
