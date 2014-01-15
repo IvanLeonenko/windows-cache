@@ -9,5 +9,7 @@ namespace Rakuten.Framework.Cache
         void Set<T>(string key, T value, TimeSpan? timeToLive = null);
 
         void Clear();
+
+        Int32 Size(bool inMemory = false);
     }
 }

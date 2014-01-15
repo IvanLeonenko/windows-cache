@@ -60,6 +60,7 @@
     <Compile Include="CacheContainerTests\Cache_container_should.cs" />
     <Compile Include="CacheContainerTests\TestSerializer.cs" />
     <Compile Include="CacheContainerTests\TestStorageWithParameter.cs" />
+    <Compile Include="CacheTests\When_cache_entry_added.cs" />
     <Compile Include="CacheTests\When_cache_cleared.cs" />
     <Compile Include="CacheTests\When_cache_set_with_async_method.cs" />
     <Compile Include="CacheTests\When_cache_entry_expired.cs" />
