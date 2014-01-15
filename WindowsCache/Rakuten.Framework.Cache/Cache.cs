@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Rakuten.Framework.Cache.ProtoBuf;
 using Rakuten.Framework.Cache.Storage;
 
@@ -26,6 +27,16 @@ namespace Rakuten.Framework.Cache
         public CacheEntry<T> Get<T>(string key)
         {
             return _cacheData.Get<T>(key);
+        }
+
+        public async Task<CacheEntry<T>> GetAsync<T>(string key)
+        {
+            return await Task.Run(() => Get<T>(key));
+        }
+
+        public async void SetAsync<T>(string key, T value)
+        {
+            await Task.Run(() => Set(key, value));
         }
 
         public void Clear()
