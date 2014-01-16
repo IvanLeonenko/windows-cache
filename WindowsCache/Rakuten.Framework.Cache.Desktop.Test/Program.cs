@@ -78,7 +78,7 @@ namespace Rakuten.Framework.Cache.Desktop.Test
             cacheContainer.Register<IStorage, DesktopStorage>().WithValue("cacheName", "def1");
             var types = new List<Type>() { typeof(SomeData4), typeof(SomeData2), typeof(SomeData3) };
             cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", types);
-            var cacheConfiguration = new CacheConfiguration(1024, 5, 1024, 5, 1024);
+            var cacheConfiguration = new CacheConfiguration(1024, 5, 1024, 5);
             var cache = new Cache(cacheContainer, cacheConfiguration);
 
             //cache.RegisterType(typeof(SomeData2));

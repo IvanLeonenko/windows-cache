@@ -15,7 +15,7 @@ namespace Rakuten.Framework.Cache
         public Cache(CacheContainer container, CacheConfiguration cacheConfiguration)
         {
             _versionProvider = container.Resolve<IVersionProvider>();
-            _storage = container.Resolve<IStorage>();
+            _storage = new InMemoryStorageProxy(container.Resolve<IStorage>(), cacheConfiguration.InMemoryOnly);
             _cacheData = new CacheData(_storage, container.Resolve<ISerializer>(), cacheConfiguration);
             if (DifferentVersion())
                 Clear();
@@ -60,8 +60,9 @@ namespace Rakuten.Framework.Cache
             Version cacheVersion;
             if (!Version.TryParse(_storage.GetString(VersionEntryName), out cacheVersion))
                 cacheVersion = new Version(0, 0);
+            var result = version != cacheVersion;
             _storage.Write(VersionEntryName, version.ToString());
-            return version != cacheVersion;
+            return result;
         }
     }
 }
