@@ -41,7 +41,7 @@ namespace CacheTests.CacheTests
         [TestMethod]
         public void cache_should_return_set_entries_with_async_get()
         {
-            Thread.Sleep(100);
+            Thread.Sleep(300);
             _cache.GetAsync<string>("key1").Result.Value.Should().Be("string1");
             _cache.GetAsync<Int32>("key2").Result.Value.Should().Be(42);
             _cache.GetAsync<byte[]>("key3").Result.Value.Should().BeEquivalentTo(new byte[] { 12, 32, 54 });
