@@ -47,8 +47,11 @@ namespace Rakuten.Framework.Cache
             
             Entries[key] = cacheEntry;
 
-            var entriesStream = _serializer.Serialize(Entries);
-            _storage.Write(CacheName, entriesStream);
+            if (!_cacheConfiguration.InMemoryOnly)
+            {
+                var entriesStream = _serializer.Serialize(Entries);
+                _storage.Write(CacheName, entriesStream);
+            }
         }
         
         public CacheEntry<T> Get<T>(string key)
@@ -61,14 +64,13 @@ namespace Rakuten.Framework.Cache
             }
             else if (resultEntry.IsExpired)
             {
-                //if (!resultEntry.IsInMemory)
                 _storage.Remove(resultEntry.FileName);
                 Entries.Remove(key);
                 resultEntry = null;
             }
             else
             {
-                if (!resultEntry.IsInMemory)
+                if (!_cacheConfiguration.InMemoryOnly && !resultEntry.IsInMemory)
                 {
                     if (resultEntry.EntryType == EntryType.TemplateType)
                     {
@@ -111,11 +113,14 @@ namespace Rakuten.Framework.Cache
 
         public void Clear()
         {
-            foreach (var cacheEntry in Entries)
-                _storage.Remove(cacheEntry.Value.FileName);
+            if (!_cacheConfiguration.InMemoryOnly)
+            {
+                foreach (var cacheEntry in Entries)
+                    _storage.Remove(cacheEntry.Value.FileName);
+                _storage.Remove(CacheName);
+            }
 
             Entries.Clear();
-            _storage.Remove(CacheName);
         }
 
         private void SetSizeAndType<T>(CacheEntry<T> cacheEntry, T value)

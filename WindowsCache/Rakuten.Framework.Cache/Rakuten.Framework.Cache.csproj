@@ -49,6 +49,7 @@
     <Compile Include="ProtoBuf\ISerializer.cs" />
     <Compile Include="ProtoBuf\ProtoBufMappings.cs" />
     <Compile Include="ProtoBuf\ProtoBufSerializer.cs" />
+    <Compile Include="Storage\InMemoryStorageProxy.cs" />
     <Compile Include="Storage\IStorage.cs" />
   </ItemGroup>
   <ItemGroup>
