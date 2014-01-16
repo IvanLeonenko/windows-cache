@@ -39,7 +39,6 @@
     <Compile Include="CacheConfiguration.cs" />
     <Compile Include="CacheData.cs" />
     <Compile Include="CacheEntry.cs" />
-    <Compile Include="CacheManager.cs" />
     <Compile Include="CacheContainer.cs" />
     <Compile Include="ICache.cs" />
     <Compile Include="ILogger.cs" />

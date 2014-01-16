@@ -24,7 +24,7 @@ namespace CacheTests.CacheTests
             cacheContainer.Register<IStorage, TestStorage>();
             cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", null);
 
-            var cacheConfiguration = new CacheConfiguration(900, 6, 800, 5, 2048);
+            var cacheConfiguration = new CacheConfiguration(900, 6, 800, 5);
 
             _cache = new Cache(cacheContainer, cacheConfiguration);
             _cache.Set("stringKey1", "stringValue1");

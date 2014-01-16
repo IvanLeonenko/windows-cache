@@ -13,7 +13,7 @@ namespace CacheTests.VersionTests
         [TestMethod]
         public void should_erase_cache_if_versions_differ()
         {
-            var cacheConfiguration = new CacheConfiguration(1024, 5, 1024, 5, 1024);
+            var cacheConfiguration = new CacheConfiguration(1024, 5, 1024, 5);
 
             var cacheContainer = InitializeCacheContainer();
             var storage = (TestStorage)cacheContainer.Resolve<IStorage>();
@@ -35,7 +35,7 @@ namespace CacheTests.VersionTests
         [TestMethod]
         public void should_keep_cache_if_versions_same()
         {
-            var cacheConfiguration = new CacheConfiguration(1024, 5, 1024, 5, 1024);
+            var cacheConfiguration = new CacheConfiguration(1024, 5, 1024, 5);
 
             var cacheContainer = InitializeCacheContainer();
             var storage = (TestStorage)cacheContainer.Resolve<IStorage>();

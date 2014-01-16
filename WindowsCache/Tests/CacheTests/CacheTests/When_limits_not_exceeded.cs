@@ -22,7 +22,7 @@ namespace CacheTests.CacheTests
             cacheContainer.Register<IStorage, TestStorage>();
             cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", null);
 
-            var cacheConfiguration = new CacheConfiguration(2048, 6, 1024, 6, 2048);
+            var cacheConfiguration = new CacheConfiguration(2048, 6, 1024, 6);
 
             _cache = new Cache(cacheContainer, cacheConfiguration);
             
