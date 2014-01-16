@@ -21,13 +21,14 @@ namespace CacheTests.VersionTests
             var cache = new Cache(_cacheContainer, cacheConfiguration);
 
             //when at least one value set cache is written
-            cache.Set("some_entry", "some cache");
+            cache.Set("some_entry", 42);
 
             //cache will be cleanued up if versions in storage and executing assembly differ
             _cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version(6, 1));
             new Cache(_cacheContainer, cacheConfiguration);
             
             _storage.KeyToStreams.Should().BeEmpty();
+            cache.Get<Int32>("some_entry").Should().BeNull();
         }
 
         [TestMethod]
@@ -41,13 +42,14 @@ namespace CacheTests.VersionTests
             var cache = new Cache(_cacheContainer, cacheConfiguration);
             
             //when at least one value set cache is written
-            cache.Set("some_entry", "some cache");
+            cache.Set("some_entry", 42);
 
             //cache should not be cleanued up if versions in storage and executing assembly differ
             _cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version(1, 1));
             new Cache(_cacheContainer, cacheConfiguration);
 
             _storage.KeyToStreams.Should().NotBeEmpty();
+            cache.Get<Int32>("some_entry").Value.Should().Be(42);
         }
 
         private CacheContainer _cacheContainer;
