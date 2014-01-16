@@ -11,23 +11,24 @@ namespace CacheTests.VersionTests
     public class When_version_is_stored_in_cache
     {
         [TestMethod]
-        public void should_erase_cache_on_if_versions_differ()
+        public void should_erase_cache_if_versions_differ()
         {
             var cacheConfiguration = new CacheConfiguration(1024, 5, 1024, 5, 1024);
 
-            InitializeCacheContainer();
-            _cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version(1, 1));
-
-            var cache = new Cache(_cacheContainer, cacheConfiguration);
+            var cacheContainer = InitializeCacheContainer();
+            var storage = (TestStorage)cacheContainer.Resolve<IStorage>();
+            cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version(1, 1));
+            
+            var cache = new Cache(cacheContainer, cacheConfiguration);
 
             //when at least one value set cache is written
-            cache.Set("some_entry", 42);
+            cache.Set("some_entry", 41);
 
             //cache will be cleanued up if versions in storage and executing assembly differ
-            _cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version(6, 1));
-            new Cache(_cacheContainer, cacheConfiguration);
-            
-            _storage.KeyToStreams.Should().BeEmpty();
+            cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version(6, 1));
+            cache = new Cache(cacheContainer, cacheConfiguration);
+
+            storage.KeyToStreams.Should().BeEmpty();
             cache.Get<Int32>("some_entry").Should().BeNull();
         }
 
@@ -36,32 +37,30 @@ namespace CacheTests.VersionTests
         {
             var cacheConfiguration = new CacheConfiguration(1024, 5, 1024, 5, 1024);
 
-            InitializeCacheContainer();
-            _cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version(1, 1));
+            var cacheContainer = InitializeCacheContainer();
+            var storage = (TestStorage)cacheContainer.Resolve<IStorage>();
 
-            var cache = new Cache(_cacheContainer, cacheConfiguration);
+            cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version(1, 1));
+            
+            var cache = new Cache(cacheContainer, cacheConfiguration);
             
             //when at least one value set cache is written
             cache.Set("some_entry", 42);
 
             //cache should not be cleanued up if versions in storage and executing assembly differ
-            _cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version(1, 1));
-            new Cache(_cacheContainer, cacheConfiguration);
+            cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version(1, 1));
+            cache = new Cache(cacheContainer, cacheConfiguration);
 
-            _storage.KeyToStreams.Should().NotBeEmpty();
+            storage.KeyToStreams.Should().NotBeEmpty();
             cache.Get<Int32>("some_entry").Value.Should().Be(42);
         }
 
-        private CacheContainer _cacheContainer;
-        private TestStorage _storage;
-
-        private CacheContainer InitializeCacheContainer()
+        private static CacheContainer InitializeCacheContainer()
         {
-            _cacheContainer = new CacheContainer();
-            _cacheContainer.Register<IStorage, TestStorage>().AsSingleton();
-            _storage = (TestStorage)_cacheContainer.Resolve<IStorage>();
-            _cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", null);
-            return _cacheContainer;
+            var cacheContainer = new CacheContainer();
+            cacheContainer.Register<IStorage, TestStorage>().AsSingleton();
+            cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", null);
+            return cacheContainer;
         }
     }
 }
