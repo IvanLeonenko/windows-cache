@@ -20,6 +20,7 @@ namespace Rakuten.Framework.Cache.Desktop
         public override CacheContainer GetDefaultCacheContainer(IEnumerable<Type> userTypes, string cacheName)
         {
             var cacheContainer = new CacheContainer();
+            cacheContainer.Register<ILogger, NLogCacheLogger>().WithValue("name", "CacheLogger");
             cacheContainer.Register<IVersionProvider, EntryAssemblyVersionProvider>();
             cacheContainer.Register<IStorage, DesktopStorage>().WithValue("cacheName", cacheName);
             cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", userTypes);

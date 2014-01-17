@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using NLog;
+using ProtoBuf;
 using System;
 using System.Collections.Generic;
 
@@ -74,6 +75,7 @@ namespace Rakuten.Framework.Cache.Desktop.Test
             cache.Set("SomeProto4", someData4);
 
             var sd2 = cache.Get<SomeData2>("SomeProto");
+            
             
             Console.WriteLine("Done. Press any key");
             

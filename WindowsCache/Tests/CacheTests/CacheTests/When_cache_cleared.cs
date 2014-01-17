@@ -17,6 +17,7 @@ namespace CacheTests.CacheTests
         public void Initialize()
         {
             _cacheContainer = new CacheContainer();
+            _cacheContainer.Register<ILogger, TestLogger>();
             _cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version("1.0"));
             _cacheContainer.Register<IStorage, TestStorage>().AsSingleton();
             _cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", null);

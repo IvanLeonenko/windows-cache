@@ -7,6 +7,7 @@ namespace Rakuten.Framework.Cache
 {
     public class Cache : ICache
     {
+        private readonly ILogger _logger;
         private readonly IVersionProvider _versionProvider;
         private readonly IStorage _storage;
         private readonly CacheData _cacheData;
@@ -15,8 +16,9 @@ namespace Rakuten.Framework.Cache
         public Cache(CacheContainer container, CacheConfiguration cacheConfiguration)
         {
             _versionProvider = container.Resolve<IVersionProvider>();
+            _logger = container.Resolve<ILogger>();
             _storage = new InMemoryStorageProxy(container.Resolve<IStorage>(), cacheConfiguration.InMemoryOnly);
-            _cacheData = new CacheData(_storage, container.Resolve<ISerializer>(), cacheConfiguration);
+            _cacheData = new CacheData(_storage, container.Resolve<ISerializer>(), cacheConfiguration, _logger);
             if (DifferentVersion())
                 Clear();
         }

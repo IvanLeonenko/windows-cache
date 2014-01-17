@@ -73,6 +73,7 @@
     <Compile Include="CacheTests\When_limits_not_exceeded.cs" />
     <Compile Include="StorageTests\When_storage_has_not_in_memory_only_flag_set.cs" />
     <Compile Include="StorageTests\When_storage_has_in_memory_only_flag_set.cs" />
+    <Compile Include="TestLogger.cs" />
     <Compile Include="TestStorage.cs" />
     <Compile Include="VersionTests\TestVersionProvider.cs" />
     <Compile Include="VersionTests\When_no_version_is_stored_after_cache_create.cs" />

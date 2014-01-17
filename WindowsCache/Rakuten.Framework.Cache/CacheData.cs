@@ -14,12 +14,14 @@ namespace Rakuten.Framework.Cache
         private const string CacheName = "cache.protobuf";
         private readonly ISerializer _serializer;
         private readonly IStorage _storage;
+        private readonly ILogger _logger;
         private readonly Dictionary<string, ICacheEntry> _entries;
         private readonly CacheConfiguration _cacheConfiguration;
         private readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
 
-        public CacheData(IStorage storage, ISerializer serializer, CacheConfiguration cacheConfiguration)
+        public CacheData(IStorage storage, ISerializer serializer, CacheConfiguration cacheConfiguration, ILogger logger)
         {
+            _logger = logger;
             _cacheConfiguration = cacheConfiguration;
             _serializer = serializer;
             _storage = storage;
@@ -31,6 +33,7 @@ namespace Rakuten.Framework.Cache
             InMemorySize = _entries.Where(x=>x.Value.IsInMemory).Sum(x => x.Value.Size);
             Count = _entries.Count;
             InMemorySize = _entries.Count(x => x.Value.IsInMemory);
+            _logger.Info("Cache data initialized.");
         }
 
         public void Set<T>(string key, T value, TimeSpan? timeToLive = null)
@@ -163,6 +166,7 @@ namespace Rakuten.Framework.Cache
             }
             finally { _lock.ExitWriteLock(); }
             
+            _logger.Info("Cache data cleared.");
         }
 
         private void SetSizeAndType<T>(CacheEntry<T> cacheEntry, T value)
