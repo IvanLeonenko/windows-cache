@@ -10,8 +10,12 @@ namespace Rakuten.Framework.Cache
 
         void Clear();
 
-        Int32 Size(bool inMemory = false);
+        Int32 Size { get; }
 
-        Int32 Count(bool inMemory = false);
+        Int32 Count { get; }
+
+        Int32 InMemorySize { get; }
+
+        Int32 InMemoryCount { get; }
     }
 }

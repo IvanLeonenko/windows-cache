@@ -45,14 +45,10 @@ namespace Rakuten.Framework.Cache
             _cacheData.Clear();
         }
 
-        public Int32 Size(bool inMemory = false)
-        {
-            return _cacheData.Size(inMemory);
-        }
-        public Int32 Count(bool inMemory = false)
-        {
-            return _cacheData.Count(inMemory);
-        }
+        public Int32 Size { get { return _cacheData.Size; } }
+        public Int32 Count { get { return _cacheData.Count; } }
+        public Int32 InMemorySize { get { return _cacheData.InMemorySize; } }
+        public Int32 InMemoryCount { get { return _cacheData.InMemoryCount; } }
 
         private bool DifferentVersion()
         {

@@ -33,11 +33,11 @@ namespace CacheTests.CacheTests
             _cache.Set("key1", "string1");
             _cache.Set("key2", 42);
             _cache.Set("key3", new byte[] { 12, 23, 34 });
-            _cache.Size().Should().BeGreaterThan(0);
-            _cache.Count().Should().BeGreaterThan(0);
+            _cache.Size.Should().BeGreaterThan(0);
+            _cache.Count.Should().BeGreaterThan(0);
             _cache.Clear();
-            _cache.Size().Should().Be(0);
-            _cache.Count().Should().Be(0);
+            _cache.Size.Should().Be(0);
+            _cache.Count.Should().Be(0);
         }
 
         [TestMethod]
@@ -46,11 +46,11 @@ namespace CacheTests.CacheTests
             _cache.Set("key1", "string1");
             _cache.Set("key2", 42);
             _cache.Set("key3", new byte[] { 12, 23, 34 });
-            _cache.Size().Should().BeGreaterThan(0);
-            _cache.Count().Should().BeGreaterThan(0);
+            _cache.Size.Should().BeGreaterThan(0);
+            _cache.Count.Should().BeGreaterThan(0);
             _cache.Clear();
-            _cache.Size().Should().Be(0);
-            _cache.Count().Should().Be(0);
+            _cache.Size.Should().Be(0);
+            _cache.Count.Should().Be(0);
 
             var testStorage = (TestStorage)_cacheContainer.Resolve<IStorage>();
 

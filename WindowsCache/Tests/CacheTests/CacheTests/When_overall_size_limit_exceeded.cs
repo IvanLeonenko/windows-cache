@@ -50,25 +50,25 @@ namespace CacheTests.CacheTests
         [TestMethod]
         public void cache_should_have_in_memory_size_434_bytes()
         {
-            _cache.Size(true).Should().Be(434);
+            _cache.InMemorySize.Should().Be(434);
         }
 
         [TestMethod]
         public void cache_should_have_size_434_bytes()
         {
-            _cache.Size().Should().Be(434);
+            _cache.Size.Should().Be(434);
         }
 
         [TestMethod]
         public void in_memory_cache_entries_quantity_should_be_3()
         {
-            _cache.Count(true).Should().Be(3);
+            _cache.InMemoryCount.Should().Be(3);
         }
 
         [TestMethod]
         public void cache_entries_quantity_should_be_3()
         {
-            _cache.Count().Should().Be(3);
+            _cache.Count.Should().Be(3);
         }
     }
 }
