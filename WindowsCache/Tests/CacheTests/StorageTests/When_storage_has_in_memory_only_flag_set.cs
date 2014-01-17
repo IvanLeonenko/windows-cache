@@ -29,7 +29,7 @@ namespace CacheTests.StorageTests
         {
             _storageProxy.GetString("string").Should().BeNull();
             _storageProxy.GetBytes("byte[]").Should().BeNull();
-            _storageProxy.GetStream("stream").Should().BeNull();
+            _storageProxy.GetStream("stream").Result.Should().BeNull();
         }
 
         [TestMethod]
@@ -41,7 +41,7 @@ namespace CacheTests.StorageTests
 
             _storageProxy.GetString("string").Should().BeNull();
             _storageProxy.GetBytes("byte[]").Should().BeNull();
-            _storageProxy.GetStream("stream").Should().BeNull();
+            _storageProxy.GetStream("stream").Result.Should().BeNull();
         }
     }
 }

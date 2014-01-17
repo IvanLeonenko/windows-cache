@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Rakuten.Framework.Cache.Storage;
 
 namespace CacheTests
@@ -11,7 +12,7 @@ namespace CacheTests
         public Dictionary<string, String> KeyToStrings = new Dictionary<string, string>();
         public Dictionary<string, byte[]> KeyToBytes = new Dictionary<string, byte[]>();
 
-        public Stream GetStream(string key)
+        public async Task<Stream> GetStream(string key)
         {
             return KeyToStreams.ContainsKey(key) ? KeyToStreams[key] : null;
         }

@@ -38,7 +38,7 @@ namespace Rakuten.Framework.Cache.WindowsStore.Test
 
             Stream str = new MemoryStream(new byte[] { 67,78,89 });
             await storeStorage.WriteAsync("test1", str);
-            var test1 = await storeStorage.ReadStreamAsync("test1");
+            var test1 = await storeStorage.GetStream("test1");
 
             await storeStorage.RemoveAsync("test3");
         }

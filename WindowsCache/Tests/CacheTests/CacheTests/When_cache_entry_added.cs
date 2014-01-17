@@ -32,9 +32,9 @@ namespace CacheTests.CacheTests
         [TestMethod]
         public void it_should_be_available()
         {
-            _cache.Get<string>("key1").Value.Should().Be("stringValue");
-            _cache.Get<Int32>("key2").Value.Should().Be(42);
-            _cache.Get<byte[]>("key3").Value.Should().BeEquivalentTo(new byte[] { 12, 23, 34 });
+            _cache.Get<string>("key1").Result.Value.Should().Be("stringValue");
+            _cache.Get<Int32>("key2").Result.Value.Should().Be(42);
+            _cache.Get<byte[]>("key3").Result.Value.Should().BeEquivalentTo(new byte[] { 12, 23, 34 });
         }
 
         [TestMethod]
@@ -44,9 +44,9 @@ namespace CacheTests.CacheTests
             _cache.Set("key2", 142);
             _cache.Set("key3", new byte[] { 56,67,78 });
 
-            _cache.Get<string>("key1").Value.Should().Be("otherStringValue");
-            _cache.Get<Int32>("key2").Value.Should().Be(142);
-            _cache.Get<byte[]>("key3").Value.Should().BeEquivalentTo(new byte[] { 56, 67, 78 });
+            _cache.Get<string>("key1").Result.Value.Should().Be("otherStringValue");
+            _cache.Get<Int32>("key2").Result.Value.Should().Be(142);
+            _cache.Get<byte[]>("key3").Result.Value.Should().BeEquivalentTo(new byte[] { 56, 67, 78 });
         }
     }
 }

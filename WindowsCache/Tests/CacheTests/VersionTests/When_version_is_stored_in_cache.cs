@@ -29,7 +29,7 @@ namespace CacheTests.VersionTests
             cache = new Cache(cacheContainer, cacheConfiguration);
 
             storage.KeyToStreams.Should().BeEmpty();
-            cache.Get<Int32>("some_entry").Should().BeNull();
+            cache.Get<Int32>("some_entry").Result.Should().BeNull();
         }
 
         [TestMethod]
@@ -52,7 +52,7 @@ namespace CacheTests.VersionTests
             cache = new Cache(cacheContainer, cacheConfiguration);
 
             storage.KeyToStreams.Should().NotBeEmpty();
-            cache.Get<Int32>("some_entry").Value.Should().Be(42);
+            cache.Get<Int32>("some_entry").Result.Value.Should().Be(42);
         }
 
         private static CacheContainer InitializeCacheContainer()

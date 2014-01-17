@@ -1,11 +1,12 @@
-﻿using Rakuten.Framework.Cache.Storage;
+﻿using System.Threading.Tasks;
+using Rakuten.Framework.Cache.Storage;
 using System.IO;
 
 namespace SerializationTests
 {
     class DummyStorage : IStorage
     {
-        public Stream GetStream(string key)
+        public async Task<Stream> GetStream(string key)
         {
             return null;
         }

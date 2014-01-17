@@ -40,14 +40,14 @@ namespace CacheTests.CacheTests
         [TestMethod]
         public void cache_should_return_only_most_recent_values_above_the_limit()
         {
-            _cache.Get<string>("stringKey1").Should().BeNull();
+            _cache.Get<string>("stringKey1").Result.Should().BeNull();
 
-            _cache.Get<string>("stringKey2").Value.Should().Be("stringValue2");
-            _cache.Get<string>("stringKey3").Value.Should().Be("stringValue3");
-            _cache.Get<byte[]>("someBytes").Value.Should().BeEquivalentTo(new byte[] { 12, 32, 43 });
-            _cache.Get<int>("Int32Key1").Value.Should().Be(1);
-            _cache.Get<DateTime>("dateTimeKey1").Value.Should().Be(_dateTime);
-            _cache.Get<bool>("boolKey").Value.Should().Be(true);
+            _cache.Get<string>("stringKey2").Result.Value.Should().Be("stringValue2");
+            _cache.Get<string>("stringKey3").Result.Value.Should().Be("stringValue3");
+            _cache.Get<byte[]>("someBytes").Result.Value.Should().BeEquivalentTo(new byte[] { 12, 32, 43 });
+            _cache.Get<int>("Int32Key1").Result.Value.Should().Be(1);
+            _cache.Get<DateTime>("dateTimeKey1").Result.Value.Should().Be(_dateTime);
+            _cache.Get<bool>("boolKey").Result.Value.Should().Be(true);
         }
 
         [TestMethod]

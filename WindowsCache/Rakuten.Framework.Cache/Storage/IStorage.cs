@@ -1,11 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Rakuten.Framework.Cache.Storage
 {
     public interface IStorage
     {
-        Stream GetStream(string key);
+        Task<Stream> GetStream(string key);
         String GetString(string key);
         byte[] GetBytes(string key);
         

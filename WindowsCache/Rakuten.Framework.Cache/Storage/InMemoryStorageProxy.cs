@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 
 namespace Rakuten.Framework.Cache.Storage
 {
@@ -13,9 +14,9 @@ namespace Rakuten.Framework.Cache.Storage
             _inMemory = inMemory;
         }
 
-        public Stream GetStream(string key)
+        public async Task<Stream> GetStream(string key)
         {
-            return _inMemory ? null : _storage.GetStream(key);
+            return _inMemory ? null : await _storage.GetStream(key);
         }
 
         public string GetString(string key)

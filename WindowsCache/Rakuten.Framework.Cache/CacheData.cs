@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using Rakuten.Framework.Cache.ProtoBuf;
 using Rakuten.Framework.Cache.Storage;
 using System;
@@ -15,7 +16,7 @@ namespace Rakuten.Framework.Cache
         private readonly ISerializer _serializer;
         private readonly IStorage _storage;
         private readonly ILogger _logger;
-        private readonly Dictionary<string, ICacheEntry> _entries;
+        private Dictionary<string, ICacheEntry> _entries;
         private readonly CacheConfiguration _cacheConfiguration;
         private readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
 
@@ -25,12 +26,16 @@ namespace Rakuten.Framework.Cache
             _cacheConfiguration = cacheConfiguration;
             _serializer = serializer;
             _storage = storage;
-            var stream = _storage.GetStream(CacheName);
+        }
+
+        public async void RestoreState()
+        {
+            var stream = await _storage.GetStream(CacheName);
 
             _entries = (stream == null) ? new Dictionary<string, ICacheEntry>() : _serializer.Deserialize<Dictionary<string, ICacheEntry>>(stream);
-            
+
             Size = _entries.Sum(x => x.Value.Size);
-            InMemorySize = _entries.Where(x=>x.Value.IsInMemory).Sum(x => x.Value.Size);
+            InMemorySize = _entries.Where(x => x.Value.IsInMemory).Sum(x => x.Value.Size);
             Count = _entries.Count;
             InMemorySize = _entries.Count(x => x.Value.IsInMemory);
             _logger.Info("Cache data initialized.");
@@ -76,7 +81,7 @@ namespace Rakuten.Framework.Cache
             }
         }
 
-        public CacheEntry<T> Get<T>(string key)
+        public async Task<CacheEntry<T>> Get<T>(string key)
         {
             CacheEntry<T> resultEntry = null;
 
@@ -103,7 +108,7 @@ namespace Rakuten.Framework.Cache
                 {
                     if (resultEntry.EntryType == EntryType.TemplateType)
                     {
-                        resultEntry.Value = _serializer.Deserialize<T>(_storage.GetStream(resultEntry.FileName));
+                        resultEntry.Value = _serializer.Deserialize<T>(await _storage.GetStream(resultEntry.FileName));
                     }
                     else if (resultEntry.EntryType == EntryType.Binary)
                     {

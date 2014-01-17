@@ -19,6 +19,7 @@ namespace Rakuten.Framework.Cache
             _logger = container.Resolve<ILogger>();
             _storage = new InMemoryStorageProxy(container.Resolve<IStorage>(), cacheConfiguration.InMemoryOnly);
             _cacheData = new CacheData(_storage, container.Resolve<ISerializer>(), cacheConfiguration, _logger);
+            _cacheData.RestoreState();
             if (DifferentVersion())
                 Clear();
         }
@@ -27,9 +28,9 @@ namespace Rakuten.Framework.Cache
             _cacheData.Set(key, value, timeToLive);
         }
 
-        public CacheEntry<T> Get<T>(string key)
+        public async Task<CacheEntry<T>> Get<T>(string key)
         {
-            return _cacheData.Get<T>(key);
+            return await _cacheData.Get<T>(key);
         }
 
         public async Task<CacheEntry<T>> GetAsync<T>(string key)

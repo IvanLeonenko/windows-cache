@@ -32,7 +32,7 @@ namespace CacheTests.CacheTests
         [TestMethod]
         public void cache_should_return_null_for_this_entry()
         {
-            _cache.Get<string>("key1").Should().BeNull();
+            _cache.Get<string>("key1").Result.Should().BeNull();
         }
     }
 }

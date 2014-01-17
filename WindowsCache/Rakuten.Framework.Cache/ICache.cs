@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Rakuten.Framework.Cache
 {
     public interface ICache
     {
-        CacheEntry<T> Get<T>(string key);
+        Task<CacheEntry<T>> Get<T>(string key);
 
         void Set<T>(string key, T value, TimeSpan? timeToLive = null);
 

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using ProtoBuf;
 using ProtoBuf.Meta;
 using System;
@@ -138,9 +139,9 @@ namespace Rakuten.Framework.Cache.ProtoBuf
             SaveMappings();
         }
 
-        private void RestoreMappings()
+        private async void RestoreMappings()
         {
-            using (var stream = _storage.GetStream("type.mappings.protobuf"))
+            using (var stream = await _storage.GetStream("type.mappings.protobuf"))
             {
                 if (stream != null && stream.Length > 0)
                     _protoBufMappings = Deserialize<ProtoBufMappings>(stream);

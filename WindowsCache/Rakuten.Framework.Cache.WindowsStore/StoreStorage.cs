@@ -58,7 +58,7 @@ namespace Rakuten.Framework.Cache.WindowsStore
             await file.Write(value);
         }
 
-        public async Task<Stream> ReadStreamAsync(string key)
+        public async Task<Stream> GetStream(string key)
         {
             var cacheFolder = await GetWorkingFolder();
             var file = await cacheFolder.CreateFileAsync(key, CreationCollisionOption.OpenIfExists);
@@ -72,13 +72,6 @@ namespace Rakuten.Framework.Cache.WindowsStore
             await file.DeleteAsync();
         }
 
-
-        public Stream GetStream(string key)
-        {
-            var cacheFolder = GetWorkingFolder();
-
-            throw new NotImplementedException();
-        }
 
         public string GetString(string key)
         {

@@ -48,14 +48,14 @@ namespace CacheTests.CacheTests
         [TestMethod]
         public void cache_should_return_only_most_recent_values_above_the_limit()
         {
-            _cache.Get<string>("stringKey1").Should().BeNull();
-            _cache.Get<string>("stringKey2").Should().BeNull();
-            _cache.Get<string>("stringKey3").Value.Should().Be("stringValue3");
-            _cache.Get<string>("stringKey4").Value.Should().Be("stringValue4");
-            _cache.Get<Int32>("Int32Key").Value.Should().Be(42);
-            _cache.Get<DateTime>("DateTimeKey").Value.Should().Be(_dateTime);
-            _cache.Get<float>("floatKey").Value.Should().Be(13.37f);
-            _cache.Get<decimal>("decimalKey").Value.Should().Be(13.37m);
+            _cache.Get<string>("stringKey1").Result.Should().BeNull();
+            _cache.Get<string>("stringKey2").Result.Should().BeNull();
+            _cache.Get<string>("stringKey3").Result.Value.Should().Be("stringValue3");
+            _cache.Get<string>("stringKey4").Result.Value.Should().Be("stringValue4");
+            _cache.Get<Int32>("Int32Key").Result.Value.Should().Be(42);
+            _cache.Get<DateTime>("DateTimeKey").Result.Value.Should().Be(_dateTime);
+            _cache.Get<float>("floatKey").Result.Value.Should().Be(13.37f);
+            _cache.Get<decimal>("decimalKey").Result.Value.Should().Be(13.37m);
         }
 
         [TestMethod]

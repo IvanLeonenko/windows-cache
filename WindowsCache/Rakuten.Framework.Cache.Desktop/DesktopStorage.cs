@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Rakuten.Framework.Cache.Storage;
 
 namespace Rakuten.Framework.Cache.Desktop
@@ -35,7 +36,7 @@ namespace Rakuten.Framework.Cache.Desktop
             }
         }
 
-        public Stream GetStream(string key)
+        public Stream GetStreamSync(string key)
         {
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))
@@ -51,6 +52,11 @@ namespace Rakuten.Framework.Cache.Desktop
                 stream.Position = 0;
                 return stream;
             }
+        }
+
+        public async Task<Stream> GetStream(string key)
+        {
+            return await Task.Run(() => GetStreamSync(key));
         }
 
         public byte[] GetBytes(string key)
