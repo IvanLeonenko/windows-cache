@@ -39,7 +39,7 @@ namespace Rakuten.Framework.Cache
                 }
             }
 
-            var expirationTime = currentTime + (timeToLive.HasValue ? timeToLive.Value : TimeSpan.FromDays(3));
+            var expirationTime = currentTime + (timeToLive.HasValue ? timeToLive.Value : _cacheConfiguration.DefaultTimeToLive);
             
             var cacheEntry = new CacheEntry<T> { Value = value, IsInMemory = true, CreatedTime = createdTime, ModifiedTime = currentTime, LastAccessTime = currentTime, ExpirationTime = expirationTime};
 
