@@ -30,17 +30,17 @@ namespace Rakuten.Framework.Cache.WindowsStore.Test
         public async Task DoStuff()
         {
             var storeStorage = new StoreStorage("default");
-            await storeStorage.WriteAsync("test3", "3");
-            var test3 = await storeStorage.ReadStringAsync("test3");
+            await storeStorage.Write("test3", "3");
+            var test3 = await storeStorage.GetString("test3");
 
-            await storeStorage.WriteAsync("test2", new byte[] { 12, 34, 45 });
-            var test2 = await storeStorage.ReadBytesAsync("test2");
+            await storeStorage.Write("test2", new byte[] { 12, 34, 45 });
+            var test2 = await storeStorage.GetBytes("test2");
 
             Stream str = new MemoryStream(new byte[] { 67,78,89 });
-            await storeStorage.WriteAsync("test1", str);
+            await storeStorage.Write("test1", str);
             var test1 = await storeStorage.GetStream("test1");
 
-            await storeStorage.RemoveAsync("test3");
+            await storeStorage.Remove("test3");
         }
 
         /// <summary>

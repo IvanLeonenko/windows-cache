@@ -27,9 +27,9 @@ namespace CacheTests.StorageTests
         [TestMethod]
         public void it_should_return_values_for_all_get_methods()
         {
-            _storageProxy.GetString("string").Should().Be("string");
-            _storageProxy.GetBytes("byte[]").Should().BeEquivalentTo(new byte[] { 12, 23, 34 });
-            _storageProxy.GetStream("stream").Should().NotBeNull();
+            _storageProxy.GetString("string").Result.Should().Be("string");
+            _storageProxy.GetBytes("byte[]").Result.Should().BeEquivalentTo(new byte[] { 12, 23, 34 });
+            _storageProxy.GetStream("stream").Result.Should().NotBeNull();
         }
 
         [TestMethod]
@@ -39,9 +39,9 @@ namespace CacheTests.StorageTests
             _storageProxy.Write("byte[]", new byte[] { 12, 23, 34 });
             _storageProxy.Write("stream", new MemoryStream(new byte[] { 56, 67, 78 }));
 
-            _storageProxy.GetString("string").Should().Be("string");
-            _storageProxy.GetBytes("byte[]").Should().BeEquivalentTo(new byte[] { 12, 23, 34 });
-            _storageProxy.GetStream("stream").Should().NotBeNull();
+            _storageProxy.GetString("string").Result.Should().Be("string");
+            _storageProxy.GetBytes("byte[]").Result.Should().BeEquivalentTo(new byte[] { 12, 23, 34 });
+            _storageProxy.GetStream("stream").Result.Should().NotBeNull();
         }
     }
 }

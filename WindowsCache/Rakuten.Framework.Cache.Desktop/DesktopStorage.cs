@@ -59,7 +59,11 @@ namespace Rakuten.Framework.Cache.Desktop
             return await Task.Run(() => GetStreamSync(key));
         }
 
-        public byte[] GetBytes(string key)
+        public async Task<byte[]> GetBytes(string key)
+        {
+            return await Task.Run(() => GetBytesSync(key));
+        }
+        public byte[] GetBytesSync(string key)
         {
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))
@@ -78,7 +82,11 @@ namespace Rakuten.Framework.Cache.Desktop
             }
         }
 
-        public void Write(string key, Stream value)
+        public async Task Write(string key, Stream value)
+        {
+            await Task.Run(() => WriteSync(key, value));
+        }
+        public void WriteSync(string key, Stream value)
         {
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))
@@ -96,7 +104,11 @@ namespace Rakuten.Framework.Cache.Desktop
             }
         }
 
-        public string GetString(string key)
+        public async Task<String> GetString(string key)
+        {
+            return await Task.Run(() => GetStringSync(key));
+        }
+        public string GetStringSync(string key)
         {
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))
@@ -105,7 +117,11 @@ namespace Rakuten.Framework.Cache.Desktop
             }
         }
 
-        public void Write(string key, string value)
+        public async Task Write(string key, string value)
+        {
+            await Task.Run(() => WriteSync(key, value));
+        }
+        public void WriteSync(string key, string value)
         {
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))
@@ -116,7 +132,11 @@ namespace Rakuten.Framework.Cache.Desktop
             }
         }
 
-        public void Write(string key, byte[] value)
+        public async Task Write(string key, byte[] value)
+        {
+            await Task.Run(() => WriteSync(key, value));
+        }
+        public void WriteSync(string key, byte[] value)
         {
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))
@@ -131,7 +151,11 @@ namespace Rakuten.Framework.Cache.Desktop
             }
         }
 
-        public void Remove(string key)
+        public async Task Remove(string key)
+        {
+            await Task.Run(() => RemoveSync(key));
+        }
+        public void RemoveSync(string key)
         {
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))

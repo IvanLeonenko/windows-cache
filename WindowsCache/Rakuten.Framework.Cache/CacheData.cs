@@ -41,7 +41,7 @@ namespace Rakuten.Framework.Cache
             _logger.Info("Cache data initialized.");
         }
 
-        public void Set<T>(string key, T value, TimeSpan? timeToLive = null)
+        public async Task Set<T>(string key, T value, TimeSpan? timeToLive = null)
         {
             var currentTime = DateTime.UtcNow;
             var createdTime = currentTime;
@@ -63,9 +63,9 @@ namespace Rakuten.Framework.Cache
             
             var cacheEntry = new CacheEntry<T> { Value = value, IsInMemory = true, CreatedTime = createdTime, ModifiedTime = currentTime, LastAccessTime = currentTime, ExpirationTime = expirationTime};
 
-            SetSizeAndType(cacheEntry, value);
-            
-            AddEntry(key, cacheEntry);
+            await SetSizeAndType(cacheEntry, value);
+
+            await AddEntry(key, cacheEntry);
 
             if (!_cacheConfiguration.InMemoryOnly)
             {
@@ -77,7 +77,7 @@ namespace Rakuten.Framework.Cache
                 }
                 finally { _lock.ExitReadLock(); }
 
-                _storage.Write(CacheName, entriesStream);
+                await _storage.Write(CacheName, entriesStream);
             }
         }
 
@@ -94,12 +94,12 @@ namespace Rakuten.Framework.Cache
 
             if (resultEntry == null)
             {
-                RemoveEntry(key);
+                await RemoveEntry(key);
             }
             else if (resultEntry.IsExpired)
             {
-                RemoveEntry(key);
-                _storage.Remove(resultEntry.FileName);
+                await RemoveEntry(key);
+                await _storage.Remove(resultEntry.FileName);
                 resultEntry = null;
             }
             else
@@ -112,17 +112,17 @@ namespace Rakuten.Framework.Cache
                     }
                     else if (resultEntry.EntryType == EntryType.Binary)
                     {
-                        object obj = _storage.GetBytes(resultEntry.FileName);
+                        object obj = await _storage.GetBytes(resultEntry.FileName);
                         resultEntry.Value = (T) obj;
                     }
                     else
                     {
-                        object obj = _storage.GetString(resultEntry.FileName);
+                        object obj = await _storage.GetString(resultEntry.FileName);
                         resultEntry.Value = (T) obj;
                     }
 
-                    RemoveOnReachingLimit(InMemorySize + resultEntry.Size, _cacheConfiguration.MaxInMemoryCacheDataSize, true, x => x.Size);
-                    RemoveOnReachingLimit(InMemoryCount + 1, _cacheConfiguration.MaxInMemoryCacheDataEntries, true, x => 1);
+                    await RemoveOnReachingLimit(InMemorySize + resultEntry.Size, _cacheConfiguration.MaxInMemoryCacheDataSize, true, x => x.Size);
+                    await RemoveOnReachingLimit(InMemoryCount + 1, _cacheConfiguration.MaxInMemoryCacheDataEntries, true, x => 1);
 
                     resultEntry.IsInMemory = true;
                 }
@@ -145,7 +145,7 @@ namespace Rakuten.Framework.Cache
             return resultEntry;
         }
 
-        public void Clear()
+        public async Task Clear()
         {
             if (!_cacheConfiguration.InMemoryOnly)
             {
@@ -153,8 +153,8 @@ namespace Rakuten.Framework.Cache
                 try
                 {
                     foreach (var cacheEntry in _entries)
-                        _storage.Remove(cacheEntry.Value.FileName);
-                    _storage.Remove(CacheName);
+                        await _storage.Remove(cacheEntry.Value.FileName);
+                    await _storage.Remove(CacheName);
                 }
                 finally { _lock.ExitReadLock(); }
             }
@@ -174,7 +174,7 @@ namespace Rakuten.Framework.Cache
             _logger.Info("Cache data cleared.");
         }
 
-        private void SetSizeAndType<T>(CacheEntry<T> cacheEntry, T value)
+        private async Task SetSizeAndType<T>(CacheEntry<T> cacheEntry, T value)
         {
             var stringValue = value as string;
             var bytesValue = value as byte[];
@@ -182,20 +182,20 @@ namespace Rakuten.Framework.Cache
             {
                 cacheEntry.EntryType = EntryType.String;
                 cacheEntry.Size = Convert.ToInt32(stringValue.Length) * 2 + CacheEntrySize;
-                _storage.Write(cacheEntry.FileName, stringValue);
+                await _storage.Write(cacheEntry.FileName, stringValue);
             }
             else if (bytesValue != null)
             {
                 cacheEntry.EntryType = EntryType.Binary;
                 cacheEntry.Size = Convert.ToInt32(bytesValue.Length) + CacheEntrySize;
-                _storage.Write(cacheEntry.FileName, bytesValue);
+                await _storage.Write(cacheEntry.FileName, bytesValue);
             }
             else
             {
                 using (var stream = _serializer.Serialize(value))
                 {
                     cacheEntry.Size = Convert.ToInt32(stream.Length) + CacheEntrySize;
-                    _storage.Write(cacheEntry.FileName, stream);
+                    await _storage.Write(cacheEntry.FileName, stream);
                 }
 
                 /*
@@ -208,14 +208,14 @@ namespace Rakuten.Framework.Cache
                 //}
             }
 
-            RemoveOnReachingLimit(InMemorySize + cacheEntry.Size, _cacheConfiguration.MaxInMemoryCacheDataSize, true, x => x.Size);
-            RemoveOnReachingLimit(InMemoryCount + 1, _cacheConfiguration.MaxInMemoryCacheDataEntries, true, x => 1);
+            await RemoveOnReachingLimit(InMemorySize + cacheEntry.Size, _cacheConfiguration.MaxInMemoryCacheDataSize, true, x => x.Size);
+            await RemoveOnReachingLimit(InMemoryCount + 1, _cacheConfiguration.MaxInMemoryCacheDataEntries, true, x => 1);
 
-            RemoveOnReachingLimit(Size + cacheEntry.Size, _cacheConfiguration.MaxCacheDataSize, false, x => x.Size);
-            RemoveOnReachingLimit(Count + 1, _cacheConfiguration.MaxCacheDataEntries, false, x => 1);
+            await RemoveOnReachingLimit(Size + cacheEntry.Size, _cacheConfiguration.MaxCacheDataSize, false, x => x.Size);
+            await RemoveOnReachingLimit(Count + 1, _cacheConfiguration.MaxCacheDataEntries, false, x => 1);
         }
 
-        private void RemoveOnReachingLimit(int target, int max, bool inMemory, Func<ICacheEntry, int> nextValueFunc)
+        private async Task RemoveOnReachingLimit(int target, int max, bool inMemory, Func<ICacheEntry, int> nextValueFunc)
         {
             if (target > max)
             {
@@ -239,15 +239,15 @@ namespace Rakuten.Framework.Cache
 
                 foreach (var item in toRemove)
                 {
-                    RemoveEntry(item, inMemory);
+                    await RemoveEntry(item, inMemory);
                 }
             }
         }
 
 
-        private void AddEntry<T>(string key, CacheEntry<T> cacheEntry)
+        private async Task AddEntry<T>(string key, CacheEntry<T> cacheEntry)
         {
-            RemoveEntry(key);
+            await RemoveEntry(key);
             
             InMemoryCount++;
             InMemorySize += cacheEntry.Size;
@@ -263,7 +263,7 @@ namespace Rakuten.Framework.Cache
             finally { _lock.ExitWriteLock(); }
         }
 
-        private void RemoveEntry(string key, bool inMemory = false)
+        private async Task RemoveEntry(string key, bool inMemory = false)
         {
             _lock.EnterUpgradeableReadLock();
             try
@@ -293,7 +293,7 @@ namespace Rakuten.Framework.Cache
                     Count--;
                     Size -= _entries[key].Size;
 
-                    _storage.Remove(_entries[key].FileName);
+                    await _storage.Remove(_entries[key].FileName);
 
                     _lock.EnterWriteLock();
                     try

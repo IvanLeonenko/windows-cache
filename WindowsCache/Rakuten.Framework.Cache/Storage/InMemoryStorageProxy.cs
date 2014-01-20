@@ -19,38 +19,38 @@ namespace Rakuten.Framework.Cache.Storage
             return _inMemory ? null : await _storage.GetStream(key);
         }
 
-        public string GetString(string key)
+        public async Task<string> GetString(string key)
         {
-            return _inMemory ? null : _storage.GetString(key);
+            return _inMemory ? null : await _storage.GetString(key);
         }
 
-        public byte[] GetBytes(string key)
+        public async Task<byte[]> GetBytes(string key)
         {
-            return _inMemory ? null : _storage.GetBytes(key);
+            return _inMemory ? null : await _storage.GetBytes(key);
         }
 
-        public void Write(string key, Stream value)
+        public async Task Write(string key, Stream value)
         {
             if(!_inMemory)
-                _storage.Write(key, value);
+                await _storage.Write(key, value);
         }
 
-        public void Write(string key, string value)
+        public async Task Write(string key, string value)
         {
             if (!_inMemory)
-                _storage.Write(key, value);
+                await _storage.Write(key, value);
         }
 
-        public void Write(string key, byte[] value)
+        public async Task Write(string key, byte[] value)
         {
             if (!_inMemory)
-                _storage.Write(key, value);
+                await _storage.Write(key, value);
         }
 
-        public void Remove(string key)
+        public async Task Remove(string key)
         {
             if (!_inMemory)
-                _storage.Remove(key);
+                await _storage.Remove(key);
         }
     }
 }

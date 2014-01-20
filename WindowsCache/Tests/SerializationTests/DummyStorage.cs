@@ -11,32 +11,31 @@ namespace SerializationTests
             return null;
         }
 
-        public byte[] GetBytes(string key)
+        public async Task<byte[]> GetBytes(string key)
         {
             return null;
         }
 
-        public void Write(string key, Stream value)
+        public async Task Write(string key, Stream value)
         {
-            
         }
 
-        public string GetString(string key)
+        public async Task<string> GetString(string key)
         {
             return null;
         }
 
-        public void Write(string key, string value)
+        public async Task Write(string key, string value)
         {
             
         }
 
-        public void Write(string key, byte[] value)
+        public async Task Write(string key, byte[] value)
         {
 
         }
 
-        public void Remove(string key)
+        public async Task Remove(string key)
         {
             
         }

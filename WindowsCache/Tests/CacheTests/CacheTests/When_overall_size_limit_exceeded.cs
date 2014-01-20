@@ -16,7 +16,7 @@ namespace CacheTests.CacheTests
         Cache _cache;
 
         [TestInitialize]
-        public void Initialize()
+        public async void Initialize()
         {
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<ILogger, TestLogger>();

@@ -20,12 +20,18 @@ namespace Rakuten.Framework.Cache
             _storage = new InMemoryStorageProxy(container.Resolve<IStorage>(), cacheConfiguration.InMemoryOnly);
             _cacheData = new CacheData(_storage, container.Resolve<ISerializer>(), cacheConfiguration, _logger);
             _cacheData.RestoreState();
-            if (DifferentVersion())
-                Clear();
+            Initialize();
         }
-        public void Set<T>(string key, T value, TimeSpan? timeToLive = null)
+
+        private async void Initialize()
         {
-            _cacheData.Set(key, value, timeToLive);
+            if (await DifferentVersion())
+                await Clear();
+        }
+
+        public async Task Set<T>(string key, T value, TimeSpan? timeToLive = null)
+        {
+            await _cacheData.Set(key, value, timeToLive);
         }
 
         public async Task<CacheEntry<T>> Get<T>(string key)
@@ -43,9 +49,9 @@ namespace Rakuten.Framework.Cache
             await Task.Run(() => Set(key, value));
         }
 
-        public void Clear()
+        public async Task Clear()
         {
-            _cacheData.Clear();
+            await _cacheData.Clear();
         }
 
         public Int32 Size { get { return _cacheData.Size; } }
@@ -53,14 +59,14 @@ namespace Rakuten.Framework.Cache
         public Int32 InMemorySize { get { return _cacheData.InMemorySize; } }
         public Int32 InMemoryCount { get { return _cacheData.InMemoryCount; } }
 
-        private bool DifferentVersion()
+        private async Task<bool> DifferentVersion()
         {
             var version = _versionProvider.GetVersion();
             Version cacheVersion;
-            if (!Version.TryParse(_storage.GetString(VersionEntryName), out cacheVersion))
+            if (!Version.TryParse(await _storage.GetString(VersionEntryName), out cacheVersion))
                 cacheVersion = new Version(0, 0);
             var result = version != cacheVersion;
-            _storage.Write(VersionEntryName, version.ToString());
+            await _storage.Write(VersionEntryName, version.ToString());
             return result;
         }
     }

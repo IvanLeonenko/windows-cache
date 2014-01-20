@@ -7,9 +7,9 @@ namespace Rakuten.Framework.Cache
     {
         Task<CacheEntry<T>> Get<T>(string key);
 
-        void Set<T>(string key, T value, TimeSpan? timeToLive = null);
+        Task Set<T>(string key, T value, TimeSpan? timeToLive = null);
 
-        void Clear();
+        Task Clear();
 
         Int32 Size { get; }
 

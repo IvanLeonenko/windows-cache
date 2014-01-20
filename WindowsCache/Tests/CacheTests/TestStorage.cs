@@ -17,12 +17,12 @@ namespace CacheTests
             return KeyToStreams.ContainsKey(key) ? KeyToStreams[key] : null;
         }
 
-        public byte[] GetBytes(string key)
+        public async Task<byte[]> GetBytes(string key)
         {
             return KeyToBytes[key];
         }
 
-        public void Write(string key, Stream value)
+        public async Task Write(string key, Stream value)
         {
             value.Position = 0;
             var newStream = new MemoryStream();
@@ -30,22 +30,22 @@ namespace CacheTests
             KeyToStreams[key] = newStream;
         }
 
-        public string GetString(string key)
+        public async Task<string> GetString(string key)
         {
             return KeyToStrings.ContainsKey(key) ? KeyToStrings[key] : null;
         }
 
-        public void Write(string key, string value)
+        public async Task Write(string key, string value)
         {
             KeyToStrings[key] = value;
         }
 
-        public void Write(string key, byte[] value)
+        public async Task Write(string key, byte[] value)
         {
             KeyToBytes[key] = value;
         }
 
-        public void Remove(string key)
+        public async Task Remove(string key)
         {
             if (KeyToStreams.ContainsKey(key))
                 KeyToStreams.Remove(key);

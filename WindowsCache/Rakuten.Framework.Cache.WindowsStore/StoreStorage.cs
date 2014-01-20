@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Rakuten.Framework.Cache.Storage;
+using System;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Rakuten.Framework.Cache.Storage;
 
 namespace Rakuten.Framework.Cache.WindowsStore
 {
@@ -23,35 +20,35 @@ namespace Rakuten.Framework.Cache.WindowsStore
             return _storageFolder ?? (_storageFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(string.Format(@"Rakuten\cache\{0}", _cacheName), CreationCollisionOption.OpenIfExists));
         }
 
-        public async Task WriteAsync(string key, string value)
+        public async Task Write(string key, string value)
         {
             var cacheFolder = await GetWorkingFolder();
             var file = await cacheFolder.CreateFileAsync(key, CreationCollisionOption.ReplaceExisting);
             await file.Write(value);
         }
 
-        public async Task<string> ReadStringAsync(string key)
+        public async Task<string> GetString(string key)
         {
             var cacheFolder = await GetWorkingFolder();
             var file = await cacheFolder.CreateFileAsync(key, CreationCollisionOption.OpenIfExists);
             return await file.ReadString();
         }
 
-        public async Task WriteAsync(string key, byte[] value)
+        public async Task Write(string key, byte[] value)
         {
             var cacheFolder = await GetWorkingFolder();
             var file = await cacheFolder.CreateFileAsync(key, CreationCollisionOption.ReplaceExisting);
             await file.Write(value);
         }
 
-        public async Task<byte[]> ReadBytesAsync(string key)
+        public async Task<byte[]> GetBytes(string key)
         {
             var cacheFolder = await GetWorkingFolder();
             var file = await cacheFolder.CreateFileAsync(key, CreationCollisionOption.OpenIfExists);
             return await file.ReadBytes();
         }
 
-        public async Task WriteAsync(string key, Stream value)
+        public async Task Write(string key, Stream value)
         {
             var cacheFolder = await GetWorkingFolder();
             var file = await cacheFolder.CreateFileAsync(key, CreationCollisionOption.ReplaceExisting);
@@ -65,42 +62,11 @@ namespace Rakuten.Framework.Cache.WindowsStore
             return await file.ReadStream();
         }
 
-        public async Task RemoveAsync(string key)
+        public async Task Remove(string key)
         {
             var cacheFolder = await GetWorkingFolder();
             var file = await cacheFolder.GetFileAsync(key);
             await file.DeleteAsync();
-        }
-
-
-        public string GetString(string key)
-        {
-            throw new NotImplementedException();
-        }
-
-        public byte[] GetBytes(string key)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Write(string key, Stream value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Write(string key, string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Write(string key, byte[] value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(string key)
-        {
-            throw new NotImplementedException();
         }
     }
 }
