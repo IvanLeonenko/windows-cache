@@ -149,14 +149,9 @@ namespace Rakuten.Framework.Cache
         {
             if (!_cacheConfiguration.InMemoryOnly)
             {
-                _lock.EnterReadLock();
-                try
-                {
-                    foreach (var cacheEntry in _entries)
-                        await _storage.Remove(cacheEntry.Value.FileName);
-                    await _storage.Remove(CacheName);
-                }
-                finally { _lock.ExitReadLock(); }
+                foreach (var cacheEntry in _entries)
+                    await _storage.Remove(cacheEntry.Value.FileName);
+                await _storage.Remove(CacheName);
             }
 
             Count = 0;
@@ -172,6 +167,11 @@ namespace Rakuten.Framework.Cache
             finally { _lock.ExitWriteLock(); }
             
             _logger.Info("Cache data cleared.");
+        }
+
+        public async Task Remove(string key, bool inMemory = false)
+        {
+            await RemoveEntry(key, inMemory);
         }
 
         private async Task SetSizeAndType<T>(CacheEntry<T> cacheEntry, T value)
@@ -265,45 +265,51 @@ namespace Rakuten.Framework.Cache
 
         private async Task RemoveEntry(string key, bool inMemory = false)
         {
-            _lock.EnterUpgradeableReadLock();
+            ICacheEntry entry = null;
+
+            _lock.EnterReadLock();
             try
             {
                 if (!_entries.ContainsKey(key))
                     return;
-
-                if (inMemory)
-                {
-                    _lock.EnterWriteLock();
-                    try
-                    {
-                        _entries[key].RemoveValue();
-                    }
-                    finally { _lock.ExitWriteLock(); }
-                    
-                    InMemoryCount--;
-                    InMemorySize -= _entries[key].Size;
-                }
-                else
-                {
-                    if (_entries[key].IsInMemory)
-                    {
-                        InMemoryCount--;
-                        InMemorySize -= _entries[key].Size;
-                    }
-                    Count--;
-                    Size -= _entries[key].Size;
-
-                    await _storage.Remove(_entries[key].FileName);
-
-                    _lock.EnterWriteLock();
-                    try
-                    {
-                        _entries.Remove(key);
-                    }
-                    finally { _lock.ExitWriteLock(); }
-                }
+                entry = _entries[key];
             }
-            finally { _lock.ExitUpgradeableReadLock(); }
+            finally { _lock.ExitReadLock(); }
+
+            if (entry == null)
+                return;
+
+            if (inMemory)
+            {
+                _lock.EnterWriteLock();
+                try
+                {
+                    entry.RemoveValue();
+                }
+                finally { _lock.ExitWriteLock(); }
+                    
+                InMemoryCount--;
+                InMemorySize -= entry.Size;
+            }
+            else
+            {
+                if (entry.IsInMemory)
+                {
+                    InMemoryCount--;
+                    InMemorySize -= entry.Size;
+                }
+                Count--;
+                Size -= entry.Size;
+
+                await _storage.Remove(entry.FileName);
+
+                _lock.EnterWriteLock();
+                try
+                {
+                    _entries.Remove(key);
+                }
+                finally { _lock.ExitWriteLock(); }
+            }
         }
 
         public Int32 Count { get; set; }

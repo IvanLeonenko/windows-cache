@@ -54,6 +54,11 @@ namespace Rakuten.Framework.Cache
             await _cacheData.Clear();
         }
 
+        public async Task Remove(string key, bool inMemory = false)
+        {
+            await _cacheData.Remove(key, inMemory);
+        }
+
         public Int32 Size { get { return _cacheData.Size; } }
         public Int32 Count { get { return _cacheData.Count; } }
         public Int32 InMemorySize { get { return _cacheData.InMemorySize; } }

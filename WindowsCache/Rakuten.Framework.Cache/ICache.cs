@@ -9,6 +9,8 @@ namespace Rakuten.Framework.Cache
 
         Task Set<T>(string key, T value, TimeSpan? timeToLive = null);
 
+        Task Remove(string key, bool inMemory = false);
+
         Task Clear();
 
         Int32 Size { get; }

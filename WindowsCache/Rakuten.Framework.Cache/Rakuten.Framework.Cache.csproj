@@ -42,6 +42,7 @@
     <Compile Include="CacheContainer.cs" />
     <Compile Include="ICache.cs" />
     <Compile Include="CacheFactory.cs" />
+    <Compile Include="ICacheFactory.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="IVersionProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
