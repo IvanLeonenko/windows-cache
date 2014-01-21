@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package targetFramework="portable-net45+wp80+win" >
+<package  xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd" targetFramework="portable-net45+wp80+win" >
   <metadata>
     <version>0.00</version>
     <authors>Ivan Leonenko</authors>
