@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Rakuten.Framework.Cache\Properties\AssemblyVersionInfo.cs">
+      <Link>Properties\AssemblyVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Rakuten.Framework.Cache\Properties\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DesktopCacheFactory.cs" />
     <Compile Include="NLogCacheLogger.cs" />
     <Compile Include="DesktopStorage.cs" />
