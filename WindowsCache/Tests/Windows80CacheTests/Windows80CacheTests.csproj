@@ -143,11 +143,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rakuten.Framework.Cache.WindowsStore\Rakuten.Framework.Cache.WindowsStore.csproj">
+    <ProjectReference Include="..\..\Rakuten.Framework.Cache.WindowsStore\Rakuten.Framework.Cache.WindowsStore.csproj">
       <Project>{274e5074-aaaa-448c-a959-ccbb4ecc9f23}</Project>
       <Name>Rakuten.Framework.Cache.WindowsStore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Rakuten.Framework.Cache\Rakuten.Framework.Cache.csproj">
+    <ProjectReference Include="..\..\Rakuten.Framework.Cache\Rakuten.Framework.Cache.csproj">
       <Project>{d6957eef-5ecc-4a32-8ce6-0c2609aa359d}</Project>
       <Name>Rakuten.Framework.Cache</Name>
     </ProjectReference>

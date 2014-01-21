@@ -26,7 +26,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Framework.Cache.Win
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Framework.Cache.WindowsStore.Test", "Rakuten.Framework.Cache.WindowsStore.Test\Rakuten.Framework.Cache.WindowsStore.Test.csproj", "{8AAB4D0A-AE82-4A42-A49D-9C2488B729A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows80CacheTests", "Windows80CacheTests\Windows80CacheTests.csproj", "{1A0B4C5E-A749-4143-9662-B2B9A7A4DA2B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows80CacheTests", "Tests\Windows80CacheTests\Windows80CacheTests.csproj", "{1A0B4C5E-A749-4143-9662-B2B9A7A4DA2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
