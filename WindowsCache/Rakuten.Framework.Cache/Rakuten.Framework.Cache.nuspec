@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package >
+<package targetFramework="portable-net45+wp80+win" >
   <metadata>
     <version>0.00</version>
     <authors>Ivan Leonenko</authors>
