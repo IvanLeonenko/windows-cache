@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using Rakuten.Framework.Cache.Storage;
@@ -9,8 +10,6 @@ namespace Rakuten.Framework.Cache.Desktop
     public class DesktopStorage : IStorage
     {
         private static string _storageLocation;
-        private const string Product = "Rakuten";
-        private const string CacheFolder = "cache";
         private readonly string _cacheName = "default";
         private readonly object _locker = new object();
         private readonly Dictionary<string, object> _keyToLockers = new Dictionary<string, object>();
@@ -29,7 +28,7 @@ namespace Rakuten.Framework.Cache.Desktop
 
         private void Init()
         {
-            _storageLocation = String.Format(@"{0}\{1}\{2}\{3}", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Product, CacheFolder, _cacheName);
+            _storageLocation = String.Format(CultureInfo.InvariantCulture, @"{0}\Rakuten\cache\{1}", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), _cacheName);
             if (!Directory.Exists(_storageLocation))
             {
                 Directory.CreateDirectory(_storageLocation);
@@ -88,6 +87,8 @@ namespace Rakuten.Framework.Cache.Desktop
         }
         public void WriteSync(string key, Stream value)
         {
+            if (value == null)
+                return;
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))
             {
@@ -138,6 +139,8 @@ namespace Rakuten.Framework.Cache.Desktop
         }
         public void WriteSync(string key, byte[] value)
         {
+            if (value == null)
+                return;
             var filePath = GetFilePath(key);
             lock (GetLocker(filePath))
             {
