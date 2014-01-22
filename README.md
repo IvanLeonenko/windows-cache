@@ -6,13 +6,19 @@ Set of cache components:
 
 * PCL library `Rakuten.Framework.Cache`
 * Windows desktop `Rakuten.Framework.Cache.Desktop`
-* Windows store ..
-* Windows phone ..
+* Windows store 8.0 `Rakuten.Framework.Cache.WindowsStore`
+* Windows store 8.1 ..TBD
+* Windows phone ..TBD
+
+Nuget packages
+===========
+
+Cache components available as nuget packages from TeamCity server. Please find [packages source URL here](https://rakuten.atlassian.net/wiki/display/SMART/Access+TeamCity+nuget+server)
 
 Build server
 ===========
-Build server is on [p20672 intra machine](http://p20672:88/)
-
+Build server is on [p21448 intra machine](http://p21448/)
+For more details on TeamCity CI server please refer to [TeamCity documentation](https://rakuten.atlassian.net/wiki/display/SMART/Build+Servers)
 
 WEB CACHE MANAGER
 =============
