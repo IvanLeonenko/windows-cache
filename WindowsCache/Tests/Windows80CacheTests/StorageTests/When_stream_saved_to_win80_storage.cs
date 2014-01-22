@@ -21,7 +21,8 @@ namespace Windows80CacheTests.StorageTests
         [TestMethod]
         public async Task it_should_be_available()
         {
-            _storeStorage.GetStream("key1").Result.Should().NotBeNull();
+            var value = await _storeStorage.GetStream("key1");
+            value.Should().NotBeNull();
         }
 
         [TestMethod]

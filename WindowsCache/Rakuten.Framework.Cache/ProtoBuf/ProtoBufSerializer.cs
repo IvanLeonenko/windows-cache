@@ -174,10 +174,10 @@ namespace Rakuten.Framework.Cache.ProtoBuf
         ///  so this check doesn't guarantee that type is serialized.
         /// </summary>
         /// <param name="type">
-        /// The type.
+        /// The type that should be serilizable by protobuf.
         /// </param>
         /// <returns>
-        /// The <see cref="bool"/>.
+        /// If returned value is true, provided Type is serlializable with protobuf serializer, otherwise it is not. <see cref="bool"/>.
         /// </returns>
         public bool CanSerialize(Type type)
         {

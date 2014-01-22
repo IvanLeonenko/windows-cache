@@ -10,7 +10,7 @@ namespace Windows80CacheTests
     public class Version_of_win80_applicaiton
     {
         [TestMethod]
-        public async Task should_be_the_same_as_current_package_has()
+        public void should_be_the_same_as_current_package_has()
         {
             var packageVersion = Package.Current.Id.Version;
             var versoin = new WindowsStoreApplicationVersionProvider();

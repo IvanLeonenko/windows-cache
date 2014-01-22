@@ -20,7 +20,8 @@ namespace Windows80CacheTests.StorageTests
         [TestMethod]
         public async Task it_should_be_available()
         {
-            _storeStorage.GetBytes("key1").Result.Should().BeEquivalentTo(new byte[] { 12, 23, 34 });
+            var value = await _storeStorage.GetBytes("key1");
+            value.Should().BeEquivalentTo(new byte[] { 12, 23, 34 });
         }
 
         [TestMethod]

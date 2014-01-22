@@ -12,13 +12,13 @@ namespace CacheTests.StorageTests
         private InMemoryStorageProxy _storageProxy;
 
         [TestInitialize]
-        public void Initializtion()
+        public async void Initializtion()
         {
             _storage = new TestStorage();
 
-            _storage.Write("string", "string");
-            _storage.Write("byte[]", new byte[]{12,23,34});
-            _storage.Write("stream", new MemoryStream(new byte[] { 56,67,78 }));
+            await _storage.Write("string", "string");
+            await _storage.Write("byte[]", new byte[]{12,23,34});
+            await _storage.Write("stream", new MemoryStream(new byte[] { 56,67,78 }));
 
             _storageProxy = new InMemoryStorageProxy(_storage, inMemory:true);
 

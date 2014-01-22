@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Threading;
 using CacheTests.VersionTests;
 using FluentAssertions;
@@ -27,15 +26,16 @@ namespace CacheTests.CacheTests
             var cacheConfiguration = new CacheConfiguration(500, 10, 2048, 5);
 
             _cache = new Cache(cacheContainer, cacheConfiguration);
-            _cache.Set("stringKey1", "stringValue1");
+            await _cache.Set("stringKey1", "stringValue1");
             Thread.Sleep(30);
-            _cache.Set("stringKey2", "stringValue2");
+            await _cache.Set("stringKey2", "stringValue2");
             Thread.Sleep(30);
-            _cache.Set("stringKey3", "stringValue3");
+            await _cache.Set("stringKey3", "stringValue3");
             Thread.Sleep(30);
-            _cache.Set("stringKey4", "stringValue4");
+            await _cache.Set("stringKey4", "stringValue4");
             Thread.Sleep(30);
-            _cache.Set("Int32Key", 42);
+            await _cache.Set("Int32Key", 42);
+            Thread.Sleep(30);
         }
         
         [TestMethod]
