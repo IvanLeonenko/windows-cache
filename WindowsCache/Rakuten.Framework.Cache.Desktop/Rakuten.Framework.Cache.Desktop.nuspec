@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd" >
+  <metadata>
+    <version>0.00</version>
+    <authors>Ivan Leonenko</authors>
+    <owners>Rakuten Inc.</owners>
+    <id>Rakuten.Framework.Cache.Desktop</id>
+    <title>Rakuten Windows Cache for .NET 4.5</title>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Rakuten Windows Cache for .NET 4.5 desktop applications.</description>
+    <copyright>Copyright Rakuten Inc. 2014</copyright>
+    <dependencies>
+		<dependency id="Rakuten.Framework.Cache" version="$version$" />
+      </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\Rakuten.Framework.Cache.Desktop.dll" target="lib\portable-net45+wp80+win\Rakuten.Framework.Cache.Desktop.dll" />
+    <file src="bin\Release\Rakuten.Framework.Cache.Desktop.pdb" target="lib\portable-net45+wp80+win\Rakuten.Framework.Cache.Desktop.pdb" />
+  </files>
+</package>
