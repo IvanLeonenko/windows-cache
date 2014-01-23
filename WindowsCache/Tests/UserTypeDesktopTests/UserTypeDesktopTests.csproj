@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DB794444-017F-4575-A7CB-DA58D597B5B8}</ProjectGuid>
+    <ProjectGuid>{CE4C02E0-34DA-43AD-BC4F-38B79626BD2F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DesktopTests</RootNamespace>
-    <AssemblyName>DesktopTests</AssemblyName>
+    <RootNamespace>UserTypeDesktopTests</RootNamespace>
+    <AssemblyName>UserTypeDesktopTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -57,14 +57,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="..\..\Rakuten.Framework.Cache\Properties\AssemblyVersionInfo.cs">
-      <Link>Properties\AssemblyVersionInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Rakuten.Framework.Cache\Properties\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="When_cache_created_with_desktop_factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserTypes\SomeData.cs" />
+    <Compile Include="UserTypes\SomeData2.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Rakuten.Framework.Cache.Desktop\Rakuten.Framework.Cache.Desktop.csproj">
