@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace Rakuten.Framework.Cache.WindowsStore
 {
-    public sealed class WindowsStoreCacheFactory : CacheFactory
+    public sealed class PortableCacheFactory : CacheFactory
     {
-        private static readonly Lazy<CacheFactory> Lazy = new Lazy<CacheFactory>(() => new WindowsStoreCacheFactory());
+        private static readonly Lazy<CacheFactory> Lazy = new Lazy<CacheFactory>(() => new PortableCacheFactory());
         private static CacheFactory Instance { get { return Lazy.Value; } }
-        private WindowsStoreCacheFactory() {}
+        private PortableCacheFactory() {}
 
         public static async Task<ICache> GetCache(IEnumerable<Type> userTypes = null, string cacheName = "default")
         {
@@ -55,9 +55,9 @@ namespace Rakuten.Framework.Cache.WindowsStore
         public override CacheContainer GetDefaultCacheContainer(IEnumerable<Type> userTypes, string cacheName)
         {
             var cacheContainer = new CacheContainer();
-            cacheContainer.Register<ILogger, StoreDebugCacheLogger>();
-            cacheContainer.Register<IVersionProvider, WindowsStoreApplicationVersionProvider>();
-            cacheContainer.Register<IStorage, StoreStorage>().WithValue("cacheName", cacheName);
+            cacheContainer.Register<ILogger, DebugCacheLogger>();
+            cacheContainer.Register<IVersionProvider, PackageVersionProvider>();
+            cacheContainer.Register<IStorage, IsolatedStorage>().WithValue("cacheName", cacheName);
             cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", userTypes);
             return cacheContainer;
         }

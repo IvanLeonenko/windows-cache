@@ -114,11 +114,11 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="StorageFileExtensions.cs" />
-    <Compile Include="StoreDebugCacheLogger.cs" />
-    <Compile Include="StoreStorage.cs" />
+    <Compile Include="DebugCacheLogger.cs" />
+    <Compile Include="IsolatedStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WindowsStoreApplicationVersionProvider.cs" />
-    <Compile Include="WindowsStoreCacheFactory.cs" />
+    <Compile Include="PackageVersionProvider.cs" />
+    <Compile Include="PortableCacheFactory.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

@@ -3,7 +3,7 @@ using Windows.ApplicationModel;
 
 namespace Rakuten.Framework.Cache.WindowsStore
 {
-    public class WindowsStoreApplicationVersionProvider : IVersionProvider
+    public class PackageVersionProvider : IVersionProvider
     {
         public Version GetVersion()
         {

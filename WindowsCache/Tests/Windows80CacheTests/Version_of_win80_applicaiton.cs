@@ -13,7 +13,7 @@ namespace Windows80CacheTests
         public void should_be_the_same_as_current_package_has()
         {
             var packageVersion = Package.Current.Id.Version;
-            var versoin = new WindowsStoreApplicationVersionProvider();
+            var versoin = new PackageVersionProvider();
             versoin.GetVersion().Major.Should().Be(packageVersion.Major);
             versoin.GetVersion().Minor.Should().Be(packageVersion.Minor);
             versoin.GetVersion().Revision.Should().Be(packageVersion.Revision);

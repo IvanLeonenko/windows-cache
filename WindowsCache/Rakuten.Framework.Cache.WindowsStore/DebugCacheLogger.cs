@@ -2,7 +2,7 @@
 
 namespace Rakuten.Framework.Cache.WindowsStore
 {
-    public class StoreDebugCacheLogger : ILogger
+    public class DebugCacheLogger : ILogger
     {
         public void Info(string message)
         {

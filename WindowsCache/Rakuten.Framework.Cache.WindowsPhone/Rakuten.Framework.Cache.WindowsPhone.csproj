@@ -83,13 +83,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Rakuten.Framework.Cache.WindowsStore\DebugCacheLogger.cs">
+      <Link>DebugCacheLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\Rakuten.Framework.Cache.WindowsStore\IsolatedStorage.cs">
+      <Link>IsolatedStorage.cs</Link>
+    </Compile>
+    <Compile Include="..\Rakuten.Framework.Cache.WindowsStore\PackageVersionProvider.cs">
+      <Link>PackageVersionProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Rakuten.Framework.Cache.WindowsStore\PortableCacheFactory.cs">
+      <Link>PortableCacheFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Rakuten.Framework.Cache.WindowsStore\StorageFileExtensions.cs">
+      <Link>StorageFileExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\Rakuten.Framework.Cache\Properties\AssemblyVersionInfo.cs">
       <Link>Properties\AssemblyVersionInfo.cs</Link>
     </Compile>
     <Compile Include="..\Rakuten.Framework.Cache\Properties\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="PhoneStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

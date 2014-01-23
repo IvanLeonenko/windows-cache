@@ -15,7 +15,7 @@ namespace Windows80CacheTests.CacheTests
         [TestMethod]
         public async Task default_cache_construction_without_parameters_should_work()
         {
-            var cache = await WindowsStoreCacheFactory.GetCache();
+            var cache = await PortableCacheFactory.GetCache();
 
             await cache.Set("key1", "stringValue");
             cache.Size.Should().BeGreaterThan(0);
@@ -30,7 +30,7 @@ namespace Windows80CacheTests.CacheTests
         [TestMethod]
         public async Task named_cache_construction_without_parameters_should_work()
         {
-            var cache = await WindowsStoreCacheFactory.GetCache(null, "someCacheName");
+            var cache = await PortableCacheFactory.GetCache(null, "someCacheName");
 
             await cache.Set("key1", "stringValue");
             cache.Size.Should().BeGreaterThan(0);
@@ -47,7 +47,7 @@ namespace Windows80CacheTests.CacheTests
         {
             var cacheConfig = new CacheConfiguration(1024, 5, 1024, 5, TimeSpan.FromMinutes(1));
 
-            var cache = await WindowsStoreCacheFactory.GetCache(cacheConfig, null, "someCacheName2");
+            var cache = await PortableCacheFactory.GetCache(cacheConfig, null, "someCacheName2");
 
             await cache.Set("key1", "stringValue");
             cache.Size.Should().BeGreaterThan(0);
@@ -63,14 +63,14 @@ namespace Windows80CacheTests.CacheTests
         public async Task custom_container_and_config_cache_construction_should_work()
         {
             var cacheContainer = new CacheContainer();
-            cacheContainer.Register<ILogger, StoreDebugCacheLogger>();
-            cacheContainer.Register<IVersionProvider, WindowsStoreApplicationVersionProvider>();
-            cacheContainer.Register<IStorage, StoreStorage>().WithValue("cacheName", "cacheName");
+            cacheContainer.Register<ILogger, DebugCacheLogger>();
+            cacheContainer.Register<IVersionProvider, PackageVersionProvider>();
+            cacheContainer.Register<IStorage, IsolatedStorage>().WithValue("cacheName", "cacheName");
             cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", null);
             
             var cacheConfig = new CacheConfiguration(1024, 5, 1024, 5, TimeSpan.FromMinutes(1));
 
-            var cache = await WindowsStoreCacheFactory.GetCache(cacheContainer, cacheConfig);
+            var cache = await PortableCacheFactory.GetCache(cacheContainer, cacheConfig);
 
             await cache.Set("key1", "stringValue");
             cache.Size.Should().BeGreaterThan(0);

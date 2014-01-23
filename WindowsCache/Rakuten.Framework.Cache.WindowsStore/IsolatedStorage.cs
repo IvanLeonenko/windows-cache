@@ -6,11 +6,11 @@ using Windows.Storage;
 
 namespace Rakuten.Framework.Cache.WindowsStore
 {
-    public class StoreStorage : IStorage
+    public class IsolatedStorage : IStorage
     {
         private readonly string _cacheName;
         private StorageFolder _storageFolder;
-        public StoreStorage(string cacheName)
+        public IsolatedStorage(string cacheName)
         {
             _cacheName = cacheName;
         }
