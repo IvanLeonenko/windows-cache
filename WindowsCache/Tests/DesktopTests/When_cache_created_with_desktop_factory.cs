@@ -66,7 +66,6 @@ namespace DesktopTests
         [TestMethod]
         public async Task custom_container_and_config_cache_construction_should_work()
         {
-
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<ILogger, NLogCacheLogger>().WithValue("name", "CacheLogger");
             cacheContainer.Register<IVersionProvider, EntryAssemblyVersionProvider>();
