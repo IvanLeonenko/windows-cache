@@ -28,8 +28,9 @@ namespace Rakuten.Framework.Cache
             _storage = storage;
         }
 
-        public async void RestoreState()
+        public async Task RestoreState()
         {
+            await _serializer.Initialize();
             var stream = await _storage.GetStream(CacheName);
 
             _entries = (stream == null) ? new Dictionary<string, ICacheEntry>() : _serializer.Deserialize<Dictionary<string, ICacheEntry>>(stream);

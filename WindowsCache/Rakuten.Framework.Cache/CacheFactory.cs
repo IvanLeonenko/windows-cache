@@ -1,39 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Rakuten.Framework.Cache
 {
     public abstract class CacheFactory
     {
-        public ICache Cache(IEnumerable<Type> userTypes = null, string cacheName = "default")
+        protected static Type GetDerivedType<T>() where T : CacheFactory
         {
-            return Cache(GetDefaultCacheContainer(userTypes, cacheName), GetDefaultCacheConfiguration());
+            return typeof(T);
         }
 
-        public ICache Cache(CacheConfiguration cacheConfiguration, IEnumerable<Type> userTypes = null, string cacheName = "default")
+        public async Task<ICache> Cache(IEnumerable<Type> userTypes = null, string cacheName = "default")
         {
-            return Cache(GetDefaultCacheContainer(userTypes, cacheName), cacheConfiguration);
+            return await Cache(GetDefaultCacheContainer(userTypes, cacheName), GetDefaultCacheConfiguration());
         }
 
-        public ICache Cache(CacheContainer cacheContainer, CacheConfiguration cacheConfiguration)
+        public async Task<ICache> Cache(CacheConfiguration cacheConfiguration, IEnumerable<Type> userTypes = null, string cacheName = "default")
         {
-            return new Cache(cacheContainer, cacheConfiguration);
+            return await Cache(GetDefaultCacheContainer(userTypes, cacheName), cacheConfiguration);
         }
 
-        public ICache InMemoryCache(IEnumerable<Type> userTypes = null, string cacheName = "default")
+        public async Task<ICache> Cache(CacheContainer cacheContainer, CacheConfiguration cacheConfiguration)
         {
-            return InMemoryCache(GetDefaultCacheContainer(userTypes, cacheName), GetDefaultInMemoryCacheConfiguration());
+            var cache = new Cache(cacheContainer, cacheConfiguration);
+            await cache.Initialize();
+            return cache;
         }
 
-        public ICache InMemoryCache(CacheConfiguration cacheConfiguration, IEnumerable<Type> userTypes = null, string cacheName = "default")
+        public async Task<ICache> InMemoryCache(IEnumerable<Type> userTypes = null, string cacheName = "default")
         {
-            return InMemoryCache(GetDefaultCacheContainer(userTypes, cacheName), cacheConfiguration);
+            return await InMemoryCache(GetDefaultCacheContainer(userTypes, cacheName), GetDefaultInMemoryCacheConfiguration());
         }
 
-        public ICache InMemoryCache(CacheContainer cacheContainer, CacheConfiguration cacheConfiguration)
+        public async Task<ICache> InMemoryCache(CacheConfiguration cacheConfiguration, IEnumerable<Type> userTypes = null, string cacheName = "default")
+        {
+            return await InMemoryCache(GetDefaultCacheContainer(userTypes, cacheName), cacheConfiguration);
+        }
+
+        public async Task<ICache> InMemoryCache(CacheContainer cacheContainer, CacheConfiguration cacheConfiguration)
         {
             cacheConfiguration.InMemoryOnly = true;
-            return Cache(cacheContainer, cacheConfiguration);
+            return await Cache(cacheContainer, cacheConfiguration);
         }
 
         public abstract CacheConfiguration GetDefaultCacheConfiguration();

@@ -1,4 +1,5 @@
-﻿using Rakuten.Framework.Cache.ProtoBuf;
+﻿using System.Threading.Tasks;
+using Rakuten.Framework.Cache.ProtoBuf;
 using Rakuten.Framework.Cache.Storage;
 using System;
 using System.IO;
@@ -13,7 +14,12 @@ namespace CacheTests.CacheContainerTests
             _storage = storage;
         }
 
-        public void RegisterType(Type type)
+        public Task Initialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RegisterType(Type type)
         {
             throw new NotImplementedException();
         }

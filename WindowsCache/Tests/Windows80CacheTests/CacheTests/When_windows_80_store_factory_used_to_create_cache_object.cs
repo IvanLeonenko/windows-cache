@@ -11,7 +11,7 @@ namespace Windows80CacheTests.CacheTests
         [TestMethod]
         public async Task default_cache_construction_without_parameters_should_work()
         {
-            var cache = WindowsStoreCacheFactory.GetCache();
+            var cache = await WindowsStoreCacheFactory.GetCache();
 
             await cache.Set("key1", "stringValue");
             cache.Size.Should().BeGreaterThan(0);

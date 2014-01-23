@@ -16,7 +16,7 @@ namespace CacheTests.CacheTests
         readonly DateTime _dateTime = DateTime.Now;
 
         [TestInitialize]
-        public void Initialize()
+        public async void Initialize()
         {
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<ILogger, TestLogger>();
@@ -27,7 +27,7 @@ namespace CacheTests.CacheTests
             var cacheConfiguration = new CacheConfiguration(1024, 5, 700, 5);
 
             _cache = new Cache(cacheContainer, cacheConfiguration);
-
+            await _cache.Initialize();
             _cache.Set("stringKey1", "stringValue1");
             Thread.Sleep(10);
             _cache.Set("stringKey2", "stringValue2");

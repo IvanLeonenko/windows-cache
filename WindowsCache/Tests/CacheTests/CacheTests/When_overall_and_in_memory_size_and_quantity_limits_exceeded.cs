@@ -17,7 +17,7 @@ namespace CacheTests.CacheTests
         private readonly DateTime _dateTime = DateTime.Now;
 
         [TestInitialize]
-        public void Initialize()
+        public async void Initialize()
         {
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<ILogger, TestLogger>();
@@ -28,21 +28,22 @@ namespace CacheTests.CacheTests
             var cacheConfiguration = new CacheConfiguration(900, 6, 800, 5);
 
             _cache = new Cache(cacheContainer, cacheConfiguration);
-            _cache.Set("stringKey1", "stringValue1");
+            await _cache.Initialize();
+            await _cache.Set("stringKey1", "stringValue1");
             Thread.Sleep(20);
-            _cache.Set("stringKey2", "stringValue2");
+            await _cache.Set("stringKey2", "stringValue2");
             Thread.Sleep(20);
-            _cache.Set("stringKey3", "stringValue3");
+            await _cache.Set("stringKey3", "stringValue3");
             Thread.Sleep(20);
-            _cache.Set("stringKey4", "stringValue4");
+            await _cache.Set("stringKey4", "stringValue4");
             Thread.Sleep(20);
-            _cache.Set("Int32Key", 42);
+            await _cache.Set("Int32Key", 42);
             Thread.Sleep(20);
-            _cache.Set("DateTimeKey", _dateTime);
+            await _cache.Set("DateTimeKey", _dateTime);
             Thread.Sleep(20);
-            _cache.Set("floatKey", 13.37f);
+            await _cache.Set("floatKey", 13.37f);
             Thread.Sleep(20);
-            _cache.Set("decimalKey", 13.37m);
+            await _cache.Set("decimalKey", 13.37m);
         }
 
         [TestMethod]

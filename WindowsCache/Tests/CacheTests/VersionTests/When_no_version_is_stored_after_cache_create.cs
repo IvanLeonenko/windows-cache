@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rakuten.Framework.Cache;
@@ -11,7 +12,7 @@ namespace CacheTests.VersionTests
     public class When_no_version_is_stored_after_cache_create
     {
         [TestMethod]
-        public void should_save_version_on_cache_create()
+        public async Task should_save_version_on_cache_create()
         {
             var version = new Version(5, 32);
             var cacheContainer = new CacheContainer();
@@ -21,6 +22,7 @@ namespace CacheTests.VersionTests
             cacheContainer.Register<ISerializer, ProtoBufSerializer>().WithDependency("storage", typeof(IStorage).FullName).WithValue("userTypes", null);
             var cacheConfiguration = new CacheConfiguration(1024, 5, 1024, 5);
             var cache = new Cache(cacheContainer, cacheConfiguration);
+            await cache.Initialize();
             var storage = (TestStorage)cacheContainer.Resolve<IStorage>();
             storage.KeyToStrings[Cache.VersionEntryName].Should().BeEquivalentTo(version.ToString());
         }

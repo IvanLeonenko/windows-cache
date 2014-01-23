@@ -15,7 +15,7 @@ namespace CacheTests.CacheTests
         readonly DateTime _dateTime = DateTime.Now;
 
         [TestInitialize]
-        public void Initialize()
+        public async void Initialize()
         {
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<ILogger, TestLogger>();
@@ -27,14 +27,14 @@ namespace CacheTests.CacheTests
             var cacheConfiguration = new CacheConfiguration(2048, 6, 2048, 5);
 
             _cache = new Cache(cacheContainer, cacheConfiguration);
-
-            _cache.Set("stringKey1", "stringValue1");
-            _cache.Set("stringKey2", "stringValue2");
-            _cache.Set("stringKey3", "stringValue3");
-            _cache.Set("someBytes", new byte[] { 12, 32, 43 });
-            _cache.Set("Int32Key1", 1);
-            _cache.Set("dateTimeKey1", _dateTime);
-            _cache.Set("boolKey", true);
+            await _cache.Initialize();
+            await _cache.Set("stringKey1", "stringValue1");
+            await _cache.Set("stringKey2", "stringValue2");
+            await _cache.Set("stringKey3", "stringValue3");
+            await _cache.Set("someBytes", new byte[] { 12, 32, 43 });
+            await _cache.Set("Int32Key1", 1);
+            await _cache.Set("dateTimeKey1", _dateTime);
+            await _cache.Set("boolKey", true);
         }
 
         [TestMethod]

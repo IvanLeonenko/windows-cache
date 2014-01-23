@@ -1,4 +1,5 @@
-﻿using Rakuten.Framework.Cache.ProtoBuf;
+﻿using System.Threading.Tasks;
+using Rakuten.Framework.Cache.ProtoBuf;
 using Rakuten.Framework.Cache.Storage;
 using System;
 using System.Collections.Generic;
@@ -7,38 +8,38 @@ namespace Rakuten.Framework.Cache.WindowsStore
 {
     public sealed class WindowsStoreCacheFactory : CacheFactory
     {
-        private static readonly Lazy<WindowsStoreCacheFactory> Lazy = new Lazy<WindowsStoreCacheFactory>(() => new WindowsStoreCacheFactory());
-        private static WindowsStoreCacheFactory Instance { get { return Lazy.Value; } }
+        private static readonly Lazy<CacheFactory> Lazy = new Lazy<CacheFactory>(() => new WindowsStoreCacheFactory());
+        private static CacheFactory Instance { get { return Lazy.Value; } }
         private WindowsStoreCacheFactory() {}
 
-        public static ICache GetCache(IEnumerable<Type> userTypes = null, string cacheName = "default")
+        public static async Task<ICache> GetCache(IEnumerable<Type> userTypes = null, string cacheName = "default")
         {
-            return Instance.Cache(userTypes, cacheName);
+            return await Instance.Cache(userTypes, cacheName);
         }
 
-        public static ICache GetCache(CacheConfiguration cacheConfiguration, IEnumerable<Type> userTypes = null, string cacheName = "default")
+        public static async Task<ICache> GetCache(CacheConfiguration cacheConfiguration, IEnumerable<Type> userTypes = null, string cacheName = "default")
         {
-            return Instance.Cache(cacheConfiguration, userTypes, cacheName);
+            return await Instance.Cache(cacheConfiguration, userTypes, cacheName);
         }
 
-        public static ICache GetCache(CacheContainer cacheContainer, CacheConfiguration cacheConfiguration)
+        public static async Task<ICache> GetCache(CacheContainer cacheContainer, CacheConfiguration cacheConfiguration)
         {
-            return Instance.Cache(cacheContainer, cacheConfiguration);
+            return await Instance.Cache(cacheContainer, cacheConfiguration);
         }
 
-        public static ICache GetInMemotyCache(IEnumerable<Type> userTypes = null, string cacheName = "default")
+        public static async Task<ICache> GetInMemotyCache(IEnumerable<Type> userTypes = null, string cacheName = "default")
         {
-            return Instance.InMemoryCache(userTypes, cacheName);
+            return await Instance.InMemoryCache(userTypes, cacheName);
         }
 
-        public static ICache GetInMemotyCache(CacheConfiguration cacheConfiguration, IEnumerable<Type> userTypes = null, string cacheName = "default")
+        public static async Task<ICache> GetInMemotyCache(CacheConfiguration cacheConfiguration, IEnumerable<Type> userTypes = null, string cacheName = "default")
         {
-            return Instance.InMemoryCache(cacheConfiguration, userTypes, cacheName);
+            return await Instance.InMemoryCache(cacheConfiguration, userTypes, cacheName);
         }
 
-        public static ICache GetInMemotyCache(CacheContainer cacheContainer, CacheConfiguration cacheConfiguration)
+        public static async Task<ICache> GetInMemotyCache(CacheContainer cacheContainer, CacheConfiguration cacheConfiguration)
         {
-            return Instance.InMemoryCache(cacheContainer, cacheConfiguration);
+            return await Instance.InMemoryCache(cacheContainer, cacheConfiguration);
         }
 
         public override CacheConfiguration GetDefaultCacheConfiguration()

@@ -17,18 +17,23 @@ namespace Rakuten.Framework.Cache.ProtoBuf
         private static readonly Dictionary<Type, int> TypeToSubtypeIndex = new Dictionary<Type, int>();
         private readonly IStorage _storage;
         private ProtoBufMappings _protoBufMappings = new ProtoBufMappings();
+        private readonly IEnumerable<Type> _userTypes;
 
         public ProtoBufSerializer(IStorage storage, IEnumerable<Type> userTypes = null)
         {
             _storage = storage;
+            _userTypes = userTypes;
+        }
 
-            RestoreMappings();
+        public async Task Initialize()
+        {
+            await RestoreMappings();
 
-            if (userTypes == null) 
+            if (_userTypes == null) 
                 return;
-            foreach (var userType in userTypes)
+            foreach (var userType in _userTypes)
             {
-                RegisterType(userType);
+                await RegisterType(userType);
             }
         }
 
@@ -59,7 +64,7 @@ namespace Rakuten.Framework.Cache.ProtoBuf
             RuntimeTypeModel.Default[typeof(ICacheEntry)].AddSubType(NextSubtypeIndex(typeof(ICacheEntry)), CacheEntryTemplate.MakeGenericType(type));
         }
         
-        public void RegisterType(Type type)
+        public async Task RegisterType(Type type)
         {
             //if (!RuntimeTypeModel.Default.CanSerializeBasicType(type))
             //{
@@ -69,12 +74,12 @@ namespace Rakuten.Framework.Cache.ProtoBuf
 
             //RegisterGenericCacheEntry(type);
 
-            UpdateMapping(type);
+            await UpdateMapping(type);
             //RegisterGenericCacheEntry(type);
             //UpdateMapping(CacheEntryTemplate.MakeGenericType(type));
         }
         
-        private void UpdateMapping(Type type)
+        private async Task UpdateMapping(Type type)
         {
             if (RuntimeTypeModel.Default.CanSerializeBasicType(type))
                 return;
@@ -136,10 +141,10 @@ namespace Rakuten.Framework.Cache.ProtoBuf
             }
             RuntimeTypeModel.Default[typeof(ICacheEntry)].AddSubType(_protoBufMappings.TypeSubTypesIndices[cacheEntryTypeName][typeName], CacheEntryTemplate.MakeGenericType(type));
             
-            SaveMappings();
+            await SaveMappings();
         }
 
-        private async void RestoreMappings()
+        private async Task RestoreMappings()
         {
             using (var stream = await _storage.GetStream("type.mappings.protobuf"))
             {
@@ -148,13 +153,13 @@ namespace Rakuten.Framework.Cache.ProtoBuf
             }
         }
 
-        private void SaveMappings()
+        private async Task SaveMappings()
         {
             if (_protoBufMappings != null && _protoBufMappings.TypePropertiesIndices.Count <= 0 && _protoBufMappings.TypeSubTypesIndices.Count <= 0) 
                 return;
             using (var stream = Serialize(_protoBufMappings))
             {
-                _storage.Write("type.mappings.protobuf", stream);
+                await _storage.Write("type.mappings.protobuf", stream);
             }
         }
 

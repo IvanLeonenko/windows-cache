@@ -13,7 +13,7 @@ namespace CacheTests.CacheTests
     {
         private Cache _cache;
         [TestInitialize]
-        public void Initialize()
+        public async void Initialize()
         {
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<ILogger, TestLogger>();
@@ -24,8 +24,9 @@ namespace CacheTests.CacheTests
             var cacheConfiguration = new CacheConfiguration(2048, 6, 2048, 5);
 
             _cache = new Cache(cacheContainer, cacheConfiguration);
-
-            _cache.Set("key1", "string1", TimeSpan.FromMilliseconds(1));
+            await _cache.Initialize();
+            await _cache.Set("key1", "string1", TimeSpan.FromMilliseconds(1));
+            
             Thread.Sleep(10);
         }
 

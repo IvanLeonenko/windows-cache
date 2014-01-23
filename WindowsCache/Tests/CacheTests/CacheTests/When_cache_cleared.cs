@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using CacheTests.VersionTests;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,7 +15,7 @@ namespace CacheTests.CacheTests
         private Cache _cache;
         CacheContainer _cacheContainer;
         [TestInitialize]
-        public void Initialize()
+        public async void Initialize()
         {
             _cacheContainer = new CacheContainer();
             _cacheContainer.Register<ILogger, TestLogger>();
@@ -25,31 +26,32 @@ namespace CacheTests.CacheTests
             var cacheConfiguration = new CacheConfiguration(2048, 6, 2048, 5);
 
             _cache = new Cache(_cacheContainer, cacheConfiguration);
+            await _cache.Initialize();
         }
 
 
         [TestMethod]
-        public void cache_should_be_empty()
+        public async Task cache_should_be_empty()
         {
-            _cache.Set("key1", "string1");
-            _cache.Set("key2", 42);
-            _cache.Set("key3", new byte[] { 12, 23, 34 });
+            await _cache.Set("key1", "string1");
+            await _cache.Set("key2", 42);
+            await _cache.Set("key3", new byte[] { 12, 23, 34 });
             _cache.Size.Should().BeGreaterThan(0);
             _cache.Count.Should().BeGreaterThan(0);
-            _cache.Clear();
+            await _cache.Clear();
             _cache.Size.Should().Be(0);
             _cache.Count.Should().Be(0);
         }
 
         [TestMethod]
-        public void storage_should_be_empty()
+        public async Task storage_should_be_empty()
         {
-            _cache.Set("key1", "string1");
-            _cache.Set("key2", 42);
-            _cache.Set("key3", new byte[] { 12, 23, 34 });
+            await _cache.Set("key1", "string1");
+            await _cache.Set("key2", 42);
+            await _cache.Set("key3", new byte[] { 12, 23, 34 });
             _cache.Size.Should().BeGreaterThan(0);
             _cache.Count.Should().BeGreaterThan(0);
-            _cache.Clear();
+            await _cache.Clear();
             _cache.Size.Should().Be(0);
             _cache.Count.Should().Be(0);
 

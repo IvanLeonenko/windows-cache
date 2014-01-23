@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Rakuten.Framework.Cache.ProtoBuf
 {
     public interface ISerializer
     {
-        void RegisterType(Type type);
+        Task Initialize ();
+        Task RegisterType(Type type);
 
         void RegisterSubType(Type type, Type subType);
 

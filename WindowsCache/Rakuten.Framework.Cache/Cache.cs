@@ -19,12 +19,11 @@ namespace Rakuten.Framework.Cache
             _logger = container.Resolve<ILogger>();
             _storage = new InMemoryStorageProxy(container.Resolve<IStorage>(), cacheConfiguration.InMemoryOnly);
             _cacheData = new CacheData(_storage, container.Resolve<ISerializer>(), cacheConfiguration, _logger);
-            _cacheData.RestoreState();
-            Initialize();
         }
 
-        private async void Initialize()
+        public async Task Initialize()
         {
+            await _cacheData.RestoreState();
             if (await DifferentVersion())
                 await Clear();
         }

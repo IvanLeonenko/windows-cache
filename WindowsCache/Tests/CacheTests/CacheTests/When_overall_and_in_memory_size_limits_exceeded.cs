@@ -27,6 +27,8 @@ namespace CacheTests.CacheTests
             var cacheConfiguration = new CacheConfiguration(500, 10, 500, 5);
 
             _cache = new Cache(cacheContainer, cacheConfiguration);
+            _cache.Initialize();
+            Thread.Sleep(30);
             _cache.Set("stringKey1", "stringValue1");
             Thread.Sleep(30);
             _cache.Set("stringKey2", "stringValue2");

@@ -63,8 +63,8 @@ namespace Rakuten.Framework.Cache.Desktop.Test
         static void Main(string[] args)
         {
             var types = new List<Type> { typeof(SomeData4), typeof(SomeData2), typeof(SomeData3) };
-            CacheFactory factory = new DesktopCacheFactory();
-            var cache = factory.Cache(types);
+            var cache = DesktopCacheFactory.GetCache().Result;
+            //var cache = factory.Cache(types);
 
             var someData = new SomeData2 { Entries = new Dictionary<string, int> { { "q", 45 }, { "w", 34 } }, StringProperty = "Some string of proto"};
             cache.Set("SomeProto", someData);
