@@ -34,6 +34,16 @@ namespace Rakuten.Framework.Cache
             var stream = await _storage.GetStream(CacheName);
 
             _entries = (stream == null) ? new Dictionary<string, ICacheEntry>() : _serializer.Deserialize<Dictionary<string, ICacheEntry>>(stream);
+            //var count = 0;
+            //var size = 0;
+            //foreach (var cacheEntry in _entries)
+            //{
+            //    while (count <= _cacheConfiguration.MaxInMemoryCacheDataEntries && size <= _cacheConfiguration.MaxInMemoryCacheDataSize)
+            //    {
+            //        count++;
+            //        size += cacheEntry.Value.Size;
+            //    }
+            //}
 
             Size = _entries.Sum(x => x.Value.Size);
             InMemorySize = _entries.Where(x => x.Value.IsInMemory).Sum(x => x.Value.Size);
@@ -82,7 +92,7 @@ namespace Rakuten.Framework.Cache
             }
         }
 
-        public async Task<CacheEntry<T>> Get<T>(string key)
+        public async Task<CacheEntry<T>> Get<T>(string key, bool doLimitCheck = true)
         {
             CacheEntry<T> resultEntry = null;
 
@@ -122,8 +132,11 @@ namespace Rakuten.Framework.Cache
                         resultEntry.Value = (T) obj;
                     }
 
-                    await RemoveOnReachingLimit(InMemorySize + resultEntry.Size, _cacheConfiguration.MaxInMemoryCacheDataSize, true, x => x.Size);
-                    await RemoveOnReachingLimit(InMemoryCount + 1, _cacheConfiguration.MaxInMemoryCacheDataEntries, true, x => 1);
+                    if (doLimitCheck)
+                    {
+                        await RemoveOnReachingLimit(InMemorySize + resultEntry.Size, _cacheConfiguration.MaxInMemoryCacheDataSize, true, x => x.Size);
+                        await RemoveOnReachingLimit(InMemoryCount + 1, _cacheConfiguration.MaxInMemoryCacheDataEntries, true, x => 1);
+                    }
 
                     resultEntry.IsInMemory = true;
                 }
@@ -142,7 +155,22 @@ namespace Rakuten.Framework.Cache
             //    }
             //    resultEntry.IsInMemory = true;
             //}
-            
+
+
+
+            if (!_cacheConfiguration.InMemoryOnly)
+            {
+                Stream entriesStream = null;
+                _lock.EnterReadLock();
+                try
+                {
+                    entriesStream = _serializer.Serialize(_entries);
+                }
+                finally { _lock.ExitReadLock(); }
+
+                await _storage.Write(CacheName, entriesStream);
+            }
+
             return resultEntry;
         }
 
