@@ -77,10 +77,10 @@ namespace UserTypeDesktopTests
         [TestMethod]
         public async Task PerfUserTypeWrite256() { await Write100UserTypesArrays(256); }
 
-        public static async Task Write100UserTypesArrays(int numberOfChunks)
+        public static async Task Write100UserTypesArrays(int numberOfChunks, string cacheName = null)
         {
             var userTypeArrays = PerfHelpers.GetUserTypeArrays(numberOfChunks);
-            var cache = await DesktopCacheFactory.GetCache(null, PerfCacheName);
+            var cache = await DesktopCacheFactory.GetCache(null, cacheName ?? PerfCacheName + numberOfChunks);
             await cache.Clear();
 
             var sw = Stopwatch.StartNew();
@@ -109,7 +109,7 @@ namespace UserTypeDesktopTests
         public static async Task Get100KbByteArrays(int numberOfChunks)
         {
             var userTypeArrays = PerfHelpers.GetUserTypeArrays(numberOfChunks);
-            var cache = await DesktopCacheFactory.GetCache(null, PerfCacheName);
+            var cache = await DesktopCacheFactory.GetCache(null, "cache_03");
             await cache.Clear();
             var length = userTypeArrays.Length;
             for (var i = 0; i < length; i++)
@@ -138,10 +138,11 @@ namespace UserTypeDesktopTests
 
         public static async Task PrepareCache(int N)
         {
-            await Write100UserTypesArrays(N);
+            var constructCachename = "construct_cache" + N;
+            Write100UserTypesArrays(N, constructCachename).Wait();
 
             var sw = Stopwatch.StartNew();
-            var cache = await DesktopCacheFactory.GetCache(null, PerfCacheName);
+            var cache = await DesktopCacheFactory.GetCache(null, constructCachename);
             cache.Size.Should().BeGreaterThan(0);
             sw.Stop();
             Console.WriteLine("Elapsed on PrepareCache:" + sw.ElapsedMilliseconds);

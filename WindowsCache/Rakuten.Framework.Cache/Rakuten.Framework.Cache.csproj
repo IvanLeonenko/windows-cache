@@ -40,8 +40,10 @@
     <Compile Include="CacheData.cs" />
     <Compile Include="CacheEntry.cs" />
     <Compile Include="CacheContainer.cs" />
+    <Compile Include="EntryType.cs" />
     <Compile Include="ICache.cs" />
     <Compile Include="CacheFactory.cs" />
+    <Compile Include="ICacheEntry.cs" />
     <Compile Include="ICacheFactory.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="IVersionProvider.cs" />

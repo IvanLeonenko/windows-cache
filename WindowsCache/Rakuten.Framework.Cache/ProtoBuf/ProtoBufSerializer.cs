@@ -125,7 +125,7 @@ namespace Rakuten.Framework.Cache.ProtoBuf
 
             
             //todo: TypeSubTypesIndices should be cleaned up on initialization (e g cctor)
-            maxInd = 5;
+            maxInd = 6;
             var cacheEntryTypeName = typeof (ICacheEntry).FullName;
             if (_protoBufMappings.TypeSubTypesIndices.ContainsKey(cacheEntryTypeName))
             {

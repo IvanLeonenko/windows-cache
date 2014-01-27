@@ -32,10 +32,10 @@ namespace DesktopTests
         [TestMethod]
         public async Task PerfWrite256() { await Write100KbByteArrays(256); }
 
-        public static async Task Write100KbByteArrays(int numberOfChunks)
+        public static async Task Write100KbByteArrays(int numberOfChunks, string cachename = null)
         {
             var byteArrays = PerfHelpers.GetByteArrays(numberOfChunks);
-            var cache = await DesktopCacheFactory.GetCache(null, PerfCacheName);
+            var cache = await DesktopCacheFactory.GetCache(null, cachename ?? PerfCacheName);
             await cache.Clear();
 
             var sw = Stopwatch.StartNew();

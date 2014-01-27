@@ -184,8 +184,8 @@ namespace Rakuten.Framework.Cache.Desktop
                 {
                     _keyToLockers[key] = new object();
                 }
+                return _keyToLockers[key];
             }
-            return _keyToLockers[key];
         }
     }
 }

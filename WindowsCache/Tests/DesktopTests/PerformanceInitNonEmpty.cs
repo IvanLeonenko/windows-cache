@@ -26,10 +26,12 @@ namespace DesktopTests
 
         public static async Task PrepareCache(int N)
         {
-            await PerformanceWrite.Write100KbByteArrays(N);
+            var constractCachename = "construct_cache";
+            await PerformanceWrite.Write100KbByteArrays(N, constractCachename);
             
             var sw = Stopwatch.StartNew();
-            var cache = await DesktopCacheFactory.GetCache(null, PerformanceWrite.PerfCacheName);
+
+            var cache = await DesktopCacheFactory.GetCache(null, constractCachename);
             cache.Size.Should().BeGreaterThan(0);
             sw.Stop();
             Console.WriteLine("Elapsed on PrepareCache:" + sw.ElapsedMilliseconds);

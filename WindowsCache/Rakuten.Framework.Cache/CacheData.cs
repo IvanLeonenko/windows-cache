@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Rakuten.Framework.Cache.ProtoBuf;
@@ -34,16 +35,35 @@ namespace Rakuten.Framework.Cache
             var stream = await _storage.GetStream(CacheName);
 
             _entries = (stream == null) ? new Dictionary<string, ICacheEntry>() : _serializer.Deserialize<Dictionary<string, ICacheEntry>>(stream);
+            
+            #region load values to memory: warning task.Wait() is used
             //var count = 0;
             //var size = 0;
+            
             //foreach (var cacheEntry in _entries)
             //{
-            //    while (count <= _cacheConfiguration.MaxInMemoryCacheDataEntries && size <= _cacheConfiguration.MaxInMemoryCacheDataSize)
+            //    while (count <= _cacheConfiguration.MaxInMemoryCacheDataEntries &&
+            //            size <= _cacheConfiguration.MaxInMemoryCacheDataSize)
             //    {
             //        count++;
             //        size += cacheEntry.Value.Size;
+            //        var methodInfo =
+            //            GetType()
+            //                .GetRuntimeMethod("Get", new[] {typeof (string), typeof (bool)})
+            //                .MakeGenericMethod(new[] {cacheEntry.Value.Type});
+            //        var @out = methodInfo.Invoke(this, new object[] {cacheEntry.Key, false});
+            //        if (@out != null)
+            //        {
+            //            var task = ((Task) @out);
+            //            if (task != null)
+            //            {
+            //                task.Wait();
+            //            }
+            //        }
+
             //    }
             //}
+            #endregion
 
             Size = _entries.Sum(x => x.Value.Size);
             InMemorySize = _entries.Where(x => x.Value.IsInMemory).Sum(x => x.Value.Size);
@@ -71,8 +91,8 @@ namespace Rakuten.Framework.Cache
             } finally { _lock.ExitReadLock(); }
 
             var expirationTime = currentTime + (timeToLive.HasValue ? timeToLive.Value : _cacheConfiguration.DefaultTimeToLive);
-            
-            var cacheEntry = new CacheEntry<T> { Value = value, IsInMemory = true, CreatedTime = createdTime, ModifiedTime = currentTime, LastAccessTime = currentTime, ExpirationTime = expirationTime};
+
+            var cacheEntry = new CacheEntry<T> { Value = value, Type = typeof(T), IsInMemory = true, CreatedTime = createdTime, ModifiedTime = currentTime, LastAccessTime = currentTime, ExpirationTime = expirationTime};
 
             await SetSizeAndType(cacheEntry, value);
 
@@ -144,20 +164,6 @@ namespace Rakuten.Framework.Cache
                 resultEntry.LastAccessTime = DateTime.UtcNow;
             }
 
-            /*
-             * this is to omit two serializations
-             */
-            //if (resultEntry!= null &&  !resultEntry.IsInMemory)
-            //{
-            //    using (var stream = new MemoryStream(resultEntry.SerializedValue))
-            //    {
-            //        resultEntry.Value = _serializer.Deserialize<T>(stream);
-            //    }
-            //    resultEntry.IsInMemory = true;
-            //}
-
-
-
             if (!_cacheConfiguration.InMemoryOnly)
             {
                 Stream entriesStream = null;
@@ -226,15 +232,6 @@ namespace Rakuten.Framework.Cache
                     cacheEntry.Size = Convert.ToInt32(stream.Length) + CacheEntrySize;
                     await _storage.Write(cacheEntry.FileName, stream);
                 }
-
-                /*
-                 * this is to omit two serializations
-                 */
-                //using (var memoryStream = new MemoryStream())
-                //{
-                //    stream.CopyTo(memoryStream);
-                //    cacheEntry.SerializedValue = memoryStream.ToArray();
-                //}
             }
 
             await RemoveOnReachingLimit(InMemorySize + cacheEntry.Size, _cacheConfiguration.MaxInMemoryCacheDataSize, true, x => x.Size);
