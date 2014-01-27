@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using FluentAssertions;
 using FluentAssertions.Specialized;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,20 +19,24 @@ namespace CacheTests.VersionTests
             var cacheConfiguration = new CacheConfiguration(1024, 5, 1024, 5);
 
             var cacheContainer = InitializeCacheContainer();
-            var storage = (TestStorage)cacheContainer.Resolve<IStorage>();
+            var storage = (TestStorage) cacheContainer.Resolve<IStorage>();
             cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version(1, 1));
-            
-            var cache = new Cache(cacheContainer, cacheConfiguration);
-            await cache.Initialize();
-            //when at least one value set cache is written
-            await cache.Set("some_entry", 41);
+
+            using (var cache = new Cache(cacheContainer, cacheConfiguration))
+            {
+                await cache.Initialize();
+                //when at least one value set cache is written
+                await cache.Set("some_entry", 41);
+            }
 
             //cache will be cleanued up if versions in storage and executing assembly differ
             cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version(6, 1));
-            cache = new Cache(cacheContainer, cacheConfiguration);
-            await cache.Initialize();
-            storage.KeyToStreams.Should().BeEmpty();
-            cache.Get<Int32>("some_entry").Result.Should().BeNull();
+            using (var cache = new Cache(cacheContainer, cacheConfiguration))
+            {
+                await cache.Initialize();
+                storage.KeyToStreams.Should().BeEmpty();
+                cache.Get<Int32>("some_entry").Result.Should().BeNull();
+            }
         }
 
         [TestMethod]
@@ -43,18 +48,22 @@ namespace CacheTests.VersionTests
             var storage = (TestStorage)cacheContainer.Resolve<IStorage>();
 
             cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version(1, 1));
-            
-            var cache = new Cache(cacheContainer, cacheConfiguration);
-            await cache.Initialize();
-            //when at least one value set cache is written
-            await cache.Set("some_entry", 42);
+
+            using (var cache = new Cache(cacheContainer, cacheConfiguration))
+            {
+                await cache.Initialize();
+                //when at least one value set cache is written
+                await cache.Set("some_entry", 42);
+            }
 
             //cache should not be cleanued up if versions in storage and executing assembly differ
             cacheContainer.Register<IVersionProvider, TestVersionProvider>().WithValue("version", new Version(1, 1));
-            cache = new Cache(cacheContainer, cacheConfiguration);
-            await cache.Initialize();
-            storage.KeyToStreams.Should().NotBeEmpty();
-            cache.Get<Int32>("some_entry").Result.Value.Should().Be(42);
+            using (var cache = new Cache(cacheContainer, cacheConfiguration))
+            {
+                await cache.Initialize();
+                storage.KeyToStreams.Should().NotBeEmpty();
+                cache.Get<Int32>("some_entry").Result.Value.Should().Be(42);
+            }
         }
 
         private static CacheContainer InitializeCacheContainer()

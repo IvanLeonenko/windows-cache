@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Rakuten.Framework.Cache
 {
-    public interface ICache
+    public interface ICache : IDisposable
     {
         Task<CacheEntry<T>> Get<T>(string key);
 

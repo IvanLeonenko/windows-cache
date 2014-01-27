@@ -45,7 +45,7 @@ namespace DesktopTests
             var sw = Stopwatch.StartNew();
             for (var i = 0; i < length; i++)
             {
-                var bytes = await cache.Get<byte[]>(i.ToString());
+                cache.Get<byte[]>(i.ToString()).Wait();
                 //bytes.Value.Should().HaveCount(102400);
             }
             sw.Stop();

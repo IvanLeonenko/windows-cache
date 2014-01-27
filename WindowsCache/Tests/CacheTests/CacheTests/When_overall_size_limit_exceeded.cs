@@ -28,15 +28,15 @@ namespace CacheTests.CacheTests
             _cache = new Cache(cacheContainer, cacheConfiguration);
             await _cache.Initialize();
             await _cache.Set("stringKey1", "stringValue1");
-            Thread.Sleep(30);
+            Thread.Sleep(20);
             await _cache.Set("stringKey2", "stringValue2");
-            Thread.Sleep(30);
+            Thread.Sleep(20);
             await _cache.Set("stringKey3", "stringValue3");
-            Thread.Sleep(30);
+            Thread.Sleep(20);
             await _cache.Set("stringKey4", "stringValue4");
-            Thread.Sleep(30);
+            Thread.Sleep(20);
             await _cache.Set("Int32Key", 42);
-            Thread.Sleep(30);
+            await _cache.SaveMappingsAndCheckLimits(null);
         }
         
         [TestMethod]

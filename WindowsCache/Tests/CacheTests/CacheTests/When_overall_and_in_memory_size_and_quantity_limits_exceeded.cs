@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Threading;
 using CacheTests.VersionTests;
 using FluentAssertions;
@@ -33,7 +32,7 @@ namespace CacheTests.CacheTests
             Thread.Sleep(20);
             await _cache.Set("stringKey2", "stringValue2");
             Thread.Sleep(20);
-            await _cache.Set("stringKey3", "stringValue3");
+            await _cache.Set("byteKey3", new byte[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24});
             Thread.Sleep(20);
             await _cache.Set("stringKey4", "stringValue4");
             Thread.Sleep(20);
@@ -44,6 +43,8 @@ namespace CacheTests.CacheTests
             await _cache.Set("floatKey", 13.37f);
             Thread.Sleep(20);
             await _cache.Set("decimalKey", 13.37m);
+
+            await _cache.SaveMappingsAndCheckLimits(null);
         }
 
         [TestMethod]
@@ -51,7 +52,7 @@ namespace CacheTests.CacheTests
         {
             _cache.Get<string>("stringKey1").Result.Should().BeNull();
             _cache.Get<string>("stringKey2").Result.Should().BeNull();
-            _cache.Get<string>("stringKey3").Result.Value.Should().Be("stringValue3");
+            _cache.Get<byte[]>("byteKey3").Result.Value.Should().BeEquivalentTo(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 });
             _cache.Get<string>("stringKey4").Result.Value.Should().Be("stringValue4");
             _cache.Get<Int32>("Int32Key").Result.Value.Should().Be(42);
             _cache.Get<DateTime>("DateTimeKey").Result.Value.Should().Be(_dateTime);

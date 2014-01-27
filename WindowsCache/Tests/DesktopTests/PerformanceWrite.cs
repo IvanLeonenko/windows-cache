@@ -35,16 +35,18 @@ namespace DesktopTests
         public static async Task Write100KbByteArrays(int numberOfChunks, string cachename = null)
         {
             var byteArrays = PerfHelpers.GetByteArrays(numberOfChunks);
-            var cache = await DesktopCacheFactory.GetCache(null, cachename ?? PerfCacheName);
-            await cache.Clear();
-
-            var sw = Stopwatch.StartNew();
-            for (var i = 0; i < byteArrays.Length; i++)
+            using (var cache = await DesktopCacheFactory.GetCache(null, cachename ?? PerfCacheName))
             {
-                cache.Set(i.ToString(), byteArrays[i]).Wait();
+                await cache.Clear();
+
+                var sw = Stopwatch.StartNew();
+                for (var i = 0; i < byteArrays.Length; i++)
+                {
+                    cache.Set(i.ToString(), byteArrays[i]).Wait();
+                }
+                sw.Stop();
+                Console.WriteLine("Elapsed:" + sw.ElapsedMilliseconds);
             }
-            sw.Stop();
-            Console.WriteLine("Elapsed:" + sw.ElapsedMilliseconds);
         }
 
     }

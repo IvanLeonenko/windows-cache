@@ -12,6 +12,7 @@ namespace Rakuten.Framework.Cache
         private readonly IStorage _storage;
         private readonly CacheData _cacheData;
         public static string VersionEntryName = "cache.version";
+        private readonly Timer _timer;
 
         public Cache(CacheContainer container, CacheConfiguration cacheConfiguration)
         {
@@ -19,6 +20,7 @@ namespace Rakuten.Framework.Cache
             _logger = container.Resolve<ILogger>();
             _storage = new InMemoryStorageProxy(container.Resolve<IStorage>(), cacheConfiguration.InMemoryOnly);
             _cacheData = new CacheData(_storage, container.Resolve<ISerializer>(), cacheConfiguration, _logger);
+            _timer = new Timer(SaveMappingsAndCheckLimits, null, cacheConfiguration.PeriodicOperationsDueTime, cacheConfiguration.PeriodicOperationsPeriodTime);
         }
 
         public async Task Initialize()
@@ -72,6 +74,23 @@ namespace Rakuten.Framework.Cache
             var result = version != cacheVersion;
             await _storage.Write(VersionEntryName, version.ToString());
             return result;
+        }
+
+        public async Task SaveMappingsAndCheckLimits(object state)
+        {
+            await _cacheData.SaveCacheMappings();
+            await _cacheData.CheckLimits();
+        }
+
+        public async void Dispose()
+        {
+            //todo: wait is not good here
+            if (_cacheData != null)
+                _cacheData.SaveCacheMappings().Wait();
+            if (_cacheData != null)
+                _cacheData.CheckLimits().Wait();
+            if (_timer != null)
+                _timer.Dispose();
         }
     }
 }

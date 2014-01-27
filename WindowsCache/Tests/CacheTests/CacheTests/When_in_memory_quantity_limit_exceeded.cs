@@ -33,7 +33,7 @@ namespace CacheTests.CacheTests
             await _cache.Set("someBytes", new byte[] { 12, 32, 43 });
             await _cache.Set("Int32Key1", 1);
             await _cache.Set("dateTimeKey1", _dateTime);
-
+            await _cache.SaveMappingsAndCheckLimits(null);
         }
 
         [TestMethod]

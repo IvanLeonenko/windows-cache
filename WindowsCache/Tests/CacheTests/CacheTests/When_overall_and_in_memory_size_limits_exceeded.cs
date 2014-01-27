@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Threading;
 using CacheTests.VersionTests;
 using FluentAssertions;
@@ -16,7 +15,7 @@ namespace CacheTests.CacheTests
         Cache _cache;
 
         [TestInitialize]
-        public void Initialize()
+        public async void Initialize()
         {
             var cacheContainer = new CacheContainer();
             cacheContainer.Register<ILogger, TestLogger>();
@@ -27,17 +26,17 @@ namespace CacheTests.CacheTests
             var cacheConfiguration = new CacheConfiguration(500, 10, 500, 5);
 
             _cache = new Cache(cacheContainer, cacheConfiguration);
-            _cache.Initialize();
-            Thread.Sleep(30);
-            _cache.Set("stringKey1", "stringValue1");
-            Thread.Sleep(30);
-            _cache.Set("stringKey2", "stringValue2");
-            Thread.Sleep(30);
-            _cache.Set("stringKey3", "stringValue3");
-            Thread.Sleep(30);
-            _cache.Set("stringKey4", "stringValue4");
-            Thread.Sleep(30);
-            _cache.Set("Int32Key", 42);
+            await _cache.Initialize();
+            await _cache.Set("stringKey1", "stringValue1");
+            Thread.Sleep(20);
+            await _cache.Set("stringKey2", "stringValue2");
+            Thread.Sleep(20);
+            await _cache.Set("stringKey3", "stringValue3");
+            Thread.Sleep(20);
+            await _cache.Set("stringKey4", "stringValue4");
+            Thread.Sleep(20);
+            await _cache.Set("Int32Key", 42);
+            await _cache.SaveMappingsAndCheckLimits(null);
         }
 
         [TestMethod]

@@ -80,16 +80,18 @@ namespace UserTypeDesktopTests
         public static async Task Write100UserTypesArrays(int numberOfChunks, string cacheName = null)
         {
             var userTypeArrays = PerfHelpers.GetUserTypeArrays(numberOfChunks);
-            var cache = await DesktopCacheFactory.GetCache(null, cacheName ?? PerfCacheName + numberOfChunks);
-            await cache.Clear();
-
-            var sw = Stopwatch.StartNew();
-            for (var i = 0; i < userTypeArrays.Length; i++)
+            using (var cache = await DesktopCacheFactory.GetCache(null, cacheName ?? PerfCacheName + numberOfChunks))
             {
-                cache.Set(i.ToString(), userTypeArrays[i]).Wait();
+                await cache.Clear();
+
+                var sw = Stopwatch.StartNew();
+                for (var i = 0; i < userTypeArrays.Length; i++)
+                {
+                    cache.Set(i.ToString(), userTypeArrays[i]).Wait();
+                }
+                sw.Stop();
+                Console.WriteLine("Elapsed:" + sw.ElapsedMilliseconds);
             }
-            sw.Stop();
-            Console.WriteLine("Elapsed:" + sw.ElapsedMilliseconds);
         }
 
         //get 
@@ -142,10 +144,12 @@ namespace UserTypeDesktopTests
             Write100UserTypesArrays(N, constructCachename).Wait();
 
             var sw = Stopwatch.StartNew();
-            var cache = await DesktopCacheFactory.GetCache(null, constructCachename);
-            cache.Size.Should().BeGreaterThan(0);
-            sw.Stop();
-            Console.WriteLine("Elapsed on PrepareCache:" + sw.ElapsedMilliseconds);
+            using (var cache = await DesktopCacheFactory.GetCache(null, constructCachename))
+            {
+                cache.Size.Should().BeGreaterThan(0);
+                sw.Stop();
+                Console.WriteLine("Elapsed on PrepareCache:" + sw.ElapsedMilliseconds);
+            }
         }
     }
 }

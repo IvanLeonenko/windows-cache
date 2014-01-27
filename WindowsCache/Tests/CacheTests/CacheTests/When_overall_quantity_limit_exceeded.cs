@@ -35,6 +35,7 @@ namespace CacheTests.CacheTests
             await _cache.Set("Int32Key1", 1);
             await _cache.Set("dateTimeKey1", _dateTime);
             await _cache.Set("boolKey", true);
+            await _cache.SaveMappingsAndCheckLimits(null);
         }
 
         [TestMethod]

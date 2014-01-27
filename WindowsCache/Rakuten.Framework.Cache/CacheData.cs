@@ -20,6 +20,11 @@ namespace Rakuten.Framework.Cache
         private Dictionary<string, ICacheEntry> _entries;
         private readonly CacheConfiguration _cacheConfiguration;
         private readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
+        const int NotChanged = 0;
+        const int Changed = 1;
+        private int _cacheDataChanged = NotChanged;
+        //private int _shouldCheckLimits = NotChanged;
+        //private int _shouldCheckInMemoryLimits = NotChanged;
 
         public CacheData(IStorage storage, ISerializer serializer, CacheConfiguration cacheConfiguration, ILogger logger)
         {
@@ -98,18 +103,9 @@ namespace Rakuten.Framework.Cache
 
             await AddEntry(key, cacheEntry);
 
-            if (!_cacheConfiguration.InMemoryOnly)
-            {
-                Stream entriesStream = null;
-                _lock.EnterReadLock();
-                try
-                {
-                    entriesStream = _serializer.Serialize(_entries);
-                }
-                finally { _lock.ExitReadLock(); }
-
-                await _storage.Write(CacheName, entriesStream);
-            }
+            Interlocked.Exchange(ref _cacheDataChanged, Changed);
+            //Interlocked.Exchange(ref _shouldCheckInMemoryLimits, Changed);
+            //Interlocked.Exchange(ref _shouldCheckLimits, Changed);
         }
 
         public async Task<CacheEntry<T>> Get<T>(string key, bool doLimitCheck = true)
@@ -151,9 +147,13 @@ namespace Rakuten.Framework.Cache
                         object obj = await _storage.GetString(resultEntry.FileName);
                         resultEntry.Value = (T) obj;
                     }
-
+                    
+                    //InMemoryCount++;
+                    //InMemorySize += resultEntry.Size;
+                    
                     if (doLimitCheck)
                     {
+                        //Interlocked.Exchange(ref _shouldCheckInMemoryLimits, Changed);
                         await RemoveOnReachingLimit(InMemorySize + resultEntry.Size, _cacheConfiguration.MaxInMemoryCacheDataSize, true, x => x.Size);
                         await RemoveOnReachingLimit(InMemoryCount + 1, _cacheConfiguration.MaxInMemoryCacheDataEntries, true, x => 1);
                     }
@@ -163,21 +163,45 @@ namespace Rakuten.Framework.Cache
 
                 resultEntry.LastAccessTime = DateTime.UtcNow;
             }
-
-            if (!_cacheConfiguration.InMemoryOnly)
-            {
-                Stream entriesStream = null;
-                _lock.EnterReadLock();
-                try
-                {
-                    entriesStream = _serializer.Serialize(_entries);
-                }
-                finally { _lock.ExitReadLock(); }
-
-                await _storage.Write(CacheName, entriesStream);
-            }
-
+            Interlocked.Exchange(ref _cacheDataChanged, Changed);
             return resultEntry;
+        }
+
+        public async Task SaveCacheMappings()
+        {
+            if (Interlocked.Exchange(ref _cacheDataChanged, NotChanged) == Changed)
+            {
+                if (!_cacheConfiguration.InMemoryOnly)
+                {
+                    Stream entriesStream = null;
+                    _lock.EnterReadLock();
+                    try
+                    {
+                        entriesStream = _serializer.Serialize(_entries);
+                    }
+                    finally
+                    {
+                        _lock.ExitReadLock();
+                    }
+
+                    await _storage.Write(CacheName, entriesStream);
+                }
+            }
+        }
+
+        public async Task CheckLimits()
+        {
+            //if (Interlocked.Exchange(ref _shouldCheckLimits, NotChanged) == Changed)
+            //{
+            //    await RemoveOnReachingLimit(Size, _cacheConfiguration.MaxCacheDataSize, false, x => x.Size);
+            //    await RemoveOnReachingLimit(Count, _cacheConfiguration.MaxCacheDataEntries, false, x => 1);
+            //}
+
+            //if (Interlocked.Exchange(ref _shouldCheckInMemoryLimits, NotChanged) == Changed)
+            //{
+            //    await RemoveOnReachingLimit(InMemorySize, _cacheConfiguration.MaxInMemoryCacheDataSize, true, x => x.Size);
+            //    await RemoveOnReachingLimit(InMemoryCount, _cacheConfiguration.MaxInMemoryCacheDataEntries, true, x => 1);
+            //}
         }
 
         public async Task Clear()
