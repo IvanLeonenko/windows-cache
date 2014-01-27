@@ -1,8 +1,10 @@
-﻿using Rakuten.Framework.Cache.Storage;
+﻿using System.Collections.Generic;
+using Rakuten.Framework.Cache.Storage;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Rakuten.Framework.Cache.Threading;
 
 namespace Rakuten.Framework.Cache.WindowsStore
 {
@@ -35,48 +37,98 @@ namespace Rakuten.Framework.Cache.WindowsStore
 
         public async Task Write(string key, string value)
         {
-            var cacheFolder = await GetWorkingFolder();
-            var file = await cacheFolder.CreateFileAsync(key, CreationCollisionOption.ReplaceExisting);
-            await file.Write(value);
+            using (var @lock = await GetLocker(key).LockAsync())
+            {
+                var cacheFolder = await GetWorkingFolder();
+                var file = await cacheFolder.CreateFileAsync(key, CreationCollisionOption.ReplaceExisting);
+                await file.Write(value);
+            }
         }
 
         public async Task<string> GetString(string key)
         {
-            var storageFile = await GetStorageFile(key);
-            return storageFile != null ? await storageFile.ReadString() : null;
+            using (var @lock = await GetLocker(key).LockAsync())
+            {
+                var storageFile = await GetStorageFile(key);
+                return storageFile != null ? await storageFile.ReadString() : null;
+            }
         }
 
         public async Task Write(string key, byte[] value)
         {
-            var cacheFolder = await GetWorkingFolder();
-            var file = await cacheFolder.CreateFileAsync(key, CreationCollisionOption.ReplaceExisting);
-            await file.Write(value);
+            using (var @lock = await GetLocker(key).LockAsync())
+            {
+                var cacheFolder = await GetWorkingFolder();
+                var file = await cacheFolder.CreateFileAsync(key, CreationCollisionOption.ReplaceExisting);
+                await file.Write(value);
+            }
         }
 
         public async Task<byte[]> GetBytes(string key)
         {
-            var storageFile = await GetStorageFile(key);
-            return storageFile != null ? await storageFile.ReadBytes() : null;
+            using (var @lock = await GetLocker(key).LockAsync())
+            {
+                var storageFile = await GetStorageFile(key);
+                return storageFile != null ? await storageFile.ReadBytes() : null;
+            }
         }
 
         public async Task Write(string key, Stream value)
         {
-            var cacheFolder = await GetWorkingFolder();
-            var file = await cacheFolder.CreateFileAsync(key, CreationCollisionOption.ReplaceExisting);
-            await file.Write(value);
+            using (var @lock = await GetLocker(key).LockAsync())
+            {
+                var cacheFolder = await GetWorkingFolder();
+                var file = await cacheFolder.CreateFileAsync(key, CreationCollisionOption.ReplaceExisting);
+                await file.Write(value);
+            }
         }
 
         public async Task<Stream> GetStream(string key)
         {
-            var storageFile = await GetStorageFile(key);
-            return storageFile != null ? await storageFile.ReadStream() : null;
+            using (var @lock = await GetLocker(key).LockAsync())
+            {
+                var storageFile = await GetStorageFile(key);
+                return storageFile != null ? await storageFile.ReadStream() : null;
+            }
         }
 
         public async Task Remove(string key)
         {
-            var storageFile = await GetStorageFile(key);
-            if (storageFile != null)
-                await storageFile.DeleteAsync();
+            using (var @lock = await GetLocker(key).LockAsync())
+            {
+                var storageFile = await GetStorageFile(key);
+                if (storageFile != null)
+                    await storageFile.DeleteAsync();
+            }
+            RemoveLocker(key);
+        }
+
+
+        private readonly object _locker = new object();
+        private readonly Dictionary<string, AsyncLock> _keyToLockers = new Dictionary<string, AsyncLock>();
+
+        private AsyncLock GetLocker(string key)
+        {
+            if (_keyToLockers.ContainsKey(key))
+                return _keyToLockers[key];
+
+            lock (_locker)
+            {
+                if (!_keyToLockers.ContainsKey(key))
+                {
+                    _keyToLockers[key] = new AsyncLock();
+                }
+                return _keyToLockers[key];
+            }
+        }
+
+        private void RemoveLocker(string key)
+        {
+            lock (_locker)
+            {
+                if (_keyToLockers.ContainsKey(key))
+                    _keyToLockers.Remove(key);
+            }
         }
     }
 }

@@ -56,6 +56,8 @@
     <Compile Include="ProtoBuf\ProtoBufSerializer.cs" />
     <Compile Include="Storage\InMemoryStorageProxy.cs" />
     <Compile Include="Storage\IStorage.cs" />
+    <Compile Include="Threading\AsyncLock.cs" />
+    <Compile Include="Threading\AsyncSemaphore.cs" />
     <Compile Include="Timer.cs" />
   </ItemGroup>
   <ItemGroup>

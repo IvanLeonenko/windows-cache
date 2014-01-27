@@ -166,6 +166,7 @@ namespace Rakuten.Framework.Cache.Desktop
                 if (File.Exists(filePath))
                     File.Delete(filePath);
             }
+            RemoveLocker(key);
         }
 
         private static string GetFilePath(string key)
@@ -185,6 +186,15 @@ namespace Rakuten.Framework.Cache.Desktop
                     _keyToLockers[key] = new object();
                 }
                 return _keyToLockers[key];
+            }
+        }
+
+        private void RemoveLocker(string key)
+        {
+            lock (_locker)
+            {
+                if (_keyToLockers.ContainsKey(key))
+                    _keyToLockers.Remove(key);
             }
         }
     }
