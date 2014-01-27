@@ -174,6 +174,14 @@ namespace Rakuten.Framework.Cache
                 if (!_cacheConfiguration.InMemoryOnly)
                 {
                     Stream entriesStream = null;
+                    
+                    var toRemove = (from entry in _entries where entry.Value.IsExpired select entry.Key).ToList();
+
+                    foreach (var item in toRemove)
+                    {
+                        await RemoveEntry(item);
+                    }
+
                     _lock.EnterReadLock();
                     try
                     {

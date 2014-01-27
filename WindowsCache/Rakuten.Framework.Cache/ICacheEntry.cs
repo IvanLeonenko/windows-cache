@@ -20,6 +20,8 @@ namespace Rakuten.Framework.Cache
         [ProtoMember(5)]
         Type Type { get; set; }
 
+        bool IsExpired { get; }
+
         void RemoveValue();
     }
 }
