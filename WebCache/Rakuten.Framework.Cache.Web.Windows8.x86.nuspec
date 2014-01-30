@@ -10,7 +10,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Rakuten Cache SDK Module Platform dependant part.</description>
         <summary>Rakuten Cache SDK module Platform dependant part.</summary>
-        <releaseNotes>1.0.0:
+        <releaseNotes>$version$:
 * New Platform dependant part
 * New namespace Rauten.Framework.Cache.Web.Windows8</releaseNotes>
         <copyright>Rakuten Inc. 2013</copyright>

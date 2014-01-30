@@ -6,6 +6,8 @@
     <owners>Rakuten Inc.</owners>
     <id>Rakuten.Framework.Cache.WindowsStore</id>
     <title>Rakuten Windows Cache for WinRT</title>
+	<iconUrl>http://global.rakuten.com/favicon.ico</iconUrl>
+	<projectUrl>https://rakuten.atlassian.net/wiki/display/SDK/Components+Overview</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Rakuten Windows Cache for Windows Store applications.</description>
     <copyright>Copyright Rakuten Inc. 2014</copyright>

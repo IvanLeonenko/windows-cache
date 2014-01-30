@@ -10,7 +10,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Rakuten Cache SDK Module handles Caching http requests.</description>
         <summary>Rakuten Cache SDK module</summary>
-        <releaseNotes>1.0.0:
+        <releaseNotes>$version$:
 * Written from scratch
 * New namespace Rauten.Framework.Cache.Web
 * First NuGet package release

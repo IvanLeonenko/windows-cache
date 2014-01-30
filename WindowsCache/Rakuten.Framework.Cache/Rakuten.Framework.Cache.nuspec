@@ -6,6 +6,8 @@
     <owners>Rakuten Inc.</owners>
     <id>Rakuten.Framework.Cache</id>
     <title>Rakuten Windows Cache Core</title>
+	<iconUrl>http://global.rakuten.com/favicon.ico</iconUrl>
+	<projectUrl>https://rakuten.atlassian.net/wiki/display/SDK/Components+Overview</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Core library of windows caching. PCL library, supports .NET 4.5, WinRT, WinPhone.</description>
     <copyright>Copyright Rakuten Inc. 2014</copyright>
