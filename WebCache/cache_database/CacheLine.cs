@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 using SQLite;
 
-namespace Rakuten.Framework.Cache.Windows8
+namespace Rakuten.Framework.Cache.Web.Windows8
 {
     public class CacheLine : ICacheLine
     {

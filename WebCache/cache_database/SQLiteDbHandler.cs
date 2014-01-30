@@ -19,9 +19,9 @@ using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using SQLite;
-using Rakuten.Framework.Cache;
+using Rakuten.Framework.Cache.Web;
 
-namespace Rakuten.Framework.Cache.Windows8
+namespace Rakuten.Framework.Cache.Web.Windows8
 {
     public class SQLiteDbHandler : ICacheDbHandler
     {

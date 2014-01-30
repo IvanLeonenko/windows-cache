@@ -9,8 +9,8 @@
     <ProjectGuid>{6A4C88A9-5E1D-4005-A9DB-12B3D001B6DA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rakuten.Framework.Cache.Windows8</RootNamespace>
-    <AssemblyName>Rakuten.Framework.Cache.Windows8</AssemblyName>
+    <RootNamespace>Rakuten.Framework.Cache.Web.Windows8</RootNamespace>
+    <AssemblyName>Rakuten.Framework.Cache.Web.Windows8</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -113,9 +113,9 @@
     <Compile Include="SQLiteDbHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\lib\Rakuten.Framework.Cache.csproj">
+    <ProjectReference Include="..\lib\Rakuten.Framework.Cache.Web.csproj">
       <Project>{ec47897e-ba98-40d8-8405-cdcef3e70633}</Project>
-      <Name>Rakuten.Framework.Cache</Name>
+      <Name>Rakuten.Framework.Cache.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

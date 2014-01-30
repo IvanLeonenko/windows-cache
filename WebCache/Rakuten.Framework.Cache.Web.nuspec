@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
-        <id>Rakuten.Framework.Cache</id>
+        <id>Rakuten.Framework.Cache.Web</id>
         <version>1.0.0</version>
         <title>Rakuten Cache SDK Module</title>
         <authors>SDTD</authors>
@@ -12,7 +12,7 @@
         <summary>Rakuten Cache SDK module</summary>
         <releaseNotes>1.0.0:
 * Written from scratch
-* New namespace Rauten.Framework.Cache
+* New namespace Rauten.Framework.Cache.Web
 * First NuGet package release
 * Portable Class Library</releaseNotes>
         <copyright>Rakuten Inc. 2013</copyright>
@@ -24,7 +24,7 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="lib\bin\Release\Rakuten.Framework.Cache.dll" target="lib\portable-net45+wp8+win8\Rakuten.Framework.Cache.dll" />
-        <file src="lib\bin\Release\Rakuten.Framework.Cache.XML" target="lib\portable-net45+wp8+win8\Rakuten.Framework.Cache.XML" />
+        <file src="lib\bin\Release\Rakuten.Framework.Cache.Web.dll" target="lib\portable-net45+wp8+win8\Rakuten.Framework.Cache.Web.dll" />
+        <file src="lib\bin\Release\Rakuten.Framework.Cache.Web.XML" target="lib\portable-net45+wp8+win8\Rakuten.Framework.Cache.Web.XML" />
     </files>
 </package>

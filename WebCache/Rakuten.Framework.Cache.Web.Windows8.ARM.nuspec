@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
-        <id>Rakuten.Framework.Cache.Windows8.ARM</id>
+        <id>Rakuten.Framework.Cache.Web.Windows8.ARM</id>
         <version>1.0.0</version>
         <title>Rakuten Cache SDK Module Platform dependant part - ARM</title>
         <authors>SDTD</authors>
@@ -12,16 +12,16 @@
         <summary>Rakuten Cache SDK module Platform dependant part.</summary>
         <releaseNotes>1.0.0:
 * New Platform dependant part
-* New namespace Rauten.Framework.Cache.Windows8</releaseNotes>
+* New namespace Rauten.Framework.Cache.Web.Windows8</releaseNotes>
         <copyright>Rakuten Inc. 2013</copyright>
         <dependencies>
             <group targetFramework="Windows0.0">
-                <dependency id="Rakuten.Framework.Cache" version="1.0.0" />
+                <dependency id="Rakuten.Framework.Cache.Web" version="$version$" />
             </group>
         </dependencies>
     </metadata>
     <files>
-        <file src="cache_database\bin\ARM\Release\Rakuten.Framework.Cache.Windows8.dll" target="lib\netcore\Rakuten.Framework.Cache.Windows8.dll" />
-        <file src="cache_database\bin\ARM\Release\Rakuten.Framework.Cache.Windows8.pri" target="lib\netcore\Rakuten.Framework.Cache.Windows8.pri" />
+        <file src="cache_database\bin\ARM\Release\Rakuten.Framework.Cache.Web.Windows8.dll" target="lib\netcore\Rakuten.Framework.Cache.Web.Windows8.dll" />
+        <file src="cache_database\bin\ARM\Release\Rakuten.Framework.Cache.Web.Windows8.pri" target="lib\netcore\Rakuten.Framework.Cache.Web.Windows8.pri" />
     </files>
 </package>

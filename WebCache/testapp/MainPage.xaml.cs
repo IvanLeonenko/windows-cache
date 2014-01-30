@@ -16,8 +16,8 @@ using Windows.UI.Xaml.Navigation;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 using Windows.Storage;
-using Rakuten.Framework.Cache;
-using Rakuten.Framework.Cache.Windows8;
+using Rakuten.Framework.Cache.Web;
+using Rakuten.Framework.Cache.Web.Windows8;
 
 namespace testapp
 {

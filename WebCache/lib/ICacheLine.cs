@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rakuten.Framework.Cache
+namespace Rakuten.Framework.Cache.Web
 {
     /// <summary>
     /// Interface for cache lines stored in the database.
