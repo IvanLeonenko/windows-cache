@@ -15,6 +15,8 @@
     <PackageCertificateKeyFile>testapp_TemporaryKey.pfx</PackageCertificateKeyFile>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <PackageCertificateThumbprint>C152BD4399DC9FF025A5D83ABBAD0B85221EDD27</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x64</PlatformTarget>
@@ -103,13 +105,13 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\cache_database\Rakuten.Framework.Cache.Windows8.csproj">
+    <ProjectReference Include="..\cache_database\Rakuten.Framework.Cache.Web.Windows8.csproj">
       <Project>{6a4c88a9-5e1d-4005-a9db-12b3d001b6da}</Project>
-      <Name>Rakuten.Framework.Cache.Windows8</Name>
+      <Name>Rakuten.Framework.Cache.Web.Windows8</Name>
     </ProjectReference>
-    <ProjectReference Include="..\lib\Rakuten.Framework.Cache.csproj">
+    <ProjectReference Include="..\lib\Rakuten.Framework.Cache.Web.csproj">
       <Project>{ec47897e-ba98-40d8-8405-cdcef3e70633}</Project>
-      <Name>Rakuten.Framework.Cache</Name>
+      <Name>Rakuten.Framework.Cache.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

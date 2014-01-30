@@ -18,7 +18,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rakuten.Framework.Cache
+namespace Rakuten.Framework.Cache.Web
 {
     internal class HttpGetter
     {

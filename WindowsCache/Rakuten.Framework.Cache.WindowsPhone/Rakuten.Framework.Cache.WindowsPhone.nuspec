@@ -6,6 +6,8 @@
     <owners>Rakuten Inc.</owners>
     <id>Rakuten.Framework.Cache.WindowsPhone</id>
     <title>Rakuten Windows Cache for Windows Phone 8</title>
+	<iconUrl>http://global.rakuten.com/favicon.ico</iconUrl>
+	<projectUrl>https://rakuten.atlassian.net/wiki/display/SDK/Components+Overview</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Rakuten Windows Cache for Windows Phone 8 applications.</description>
     <copyright>Copyright Rakuten Inc. 2014</copyright>

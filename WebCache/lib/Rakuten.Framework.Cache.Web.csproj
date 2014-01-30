@@ -8,8 +8,8 @@
     <ProjectGuid>{EC47897E-BA98-40D8-8405-CDCEF3E70633}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rakuten.Framework.Cache</RootNamespace>
-    <AssemblyName>Rakuten.Framework.Cache</AssemblyName>
+    <RootNamespace>Rakuten.Framework.Cache.Web</RootNamespace>
+    <AssemblyName>Rakuten.Framework.Cache.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -26,7 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>bin\Debug\Rakuten.Framework.Cache.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Rakuten.Framework.Cache.Web.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,7 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Rakuten.Framework.Cache.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Rakuten.Framework.Cache.Web.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CacheManager.cs" />

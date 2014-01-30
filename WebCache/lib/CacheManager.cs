@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rakuten.Framework.Cache
+namespace Rakuten.Framework.Cache.Web
 {
     /// <summary>
     /// Main interface for cache module.
