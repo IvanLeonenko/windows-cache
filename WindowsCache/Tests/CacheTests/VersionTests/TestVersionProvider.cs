@@ -1,4 +1,4 @@
-﻿using Rakuten.Framework.Cache;
+﻿using Framework.Cache;
 using System;
 
 namespace CacheTests.VersionTests

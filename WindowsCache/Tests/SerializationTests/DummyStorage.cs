@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Rakuten.Framework.Cache.Storage;
+using Framework.Cache.Storage;
 using System.IO;
 
 namespace SerializationTests

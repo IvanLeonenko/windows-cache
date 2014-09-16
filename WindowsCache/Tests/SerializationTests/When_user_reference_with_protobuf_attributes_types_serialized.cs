@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProtoBuf;
-using Rakuten.Framework.Cache.ProtoBuf;
+using Framework.Cache.ProtoBuf;
 
 namespace SerializationTests
 {

@@ -57,10 +57,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="..\..\Rakuten.Framework.Cache\Properties\AssemblyVersionInfo.cs">
+    <Compile Include="..\..\Framework.Cache\Properties\AssemblyVersionInfo.cs">
       <Link>Properties\AssemblyVersionInfo.cs</Link>
     </Compile>
-    <Compile Include="..\..\Rakuten.Framework.Cache\Properties\SharedAssemblyInfo.cs">
+    <Compile Include="..\..\Framework.Cache\Properties\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="PerfHelpers.cs" />
@@ -71,13 +71,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Rakuten.Framework.Cache.Desktop\Rakuten.Framework.Cache.Desktop.csproj">
+    <ProjectReference Include="..\..\Framework.Cache.Desktop\Framework.Cache.Desktop.csproj">
       <Project>{c65a0334-9f1e-419c-9486-40102c2cbc29}</Project>
-      <Name>Rakuten.Framework.Cache.Desktop</Name>
+      <Name>Framework.Cache.Desktop</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Rakuten.Framework.Cache\Rakuten.Framework.Cache.csproj">
+    <ProjectReference Include="..\..\Framework.Cache\Framework.Cache.csproj">
       <Project>{d6957eef-5ecc-4a32-8ce6-0c2609aa359d}</Project>
-      <Name>Rakuten.Framework.Cache</Name>
+      <Name>Framework.Cache</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

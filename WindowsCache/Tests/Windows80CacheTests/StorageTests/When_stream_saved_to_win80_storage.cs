@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using Rakuten.Framework.Cache.WindowsStore;
+using Framework.Cache.WindowsStore;
 using System.IO;
 using System.Threading.Tasks;
 

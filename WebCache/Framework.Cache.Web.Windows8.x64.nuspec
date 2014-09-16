@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>Framework.Cache.Web.Windows8.x64</id>
+        <version>1.0.0</version>
+        <title>Cache SDK Module Platform dependant part - x64</title>
+        <authors>SDTD</authors>
+        <projectUrl>https://atlassian.net/wiki/display/SDK/Components+Overview</projectUrl>
+        <iconUrl>http://global.com/favicon.ico</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Cache SDK Module Platform dependant part.</description>
+        <summary>Cache SDK module Platform dependant part.</summary>
+        <releaseNotes>$version$:
+* New Platform dependant part
+* New namespace Rauten.Framework.Cache.Web.Windows8</releaseNotes>
+        <copyright>Inc. 2013</copyright>
+        <dependencies>
+            <group targetFramework="Windows0.0">
+                <dependency id="Framework.Cache.Web" version="$version$" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="cache_database\bin\x64\Release\Framework.Cache.Web.Windows8.dll" target="lib\netcore\Framework.Cache.Web.Windows8.dll" />
+        <file src="cache_database\bin\x64\Release\Framework.Cache.Web.Windows8.pri" target="lib\netcore\Framework.Cache.Web.Windows8.pri" />
+    </files>
+</package>

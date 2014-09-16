@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Rakuten.Framework.Cache.Storage;
+using Framework.Cache.Storage;
 
 namespace CacheTests.StorageTests
 {

@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using Rakuten.Framework.Cache;
-using Rakuten.Framework.Cache.ProtoBuf;
-using Rakuten.Framework.Cache.Storage;
-using Rakuten.Framework.Cache.WindowsStore;
+using Framework.Cache;
+using Framework.Cache.ProtoBuf;
+using Framework.Cache.Storage;
+using Framework.Cache.WindowsStore;
 
 namespace Windows80CacheTests.CacheTests
 {

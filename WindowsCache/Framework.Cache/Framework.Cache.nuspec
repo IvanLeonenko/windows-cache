@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd" >
+  <metadata>
+    <version>0.00</version>
+    <authors>Ivan Leonenko</authors>
+    <owners>Ivan Leonenko</owners>
+    <id>Framework.Cache</id>
+    <title>Windows Cache Core</title>
+	<iconUrl>http://global.com/favicon.ico</iconUrl>
+	<projectUrl>https://atlassian.net/wiki/display/SDK/Components+Overview</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Core library of windows caching. PCL library, supports .NET 4.5, WinRT, WinPhone.</description>
+    <copyright>Copyright Ivan Leonenko 2014</copyright>
+    <dependencies>
+        <dependency id="protobuf-net" version="2.0.0.668" />
+      </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\Framework.Cache.dll" target="lib\portable-net45+wp80+win\Framework.Cache.dll" />
+    <file src="bin\Release\Framework.Cache.pdb" target="lib\portable-net45+wp80+win\Framework.Cache.pdb" />
+  </files>
+</package>

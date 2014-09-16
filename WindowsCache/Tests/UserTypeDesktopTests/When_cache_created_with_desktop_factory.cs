@@ -6,7 +6,7 @@ using DesktopTests;
 using DesktopTests.UserTypes;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Rakuten.Framework.Cache.Desktop;
+using Framework.Cache.Desktop;
 using UserTypeDesktopTests.UserTypes;
 
 namespace UserTypeDesktopTests

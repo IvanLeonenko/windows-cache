@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using FluentAssertions.Specialized;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Rakuten.Framework.Cache;
-using Rakuten.Framework.Cache.ProtoBuf;
-using Rakuten.Framework.Cache.Storage;
+using Framework.Cache;
+using Framework.Cache.ProtoBuf;
+using Framework.Cache.Storage;
 using System;
 
 namespace CacheTests.VersionTests

@@ -2,7 +2,7 @@
 using Windows.ApplicationModel;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using Rakuten.Framework.Cache.WindowsStore;
+using Framework.Cache.WindowsStore;
 
 namespace Windows80CacheTests
 {

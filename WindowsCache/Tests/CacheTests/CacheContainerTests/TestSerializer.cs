@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Rakuten.Framework.Cache.ProtoBuf;
-using Rakuten.Framework.Cache.Storage;
+using Framework.Cache.ProtoBuf;
+using Framework.Cache.Storage;
 using System;
 using System.IO;
 

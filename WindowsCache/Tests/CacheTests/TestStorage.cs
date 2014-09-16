@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Rakuten.Framework.Cache.Storage;
+using Framework.Cache.Storage;
 
 namespace CacheTests
 {

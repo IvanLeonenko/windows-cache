@@ -1,24 +1,27 @@
-Currently this repo contains to solutions Windows Cache and Web Cache. They can be merged in a future.
+Windows Cache component provides lightweight solution for cache, using fast protobuf serialization. Allows to store any .NET objects in cache.
+
+WebCache allows to cache web requested data, uses SQLite.
+
+Currently this repo contains two solutions Windows Cache and Web Cache. They can be merged in a future.
 
 WINDOWS CACHE
 =============
 Set of cache components:
 
-* PCL library `Rakuten.Framework.Cache`
-* Windows desktop `Rakuten.Framework.Cache.Desktop`
-* Windows store 8.0 `Rakuten.Framework.Cache.WindowsStore`
+* PCL library `Framework.Cache`
+* Windows desktop `Framework.Cache.Desktop`
+* Windows store 8.0 `Framework.Cache.WindowsStore`
 * Windows store 8.1 ..TBD
 * Windows phone ..TBD
 
 Nuget packages
 ===========
 
-Cache components available as nuget packages from TeamCity server. Please find [packages source URL here](https://rakuten.atlassian.net/wiki/display/SMART/Access+TeamCity+nuget+server)
+Cache components can be available from nuget server. Please find nuspec files in folders for each library.
 
 Build server
 ===========
-Build server is on [p21448 intra machine](http://p21448/)
-For more details on TeamCity CI server please refer to [TeamCity documentation](https://rakuten.atlassian.net/wiki/display/SMART/Build+Servers)
+Script to run unit tests for windows store applications is included, please see `Tools` folder
 
 WEB CACHE MANAGER
 =============

@@ -138,13 +138,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\cache_database\Rakuten.Framework.Cache.Web.Windows8.csproj">
+    <ProjectReference Include="..\cache_database\Framework.Cache.Web.Windows8.csproj">
       <Project>{6a4c88a9-5e1d-4005-a9db-12b3d001b6da}</Project>
-      <Name>Rakuten.Framework.Cache.Web.Windows8</Name>
+      <Name>Framework.Cache.Web.Windows8</Name>
     </ProjectReference>
-    <ProjectReference Include="..\lib\Rakuten.Framework.Cache.Web.csproj">
+    <ProjectReference Include="..\lib\Framework.Cache.Web.csproj">
       <Project>{ec47897e-ba98-40d8-8405-cdcef3e70633}</Project>
-      <Name>Rakuten.Framework.Cache.Web</Name>
+      <Name>Framework.Cache.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

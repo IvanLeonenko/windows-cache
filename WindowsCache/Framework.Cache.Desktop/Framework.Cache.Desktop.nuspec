@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd" >
+  <metadata>
+    <version>0.00</version>
+    <authors>Ivan Leonenko</authors>
+    <owners>Ivan Leonenko</owners>
+    <id>Framework.Cache.Desktop</id>
+    <title>Windows Cache for .NET 4.5</title>
+	<iconUrl>http://global.com/favicon.ico</iconUrl>
+	<projectUrl>https://atlassian.net/wiki/display/SDK/Components+Overview</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Windows Cache for .NET 4.5 desktop applications.</description>
+    <copyright>Copyright Ivan Leonenko 2014</copyright>
+    <dependencies>
+		<dependency id="Framework.Cache" version="$version$" />
+      </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\Framework.Cache.Desktop.dll" target="lib\portable-net45+wp80+win\Framework.Cache.Desktop.dll" />
+    <file src="bin\Release\Framework.Cache.Desktop.pdb" target="lib\portable-net45+wp80+win\Framework.Cache.Desktop.pdb" />
+  </files>
+</package>

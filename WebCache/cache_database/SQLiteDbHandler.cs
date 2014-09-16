@@ -3,7 +3,7 @@
  *
  * SQLiteDbHandler - sqlite interface
  *
- * @author Per Johan Groland (perjohan.groland@mail.rakuten.com)
+ * @author Per Johan Groland (perjohan.groland@mail.com)
  *
  */
 
@@ -19,9 +19,9 @@ using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using SQLite;
-using Rakuten.Framework.Cache.Web;
+using Framework.Cache.Web;
 
-namespace Rakuten.Framework.Cache.Web.Windows8
+namespace Framework.Cache.Web.Windows8
 {
     public class SQLiteDbHandler : ICacheDbHandler
     {

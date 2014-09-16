@@ -3,7 +3,7 @@
  *
  * HttpGetter - helper class for http get requests
  *
- * @author Per Johan Groland (perjohan.groland@mail.rakuten.com)
+ * @author Per Johan Groland (perjohan.groland@mail.com)
  *
  */
 
@@ -18,7 +18,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rakuten.Framework.Cache.Web
+namespace Framework.Cache.Web
 {
     internal class HttpGetter
     {

@@ -1,9 +1,9 @@
 ﻿using CacheTests.VersionTests;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Rakuten.Framework.Cache;
-using Rakuten.Framework.Cache.ProtoBuf;
-using Rakuten.Framework.Cache.Storage;
+using Framework.Cache;
+using Framework.Cache.ProtoBuf;
+using Framework.Cache.Storage;
 using System;
 
 namespace CacheTests.CacheContainerTests

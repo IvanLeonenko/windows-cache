@@ -3,7 +3,7 @@
  *
  * ICacheManager - main interface for cache module
  *
- * @author Per Johan Groland (perjohan.groland@mail.rakuten.com)
+ * @author Per Johan Groland (perjohan.groland@mail.com)
  *
  */
 
@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rakuten.Framework.Cache.Web
+namespace Framework.Cache.Web
 {
     /// <summary>
     /// The main interface class for the cache

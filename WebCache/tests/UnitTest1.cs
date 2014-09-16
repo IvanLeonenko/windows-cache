@@ -9,8 +9,8 @@ using System.Text;
 using NUnit.Framework;
 
 using Windows.Storage;
-using Rakuten.Framework.Cache.Web;
-using Rakuten.Framework.Cache.Web.Windows8;
+using Framework.Cache.Web;
+using Framework.Cache.Web.Windows8;
 
 namespace tests2
 {

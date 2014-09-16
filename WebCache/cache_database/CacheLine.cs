@@ -3,7 +3,7 @@
  *
  * CacheLine - wrapper class for cache lines stored in database
  *
- * @author Per Johan Groland (perjohan.groland@mail.rakuten.com)
+ * @author Per Johan Groland (perjohan.groland@mail.com)
  *
  */
 
@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 using SQLite;
 
-namespace Rakuten.Framework.Cache.Web.Windows8
+namespace Framework.Cache.Web.Windows8
 {
     public class CacheLine : ICacheLine
     {

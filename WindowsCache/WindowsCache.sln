@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Framework.Cache", "Rakuten.Framework.Cache\Rakuten.Framework.Cache.csproj", "{D6957EEF-5ECC-4A32-8CE6-0C2609AA359D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Cache", "Framework.Cache\Framework.Cache.csproj", "{D6957EEF-5ECC-4A32-8CE6-0C2609AA359D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B5DB896B-AA17-4AE0-80D8-F21C734B513D}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B5DB89
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Framework.Cache.Desktop", "Rakuten.Framework.Cache.Desktop\Rakuten.Framework.Cache.Desktop.csproj", "{C65A0334-9F1E-419C-9486-40102C2CBC29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Cache.Desktop", "Framework.Cache.Desktop\Framework.Cache.Desktop.csproj", "{C65A0334-9F1E-419C-9486-40102C2CBC29}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{040E5F13-C980-43E9-BBB5-E5EC2957ADE3}"
 EndProject
@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializationTests", "Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheTests", "Tests\CacheTests\CacheTests.csproj", "{98604471-69FE-4C2C-873F-51D1DDB44725}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Framework.Cache.WindowsStore", "Rakuten.Framework.Cache.WindowsStore\Rakuten.Framework.Cache.WindowsStore.csproj", "{274E5074-AAAA-448C-A959-CCBB4ECC9F23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Cache.WindowsStore", "Framework.Cache.WindowsStore\Framework.Cache.WindowsStore.csproj", "{274E5074-AAAA-448C-A959-CCBB4ECC9F23}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows80CacheTests", "Tests\Windows80CacheTests\Windows80CacheTests.csproj", "{1A0B4C5E-A749-4143-9662-B2B9A7A4DA2B}"
 EndProject
@@ -28,9 +28,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopTests", "Tests\Deskt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserTypeDesktopTests", "Tests\UserTypeDesktopTests\UserTypeDesktopTests.csproj", "{CE4C02E0-34DA-43AD-BC4F-38B79626BD2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Framework.Cache.WindowsStore81", "Rakuten.Framework.Cache.WindowsStore81\Rakuten.Framework.Cache.WindowsStore81.csproj", "{ECED2BB1-AA75-434B-ADF3-B436BB6D79C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Cache.WindowsStore81", "Framework.Cache.WindowsStore81\Framework.Cache.WindowsStore81.csproj", "{ECED2BB1-AA75-434B-ADF3-B436BB6D79C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rakuten.Framework.Cache.WindowsPhone", "Rakuten.Framework.Cache.WindowsPhone\Rakuten.Framework.Cache.WindowsPhone.csproj", "{6F87E556-BFB1-4F9D-9B21-E58D7B50AD44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Cache.WindowsPhone", "Framework.Cache.WindowsPhone\Framework.Cache.WindowsPhone.csproj", "{6F87E556-BFB1-4F9D-9B21-E58D7B50AD44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

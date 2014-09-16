@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Rakuten.Framework.Cache.ProtoBuf;
+using Framework.Cache.ProtoBuf;
 
 namespace SerializationTests
 {

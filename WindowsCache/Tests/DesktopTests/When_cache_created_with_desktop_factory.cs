@@ -1,11 +1,11 @@
 ﻿using System;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Rakuten.Framework.Cache;
-using Rakuten.Framework.Cache.Desktop;
+using Framework.Cache;
+using Framework.Cache.Desktop;
 using System.Threading.Tasks;
-using Rakuten.Framework.Cache.ProtoBuf;
-using Rakuten.Framework.Cache.Storage;
+using Framework.Cache.ProtoBuf;
+using Framework.Cache.Storage;
 
 namespace DesktopTests
 {

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Rakuten.Framework.Cache.Desktop;
+using Framework.Cache.Desktop;
 
 namespace DesktopTests
 {
